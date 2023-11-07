@@ -2,7 +2,7 @@
 import {onMounted, ref} from "vue";
 import {useWindowStore} from "~/stores/window";
 import {useUserStore} from "~/stores/user";
-import Right_side from "~/components/right_side.vue";
+import Right_side from "~/components/right_side/right_side.vue";
 import User_menu from "~/components/user_menu.vue";
 
 const window = useWindowStore()
@@ -16,8 +16,6 @@ onMounted(() =>{
 </script>
 
 <template>
-  <Right_side />
-  <User_menu  page-index="/user"/>
   <div class="flex_container">
     <div class="user">
 
