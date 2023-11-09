@@ -4,8 +4,8 @@
     <SideBarItem icon="Message" text="售后服务"/>
     <SideBarItem icon="ChatDotRound" text="公众号"/>
     <SideBarItem icon="Iphone" text="下载App"/>
-    <div v-if="backToTop" class="backToTop">
-      <el-icon color="#eda01f">
+    <div v-if="backToTop" class="backToTop" @click="handleBackToTop">
+      <el-icon>
         <ArrowUp />
       </el-icon>
     </div>
@@ -26,6 +26,12 @@ onMounted(() => {
 
 const handleScroll = () => {
     backToTop.value = window.scrollY > 0
+}
+
+const handleBackToTop = () => {
+  window.scrollTo({
+    top:0
+  })
 }
 </script>
 
@@ -48,9 +54,12 @@ const handleScroll = () => {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+  color: #eda01f;
 }
 
 .backToTop:hover{
+  color: white;
   background-color: #eda01f;
 }
 
