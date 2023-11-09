@@ -44,10 +44,12 @@ declare module '@vue/runtime-core' {
     ElText: typeof import('element-plus/es')['ElText']
     ElTimeline: typeof import('element-plus/es')['ElTimeline']
     ElTimelineItem: typeof import('element-plus/es')['ElTimelineItem']
+    Login: typeof import('./components/login.vue')['default']
     Right_side: typeof import('./components/right_side.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     User_menu: typeof import('./components/user_menu.vue')['default']
+    UserMenu: typeof import('./components/userMenu.vue')['default']
   }
   export interface ComponentCustomProperties {
     vLoading: typeof import('element-plus/es')['ElLoadingDirective']

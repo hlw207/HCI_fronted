@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {useWindowStore} from "~/stores/window";
-import {ChatDotRound, ChatRound, Download, Edit, PhoneFilled} from "@element-plus/icons-vue";
-import {reactive, ref} from "vue";
+import {ChatDotRound, Download, Edit, PhoneFilled} from "@element-plus/icons-vue";
+import {reactive} from "vue";
 
 const windows = useWindowStore()
 const height = windows.height

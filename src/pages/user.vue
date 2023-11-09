@@ -3,12 +3,14 @@ import {onMounted, ref} from "vue";
 import {useWindowStore} from "~/stores/window";
 import {useUserStore} from "~/stores/user";
 import Right_side from "~/components/right_side.vue";
-import User_menu from "~/components/user_menu.vue";
+import UserMenu from "~/components/userMenu.vue";
 
 const window = useWindowStore()
-const height = window.height - 45
 const user = useUserStore()
+const width = window.width
+const height = window.height - 45
 
+const ifFixed = ref(false)
 
 onMounted(() =>{
 })
@@ -17,7 +19,7 @@ onMounted(() =>{
 
 <template>
   <Right_side />
-  <User_menu  page-index="/user"/>
+  <UserMenu page-index="/user" :if-fixed="ifFixed" />
   <div class="flex_container">
     <div class="user">
 
@@ -32,15 +34,19 @@ onMounted(() =>{
 
 <style scoped>
 .flex_container{
-  height: v-bind(height + 'px');
+  height: v-bind(height - 200 + 'px');
   display: flex;
+  padding: 50px;
+  margin: 50px;
+  background: #f2711c;
 }
 .user{
   width: 30%;
+  margin-right: 100px;
   background: #db2828;
 }
 .collection{
-  width: 69%;
+  width: 70%;
   background: #42b8dd;
 }
 .collection .menu{
