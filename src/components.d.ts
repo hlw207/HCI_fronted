@@ -25,9 +25,12 @@ declare module '@vue/runtime-core' {
     ElPopover: typeof import('element-plus/es')['ElPopover']
     ElText: typeof import('element-plus/es')['ElText']
     Item: typeof import('./components/right_side/components/item/index.vue')['default']
+    Login: typeof import('./components/login.vue')['default']
     Right_side: typeof import('./components/right_side/right_side.vue')['default']
+    RightSide: typeof import('./components/rightSide.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     User_menu: typeof import('./components/user_menu.vue')['default']
+    UserMenu: typeof import('./components/userMenu.vue')['default']
   }
 }
