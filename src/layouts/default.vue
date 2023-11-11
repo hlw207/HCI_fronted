@@ -1,6 +1,6 @@
 <template>
-  <Right_side />
-  <User_menu  page-index="/"/>
+  <RightSide />
+  <UserMenu />
   <router-view></router-view>
 </template>
 

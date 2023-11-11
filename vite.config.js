@@ -71,4 +71,7 @@ export default defineConfig({
             '~/': `${pathSrc}/`,
         },
     },
+    server: {
+        port: 8082
+    },
 })

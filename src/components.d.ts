@@ -30,7 +30,6 @@ declare module '@vue/runtime-core' {
     RightSide: typeof import('./components/rightSide.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    User_menu: typeof import('./components/user_menu.vue')['default']
     UserMenu: typeof import('./components/userMenu.vue')['default']
   }
 }

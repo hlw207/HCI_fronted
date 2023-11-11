@@ -1,11 +1,16 @@
 <script setup lang="ts">
+import {onMounted} from "vue";
+import {useRouter} from "vue-router";
 
-import User_menu from "~/components/user_menu.vue";
-import Right_side from "~/components/right_side/right_side.vue";
+const router = useRouter()
+onMounted(()=>{
+  router.push('/home')
+})
+
 </script>
 
 <template>
-  <div>temp</div>
+
 </template>
 
 <style scoped>
