@@ -3,6 +3,7 @@
     <SearchBar />
     <FilterBar />
     <ThemeBar />
+
   </div>
 </template>
 
