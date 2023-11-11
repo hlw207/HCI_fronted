@@ -49,6 +49,7 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     User_menu: typeof import('./components/user_menu.vue')['default']
+    UserBack: typeof import('./components/user/userBack.vue')['default']
     UserMenu: typeof import('./components/userMenu.vue')['default']
   }
   export interface ComponentCustomProperties {

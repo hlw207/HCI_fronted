@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {useWindowStore} from "~/stores/window";
 import {Close} from "@element-plus/icons-vue";
-import {computed, onMounted, reactive, ref, watch} from "vue";
+import {computed, reactive, ref, watch} from "vue";
 
 const windows = useWindowStore()
 const windowWidth = windows.width
@@ -93,7 +93,7 @@ watch(props,()=>{
           </div>
 
           <div class="login_main_right_up_down" v-if="isLogin">
-            <div class="login_button_register">
+            <div class="login_button_register"  @click="isLogin=false">
               <span>
                  注册
              </span>
@@ -167,7 +167,7 @@ watch(props,()=>{
 
 <style scoped>
 .login{
-  z-index: 3;
+  z-index: 11;
   position: fixed;
   top: v-bind(windowHeight/2 - 180 + 'px');
   left: v-bind(windowWidth/2 - 350 + 'px');
@@ -186,7 +186,7 @@ watch(props,()=>{
 }
 
 .mask {
-  z-index: 2;
+  z-index: 10;
   position: fixed;
   top: 0;
   left: 0;

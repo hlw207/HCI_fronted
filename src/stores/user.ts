@@ -6,7 +6,7 @@ export const useUserStore = defineStore('user', {
         return {
             id: '',
             phone: '',
-            username: '',
+            username: '南大混饭人',
             picture: '',
         }
     },

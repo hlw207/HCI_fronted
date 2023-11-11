@@ -100,7 +100,9 @@ onUnmounted(() => {
       </div>
     </template>
     <div class="menu_login">
-      <div class="menu_login_font" v-if="user.id === ''" @mouseenter="moveToLogin" @click="login">登录</div>
+      <div class="menu_login_font" v-if="user.id === ''" @mouseenter="moveToLogin" @click="login">
+          登录
+      </div>
     </div>
     <div class="menu_phone">
        <span>
@@ -139,7 +141,7 @@ onUnmounted(() => {
 .user_menu{
   display: flex;
   height: 45px;
-  background: #fcfcfc;
+  background: white;
   padding-left: v-bind(windowWidth / 10 + 'px');
 }
 
@@ -202,6 +204,7 @@ onUnmounted(() => {
 }
 
 .login_info{
+  z-index: 1;
   position: fixed;
   top: 60px;
   left: v-bind(login_position - 130 + 'px');

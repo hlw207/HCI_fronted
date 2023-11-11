@@ -57,7 +57,7 @@ const appear = reactive({
 .fixed_right{
   z-index: 1;
   position: fixed;
-  right: 3px;
+  right: 2px;
   top: 0;
   height: v-bind( height + 'px');;
   width: 30px;

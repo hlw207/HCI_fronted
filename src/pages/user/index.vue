@@ -4,53 +4,51 @@ import {useWindowStore} from "~/stores/window";
 import {useUserStore} from "~/stores/user";
 import Right_side from "~/components/right_side.vue";
 import UserMenu from "~/components/userMenu.vue";
+import UserBack from "~/components/user/userBack.vue";
 
 const window = useWindowStore()
 const user = useUserStore()
 const width = window.width
 const height = window.height - 45
+const a = ref(false)
 
 const ifFixed = ref(false)
-
-onMounted(() =>{
-})
 
 </script>
 
 <template>
   <Right_side />
   <UserMenu page-index="/user" :if-fixed="ifFixed" />
-  <div class="flex_container">
-    <div class="user">
+  <div class="user">
+    <UserBack />
 
+    <div class="user_menu">
+      123
     </div>
-    <div class="collection">
-      <div class="menu">
 
-      </div>
+    <div class="user_main">
+      123
     </div>
   </div>
 </template>
 
 <style scoped>
-.flex_container{
-  height: v-bind(height - 200 + 'px');
-  display: flex;
-  padding: 50px;
-  margin: 50px;
-  background: #f2711c;
-}
 .user{
-  width: 30%;
-  margin-right: 100px;
-  background: #db2828;
+  height: v-bind(height + 'px');
+  padding-left: v-bind(width / 11 + 'px');
+  padding-right: v-bind(width / 11 + 32 + 'px');
+  background: #f4f5f7;
+  text-align: right;
 }
-.collection{
-  width: 70%;
-  background: #42b8dd;
+
+.user_menu{
+  height: v-bind(height / 13 + 'px');
+  background: white;
 }
-.collection .menu{
-  height: 15%;
-  background: #21ba45;
+
+.user_main{
+  margin-top: 15px;
+  height: 500px;
+  background: white;
 }
 </style>
