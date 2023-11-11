@@ -2,31 +2,30 @@
 import Login from "~/components/login.vue";
 import {useWindowStore} from "~/stores/window";
 import { throttle } from 'lodash';
-import {computed, onMounted, onUnmounted, ref} from "vue";
-import {useRouter} from "vue-router";
+import {computed, onMounted, ref, watch} from "vue";
+import {useRoute, useRouter} from "vue-router";
 import {useUserStore} from "~/stores/user";
 import {Pointer, Star} from "@element-plus/icons-vue";
 
-
-const props = defineProps<{
-  pageIndex: string
-  ifFixed: boolean
-}>()
+// const props = defineProps<{
+//   pageIndex: string
+//   ifFixed: boolean
+// }>()
 
 const router = useRouter()
+const route = useRoute()
 const windows = useWindowStore()
 const user = useUserStore()
 const windowWidth = windows.width
-const windowHeight = windows.height
 
 const choice = ref(["我要买车","我要卖车","功能待定","个人主页"])
-const menus = ref([{is : false, path: "/"},
+const menus = ref([{is : false, path: "/home"},
   {is : false, path: "/buy"},
   {is : false, path: "/copy"},
   {is : false, path: "/pay"},
   {is : false, path: "/user"}])
 
-const isShow = computed(() => !props.ifFixed || windows.scrollPositionY >= 45)
+// const isShow = computed(() => !props.ifFixed || windows.scrollPositionY >= 45)
 const loginShow = ref(false)
 const registerShow = ref(false)
 const loginInfo = ref(false)
@@ -70,24 +69,40 @@ const routerTo = (num : number) => {
   router.push(menus.value[num].path)
 }
 
-onMounted(() =>{
+watch(route,() => {
+  const path = route.path
   let i : number;
   for (i = 0;i < 5;i++){
-    if (props.pageIndex == menus.value[i].path){
-      menus.value[i].is = true
-    }
+    menus.value[i].is = path == menus.value[i].path;
   }
-  window.addEventListener('scroll', windows.handleScroll);
-
 })
 
-onUnmounted(() => {
-  window.removeEventListener('scroll', windows.handleScroll);
-});
+onMounted(() => {
+  const path = route.path
+  let i : number;
+  for (i = 0;i < 5;i++){
+    menus.value[i].is = path == menus.value[i].path;
+  }
+})
+
+// onMounted(() =>{
+//   // let i : number;
+//   // for (i = 0;i < 5;i++){
+//   //   if (props.pageIndex == menus.value[i].path){
+//   //     menus.value[i].is = true
+//   //   }
+//   // }
+//   window.addEventListener('scroll', windows.handleScroll);
+//
+// })
+// onUnmounted(() => {
+//   window.removeEventListener('scroll', windows.handleScroll);
+// });
 </script>
 
 <template>
-  <div class="user_menu" :class="{fix : props.ifFixed}" v-if="isShow">
+<!--  <div class="user_menu" :class="{fix : props.ifFixed}" v-if="isShow">-->
+  <div class="user_menu">
     <div class="menu_brand">
         <img src="../../public/pictures/trademark.png" height="45" alt="wrong.png">
     </div>
@@ -134,6 +149,7 @@ onUnmounted(() => {
       <span style="color: #26aeea" @click="register">点我注册</span>
     </div>
   </div>
+
   <Login ref="loginInformation" :login-show="loginShow" :register-show="registerShow" @cancel-login="loginShow=false" @set-register="setRegister"/>
 </template>
 

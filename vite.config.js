@@ -2,6 +2,7 @@ import path from 'path'
 import { defineConfig } from 'vite'
 import Vue from '@vitejs/plugin-vue'
 import Pages from 'vite-plugin-pages'
+import Layouts from 'vite-plugin-vue-layouts'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { createStyleImportPlugin, ElementPlusResolve } from 'vite-plugin-style-import'
@@ -19,7 +20,24 @@ const pathSrc = path.resolve(__dirname, 'src')
 export default defineConfig({
     plugins: [
         Vue(),
-        Pages({importMode: 'sync'}),
+        Pages({
+            dirs:[ { dir: "src/pages", baseRoute: "" }],
+            importMode: 'async',
+            exclude: ["**/components"],
+            extendRoute(route){
+                if(route.path === '/'){
+                    return {
+                        ...route,
+                        redirect: '/home'
+                    }
+                }
+            }
+        }),
+        Layouts({
+            // 如果是默认 layouts文件夹，默认 default.vue文件，则不需要配置
+            layoutsDirs: 'src/layouts',
+            defaultLayout: 'default',
+        }),
         Components({
             extensions: ['vue'],
             include: [/\.vue$/, /\.vue\?vue/],
