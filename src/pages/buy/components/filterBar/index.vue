@@ -90,7 +90,6 @@ export default {
         });
 
         const brands = computed(() => {
-            // 获取可选的品牌列表
             const brandSet = new Set();
             for (const car of state.cars) {
                 brandSet.add(car.brand);
@@ -99,7 +98,6 @@ export default {
         });
 
         const seriesList = computed(() => {
-            // 获取可选的车系列表
             const seriesSet = new Set();
             for (const car of state.cars) {
                 if (
@@ -113,7 +111,6 @@ export default {
         });
 
         const priceRanges = computed(() => {
-            // 获取可选的价格区间列表
             const priceRangeSet = new Set();
             for (const car of state.cars) {
                 if (
@@ -127,7 +124,6 @@ export default {
         });
 
         const filteredCars = computed(() => {
-            // 根据筛选条件过滤车辆
             return state.cars.filter((car) => {
                 const brandMatched =
                     state.selectedBrand === '' || car.brand === state.selectedBrand;
@@ -158,13 +154,13 @@ export default {
 
         function selectBrand(brand) {
             state.selectedBrand = brand;
-            state.selectedSeries = ''; // 重置车系选择
-            state.selectedPrice = ''; // 重置价格选择
+            state.selectedSeries = '';
+            state.selectedPrice = '';
         }
 
         function selectSeries(series) {
             state.selectedSeries = series;
-            state.selectedPrice = ''; // 重置价格选择
+            state.selectedPrice = '';
         }
 
         function selectPrice(priceRange) {
@@ -172,7 +168,15 @@ export default {
         }
 
         function formatPriceRange(price) {
-
+            if (price < 50000) {
+                return '0-5万';
+            } else if (price < 100000) {
+                return '5-10万';
+            } else if (price < 200000) {
+                return '10-20万';
+            } else {
+                return '20万以上';
+            }
         }
 
         return {
