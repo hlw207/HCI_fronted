@@ -5,7 +5,7 @@ const carData = [
         series: 'A4',
         price: 500000,
         color: 'Black',
-        image: 'path/to/audi_a4.jpg',
+        image: 'https://image-pub.guazistatic.com/qnbdp16997554750548e5d27ac245c2816e3a85b04efcf8125.jpg?x-bce-process=image/quality,q_88/resize,m_fill,w_270,h_180',
     },
     {
         id: 2,
@@ -13,7 +13,7 @@ const carData = [
         series: '3 Series',
         price: 600000,
         color: 'White',
-        image: 'path/to/bmw_3_series.jpg',
+        image: 'https://image-pub.guazistatic.com/qnbdp16997554750548e5d27ac245c2816e3a85b04efcf8125.jpg?x-bce-process=image/quality,q_88/resize,m_fill,w_270,h_180',
     },
     {
         id: 3,
@@ -21,7 +21,7 @@ const carData = [
         series: 'C-Class',
         price: 550000,
         color: 'Silver',
-        image: 'path/to/mercedes_c_class.jpg',
+        image: 'https://image-pub.guazistatic.com/qnbdp16997554750548e5d27ac245c2816e3a85b04efcf8125.jpg?x-bce-process=image/quality,q_88/resize,m_fill,w_270,h_180',
     },
     {
         id: 4,
@@ -29,7 +29,7 @@ const carData = [
         series: 'ES',
         price: 450000,
         color: 'Blue',
-        image: 'path/to/lexus_es.jpg',
+        image: 'https://image-pub.guazistatic.com/qnbdp16997554750548e5d27ac245c2816e3a85b04efcf8125.jpg?x-bce-process=image/quality,q_88/resize,m_fill,w_270,h_180',
     },
     {
         id: 5,
@@ -37,9 +37,8 @@ const carData = [
         series: 'XC60',
         price: 650000,
         color: 'Red',
-        image: 'path/to/volvo_xc60.jpg',
+        image: 'https://image-pub.guazistatic.com/qnbdp16997554750548e5d27ac245c2816e3a85b04efcf8125.jpg?x-bce-process=image/quality,q_88/resize,m_fill,w_270,h_180',
     },
-    // 更多车辆数据...
 ];
 
 export default carData;
