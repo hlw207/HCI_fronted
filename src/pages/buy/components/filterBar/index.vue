@@ -2,85 +2,81 @@
     <div class="car-buying-page">
         <h1>我要买车</h1>
 
-        <div class="filters">
-            <button
+        <el-row class="filters">
+            <el-button
                 :class="{ active: selectedBrand === '' }"
                 @click="selectBrand('')"
             >
                 全部品牌
-            </button>
-            <button
+            </el-button>
+            <el-button
                 v-for="brand in brands"
                 :key="brand"
                 :class="{ active: selectedBrand === brand }"
                 @click="selectBrand(brand)"
             >
                 {{ brand }}
-            </button>
-        </div>
+            </el-button>
+        </el-row>
 
-        <div class="filters">
-            <button
+        <el-row class="filters">
+            <el-button
                 :class="{ active: selectedSeries === '' }"
                 @click="selectSeries('')"
             >
                 全部车系
-            </button>
-            <button
+            </el-button>
+            <el-button
                 v-for="series in seriesList"
                 :key="series"
                 :class="{ active: selectedSeries === series }"
                 @click="selectSeries(series)"
             >
                 {{ series }}
-            </button>
-        </div>
+            </el-button>
+        </el-row>
 
-        <div class="filters">
-            <button
+        <el-row class="filters">
+            <el-button
                 :class="{ active: selectedPrice === '' }"
                 @click="selectPrice('')"
             >
                 全部价格
-            </button>
-            <button
+            </el-button>
+            <el-button
                 v-for="priceRange in priceRanges"
                 :key="priceRange"
                 :class="{ active: selectedPrice === priceRange }"
                 @click="selectPrice(priceRange)"
             >
                 {{ priceRange }}
-            </button>
-        </div>
+            </el-button>
+        </el-row>
 
-        <div class="car-list">
-            <div class="car-row" v-for="(group, index) in groupedCars" :key="index">
-                <div v-for="car in group" :key="car.id" class="car-item">
-                    <div class="car-info">
-                        <div class="car-image">
-                            <img :src="car.image" alt="Car Image">
-                        </div>
-                        <div class="car-details">
-                            <h2>{{ car.brand }} - {{ car.series }}</h2>
-                            <p>价格：{{ car.price }} 元</p>
-                            <p>颜色：{{ car.color }}</p>
-                        </div>
+        <el-row :span="4" v-for="(group, index) in groupedCars" :key="index">
+            <el-card v-for="car in group" :key="car.id" class="car-item">
+                <div class="car-info">
+                    <div class="car-image">
+                        <img :src="car.image" alt="Car Image">
+                    </div>
+                    <div class="car-details">
+                        <h2>{{ car.brand }} - {{ car.series }}</h2>
+                        <p>价格：{{ car.price }} 元</p>
+                        <p>颜色：{{ car.color }}</p>
                     </div>
                 </div>
-            </div>
-        </div>
+            </el-card>
+        </el-row>
     </div>
 </template>
 
 <script>
-import { reactive, computed } from 'vue';
+import { computed, reactive } from 'vue';
 import carData from './carData';
 
 export default {
     name: 'CarBuyingPage',
-    components: {
-        carData,
-    },
+    components: {},
     setup() {
         const state = reactive({
             selectedBrand: '',
@@ -94,7 +90,7 @@ export default {
             for (const car of state.cars) {
                 brandSet.add(car.brand);
             }
-            return [''].concat(Array.from(brandSet));
+            return Array.from(brandSet);
         });
 
         const seriesList = computed(() => {
@@ -107,7 +103,7 @@ export default {
                     seriesSet.add(car.series);
                 }
             }
-            return [''].concat(Array.from(seriesSet));
+            return Array.from(seriesSet);
         });
 
         const priceRanges = computed(() => {
@@ -120,7 +116,7 @@ export default {
                     priceRangeSet.add(formatPriceRange(car.price));
                 }
             }
-            return [''].concat(Array.from(priceRangeSet));
+            return Array.from(priceRangeSet);
         });
 
         const filteredCars = computed(() => {
@@ -141,7 +137,7 @@ export default {
             let group = [];
             for (let i = 0; i < filteredCars.value.length; i++) {
                 group.push(filteredCars.value[i]);
-                if ((i + 1) % 4 === 0 || i === filteredCars.value.length -1) {
+                if ((i + 1) % 4 === 0 || i === filteredCars.value.length - 1) {
                     grouped.push(group);
                     group = [];
                 }
@@ -152,22 +148,22 @@ export default {
             return grouped;
         });
 
-        function selectBrand(brand) {
+        const selectBrand = (brand) => {
             state.selectedBrand = brand;
             state.selectedSeries = '';
             state.selectedPrice = '';
-        }
+        };
 
-        function selectSeries(series) {
+        const selectSeries = (series) => {
             state.selectedSeries = series;
             state.selectedPrice = '';
-        }
+        };
 
-        function selectPrice(priceRange) {
-            state.selectedPrice = priceRange;
-        }
+        const selectPrice = (price) => {
+            state.selectedPrice = price;
+        };
 
-        function formatPriceRange(price) {
+        const formatPriceRange = (price) => {
             if (price < 50000) {
                 return '0-5万';
             } else if (price < 100000) {
@@ -177,13 +173,12 @@ export default {
             } else {
                 return '20万以上';
             }
-        }
+        };
 
         return {
             brands,
             seriesList,
             priceRanges,
-            filteredCars,
             groupedCars,
             selectBrand,
             selectSeries,
@@ -197,7 +192,7 @@ export default {
 .car-buying-page {
     max-width: 1200px;
     margin-left: 10%;
-    margin-right: 10%;
+    margin-right: 1%;
     padding: 5px;
 }
 
@@ -205,35 +200,19 @@ export default {
     margin-bottom: 20px;
 }
 
-.filters button {
-    margin-right: 10px;
-    padding: 5px 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #fff;
-    cursor: pointer;
-}
-
-.filters button.active {
-    background-color: blue;
-}
-
-.car-list {
-    list-style: none;
-    padding: 0;
-}
-
-.car-row {
-    display: flex;
-    justify-content: space-between;
+.filters .active {
+    background-color: #409eff;
+    color: #fff;
 }
 
 .car-item {
     width: 23%;
     margin-bottom: 20px;
-    padding: 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 2px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 10px;
 }
 
 .car-info {
@@ -242,7 +221,16 @@ export default {
 }
 
 .car-image {
+    width: 100%;
     margin-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.car-image img {
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .car-details {
@@ -251,5 +239,10 @@ export default {
 
 .car-details h2 {
     margin: 0;
+}
+
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
 }
 </style>
