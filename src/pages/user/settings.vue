@@ -3,7 +3,7 @@ import {useWindowStore} from "~/stores/window";
 import Right_side from "~/components/rightSide.vue";
 import UserBack from "~/pages/user/components/userBack.vue";
 import UserDetailMenu from "~/pages/user/components/userDetailMenu.vue";
-import UserCollectionPage from "~/pages/user/components/collection/userCollectionPage.vue";
+import UserSettingsProfile from "~/pages/user/components/settings/userSettingsProfile.vue";
 
 const window = useWindowStore()
 const width = window.width
@@ -18,7 +18,9 @@ const height = window.height - 45
     <UserDetailMenu />
 
     <div class="user_main">
-      <UserCollectionPage />
+      <div class="user_settings">
+        <UserSettingsProfile />
+      </div>
     </div>
   </div>
 </template>
@@ -34,9 +36,15 @@ const height = window.height - 45
 
 .user_main{
   margin-top: 15px;
-  padding-top: 10px;
-  height: 450px;
+  height: 500px;
   background: white;
-  overflow-y: auto;
+}
+
+.user_settings{
+  display: flex;
+  padding-top: 40px;
+  margin-left: 20px;
+  margin-right: 20px;
+  height: 200px;
 }
 </style>

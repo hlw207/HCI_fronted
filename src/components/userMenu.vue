@@ -69,20 +69,21 @@ const routerTo = (num : number) => {
   router.push(menus.value[num].path)
 }
 
-watch(route,() => {
+const pathChoice = () =>{
   const path = route.path
+  const path_split = path.split('/')
   let i : number;
   for (i = 0;i < 5;i++){
-    menus.value[i].is = path == menus.value[i].path;
+    menus.value[i].is = path_split[1] == menus.value[i].path.substring(1);
   }
+}
+
+watch(route,() => {
+  pathChoice()
 })
 
 onMounted(() => {
-  const path = route.path
-  let i : number;
-  for (i = 0;i < 5;i++){
-    menus.value[i].is = path == menus.value[i].path;
-  }
+  pathChoice()
 })
 
 // onMounted(() =>{
@@ -220,7 +221,7 @@ onMounted(() => {
 }
 
 .login_info{
-  z-index: 1;
+  z-index: 997;
   position: fixed;
   top: 60px;
   left: v-bind(login_position - 130 + 'px');

@@ -167,7 +167,7 @@ watch(props,()=>{
 
 <style scoped>
 .login{
-  z-index: 11;
+  z-index: 999;
   position: fixed;
   top: v-bind(windowHeight/2 - 180 + 'px');
   left: v-bind(windowWidth/2 - 350 + 'px');
@@ -186,7 +186,7 @@ watch(props,()=>{
 }
 
 .mask {
-  z-index: 10;
+  z-index: 998;
   position: fixed;
   top: 0;
   left: 0;
