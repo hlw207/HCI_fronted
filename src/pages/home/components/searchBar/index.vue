@@ -53,7 +53,7 @@ const searchFocusOut = () => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-image: url('/pictures/searchBarBackground.png');
+  background-image: url('/pictures/home/searchBarBackground.png');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
