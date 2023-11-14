@@ -78,7 +78,7 @@ const searchFocusOut = () => {
 
 .searchBtn{
   margin-left: -135px;
-  z-index: 999;
+  z-index: 5;
   height: 40px;
 }
 
