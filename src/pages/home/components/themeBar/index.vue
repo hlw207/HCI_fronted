@@ -12,24 +12,14 @@
           </el-text>
         </div>
         <div class="themeItemClassification">
-          <el-row style="width: 100%;height: 50%">
+          <el-row v-for="line in 2" style="width: 100%;height: 50%">
             <div class="themeItemClassificationMark">
-              <el-text tag="b">{{item.marks[0].name}}</el-text>
+              <el-text tag="b">{{item.marks[line - 1].name}}</el-text>
               <el-text style="color: #eda01f" tag="b">{{item.marks[0].description}}</el-text>
             </div>
             <div class="themeItemClassificationMark">
-              <el-text tag="b">{{item.marks[1].name}}</el-text>
+              <el-text tag="b">{{item.marks[line].name}}</el-text>
               <el-text style="color: #eda01f" tag="b">{{item.marks[1].description}}</el-text>
-            </div>
-          </el-row>
-          <el-row style="width: 100%;height: 50%">
-            <div class="themeItemClassificationMark">
-              <el-text tag="b">{{item.marks[2].name}}</el-text>
-              <el-text style="color: #eda01f" tag="b">{{item.marks[2].description}}</el-text>
-            </div>
-            <div class="themeItemClassificationMark">
-              <el-text tag="b">{{item.marks[3].name}}</el-text>
-              <el-text style="color: #eda01f" tag="b">{{item.marks[3].description}}</el-text>
             </div>
           </el-row>
         </div>
@@ -204,6 +194,7 @@ const themes = [
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: -30px;
 }
 
 .themeItemClassificationMark:hover{
