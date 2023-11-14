@@ -35,7 +35,6 @@ const height = window.height - 45
 .user_main{
   margin-top: 15px;
   padding-top: 10px;
-  height: 450px;
   background: white;
   overflow-y: auto;
 }

@@ -39,7 +39,7 @@ const resize = ref(false)
 
 .picture_background{
   z-index: 0;
-  position: fixed;
+  position: absolute;
   top: 45px;
   left: v-bind(width / 11 - 1 + 'px');
   right: v-bind(width / 11 + 32 + 'px');
@@ -50,7 +50,7 @@ const resize = ref(false)
 
 .user_profile{
   z-index: 1;
-  position: fixed;
+  position: absolute;
   left: v-bind(width / 11 + 20 + 'px');
   top: v-bind(height / 10 + 45 + 'px');
   height: 50px;
@@ -73,7 +73,7 @@ const resize = ref(false)
 .user_name {
   z-index: 2;
   color: white;
-  position: fixed;
+  position: absolute;
   left: v-bind(width / 11 + 85 + 'px');
   top: v-bind(height / 10 + 50 + 'px');
   font-weight: bold;

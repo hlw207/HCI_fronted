@@ -35,8 +35,8 @@ const height = window.height - 45
 }
 
 .user_main{
-  margin-top: 15px;
-  height: 500px;
+  margin-top: 30px;
+  height: 520px;
   background: white;
 }
 
@@ -45,6 +45,6 @@ const height = window.height - 45
   padding-top: 40px;
   margin-left: 20px;
   margin-right: 20px;
-  height: 200px;
+  height: 400px;
 }
 </style>
