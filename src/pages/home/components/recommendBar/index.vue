@@ -2,9 +2,8 @@
   <div class="recommendBarContainer">
     <div class="recommendBarHeader">
       <el-text style="color: #eda01f;font-size: 25px;position: relative;top: 20px;left: 20px" tag="b">好车推荐</el-text>
-
     </div>
-    <el-tabs :tab-position="tabPosition" style="height: 710px;margin-top: 20px" @tab-click="handleRequestCars">
+    <el-tabs :tab-position="tabPosition" style="margin-top: 20px" @tab-click="handleRequestCars">
       <el-tab-pane v-for="(item,index) in recommends" :label="item.name" >
         <div class="recommenderCarBarContainer">
           <div v-for="line in carBarCount " class="recommendCarBar">
@@ -140,7 +139,7 @@ const handleRequestCars = (tab, event) => {
   min-height: 150px;
   background-color: #ffffff;
   border-radius: 5px;
-  margin-top: 50px;
+  margin-top: 10px;
 }
 
 .recommendBarHeader{
@@ -150,17 +149,16 @@ const handleRequestCars = (tab, event) => {
 
 .recommendBarFoot{
   width: 100%;
-  height: 80px;
+  height: 50px;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
+  margin-bottom: 10px;
 }
 
 .recommenderCarBarContainer{
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -171,7 +169,6 @@ const handleRequestCars = (tab, event) => {
 
 .recommendCarBar{
   width: 100%;
-  height: 290px;
   display: flex;
   flex-direction: row;
   justify-content: start;
@@ -214,8 +211,5 @@ const handleRequestCars = (tab, event) => {
   padding: 0;
   min-height: auto;
 }
-
-
-
 
 </style>

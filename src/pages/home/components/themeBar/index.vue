@@ -1,5 +1,5 @@
 <template>
-  <el-carousel :interval="4000" type="card"  height="300px" style="width: 1200px;margin-top: 20px">
+  <el-carousel :interval="4000" type="card" style="width: 1200px;margin-top: 30px;height: 350px;">
     <el-carousel-item v-for="item in themes" :key="item">
       <div class="themeItem">
         <div class="themeItemTitle">
@@ -145,7 +145,7 @@ const themes = [
 
 .themeItem{
   width: 100%;
-  height: 100%;
+  height: 300px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -194,7 +194,7 @@ const themes = [
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: -30px;
+  margin-top: -20px;
 }
 
 .themeItemClassificationMark:hover{

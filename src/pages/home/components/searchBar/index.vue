@@ -1,7 +1,6 @@
 <template>
   <div class="searchBarContainer">
     <div class="searchInputBar">
-
       <el-popover
           placement="bottom"
           title="热门推荐"
