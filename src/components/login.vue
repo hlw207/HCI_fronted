@@ -2,8 +2,11 @@
 import {useWindowStore} from "~/stores/window";
 import {Close} from "@element-plus/icons-vue";
 import {computed, reactive, ref, watch} from "vue";
+import {ElMessage} from "element-plus";
+import {useUserStore} from "~/stores/user";
 
 const windows = useWindowStore()
+const user = useUserStore()
 const windowWidth = windows.width
 const windowHeight = windows.height
 
@@ -26,6 +29,21 @@ const props = defineProps<{
 
 const emits = defineEmits(['cancelLogin','setRegister'])
 
+const login = () => {
+  if(information.username == ''){
+    ElMessage.error('用户名未输入')
+  }
+  else if(information.password == ''){
+    ElMessage.error('密码未输入')
+  }
+  else if(information.username == 'hlw'&& information.password == '123'){
+    ElMessage.success('登录成功')
+    user.id = 0;
+    clear()
+  }else {
+    ElMessage.error('账号或用户名错误')
+  }
+}
 const clear = () => {
   isLogin.value = true
   information.username = information.password = information.phone = information.code = ''
@@ -98,7 +116,7 @@ watch(props,()=>{
                  注册
              </span>
             </div>
-            <div class="login_button_login" :class="{can_login : isCanLogin}">
+            <div class="login_button_login" :class="{can_login : isCanLogin}" @click="login">
               <span>
                  登录
              </span>

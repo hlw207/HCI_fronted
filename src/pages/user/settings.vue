@@ -31,7 +31,6 @@ const height = window.height - 45
   padding-left: v-bind(width / 11 + 'px');
   padding-right: v-bind(width / 11 + 32 + 'px');
   background: #f4f5f7;
-  text-align: right;
 }
 
 .user_main{

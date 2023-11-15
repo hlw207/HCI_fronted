@@ -1,13 +1,14 @@
 import { defineStore } from "pinia";
 import { request } from "~/utils/request";
+import {PICTURE_ADDR} from "~/config";
 
 export const useUserStore = defineStore('user', {
     state: () => {
         return {
-            id: '',
+            id: -1,
             phone: '',
             username: '南大混饭人',
-            picture: '',
+            picture: PICTURE_ADDR + '/profile/0.jpg',
         }
     },
 

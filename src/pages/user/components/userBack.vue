@@ -14,7 +14,7 @@ const resize = ref(false)
 
 <template>
   <el-image class="picture_background" src="../../../public/pictures/user_background.png"></el-image>
-  <el-image class="user_profile" src="../../../public/pictures/profile/0.jpg" @mouseenter="resize=true" @mouseleave="resize=false"></el-image>
+  <el-image class="user_profile" :src="user.picture" @mouseenter="resize=true" @mouseleave="resize=false"></el-image>
   <div v-if="resize" class="user_profile mask" ><div style="margin-top: 17px;margin-right: 5px"><span>修改头像</span></div></div>
   <div class="user_name">{{user.username}}</div>
   <div class="user_background"></div>

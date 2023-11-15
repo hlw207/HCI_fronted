@@ -4,11 +4,22 @@ import Right_side from "~/components/rightSide.vue";
 import UserBack from "~/pages/user/components/userBack.vue";
 import UserDetailMenu from "~/pages/user/components/userDetailMenu.vue";
 import UserCollectionPage from "~/pages/user/components/collection/userCollectionPage.vue";
+import {onMounted} from "vue";
+import {useUserStore} from "~/stores/user";
+import {useRouter} from "vue-router";
+import {ElNotification} from "element-plus";
 
 const window = useWindowStore()
+const user = useUserStore()
+const router = useRouter()
 const width = window.width
 const height = window.height - 45
 
+onMounted(() =>{
+  if(user.id == null){
+    router.go(-1)
+  }
+})
 </script>
 
 <template>
