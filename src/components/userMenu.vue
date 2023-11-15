@@ -50,6 +50,11 @@ const mouseHandle = (event) => {
 const throttledHandle = throttle(mouseHandle, 100);
 
 const login = () => {
+  ElNotification({
+    title: '临时账号密码',
+    message: '账号：hlw，密码：123',
+    type: 'info',
+  })
   loginInfo.value = false
   window.removeEventListener('mousemove',throttledHandle)
   loginShow.value = true
@@ -72,7 +77,14 @@ const routerTo = (num : number) => {
       title: '您尚未登录',
       message: '请先登录',
       type: 'error',
-      duration: 1000
+      duration: 1000,
+    })
+    ElNotification({
+      title: '临时账号密码',
+      message: '账号：hlw，密码：123',
+      type: 'info',
+      offset: 100,
+      duration: 0
     })
     loginShow.value = true
   }else {
