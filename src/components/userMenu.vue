@@ -37,7 +37,7 @@ const moveToLogin = () =>{
   window.addEventListener('mousemove',throttledHandle)
 }
 
-const mouseHandle = (event) => {
+const mouseHandle = (event : MouseEvent) => {
   const x = event.clientX
   const y = event.clientY
   const t = login_position.value

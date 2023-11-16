@@ -2,11 +2,14 @@
 import {useWindowStore} from "~/stores/window";
 import {useRoute, useRouter} from "vue-router";
 import {ref, onMounted, watch} from "vue";
-import {Message, Setting, Star} from "@element-plus/icons-vue";
+import {Message, Setting, Star, SwitchButton} from "@element-plus/icons-vue";
+import {useUserStore} from "~/stores/user";
 
 const window = useWindowStore()
+const width = window.width
 const router = useRouter()
 const route = useRoute()
+const user = useUserStore()
 const height = window.height
 
 const menus = ref([{is: false, path : '/user', name: '收藏'}
@@ -19,6 +22,11 @@ const pathChoice = () =>{
   for (i = 0;i < 3;i++){
     menus.value[i].is = path == menus.value[i].path;
   }
+}
+
+const exit = () =>{
+  user.id = -1;
+  router.push('/')
 }
 
 watch(route,() => {
@@ -43,6 +51,12 @@ onMounted(() => {
       <div class="menu_box" :class="{active_menu_box: menus[2].is}"  @click="router.push(menus[2].path)">
           <el-icon class="menu_icon" style="color: #25b5d9"><Setting /></el-icon>
           <div class="menu_font"><span>设置</span></div>
+      </div>
+      <div class="menu_exit" @click="exit">
+        <el-icon class="menu_exit_icon"><SwitchButton /></el-icon>
+        <div class="menu_exit_text">
+          退出登录
+        </div>
       </div>
   </div>
 </template>
@@ -81,4 +95,30 @@ onMounted(() => {
   margin-top: 20px;
 }
 
+.menu_exit{
+  display: flex;
+  position: absolute;
+  right: v-bind(width / 11 + 32 + 'px');
+  margin: 10px 10px;
+  height: 35px;
+  width: 100px;
+  cursor: pointer;
+}
+
+.menu_exit:hover{
+  background: rgba(155, 163, 175, 0.1);
+}
+
+.menu_exit_icon{
+  margin-top: 10px;
+  margin-left: 10px;
+  color: #9ba3af;
+}
+
+.menu_exit_text{
+  margin-top: 9px;
+  margin-left: 8px;
+  color: #9ba3af;
+  font-size: 13px;
+}
 </style>

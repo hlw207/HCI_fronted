@@ -4,6 +4,7 @@ import Right_side from "~/components/rightSide.vue";
 import UserBack from "~/pages/user/components/userBack.vue";
 import UserDetailMenu from "~/pages/user/components/userDetailMenu.vue";
 import UserSettingsProfile from "~/pages/user/components/settings/userSettingsProfile.vue";
+import UserSettingInfo from "~/pages/user/components/settings/userSettingInfo.vue";
 
 const window = useWindowStore()
 const width = window.width
@@ -20,6 +21,7 @@ const height = window.height - 45
     <div class="user_main">
       <div class="user_settings">
         <UserSettingsProfile />
+        <UserSettingInfo />
       </div>
     </div>
   </div>
@@ -35,13 +37,13 @@ const height = window.height - 45
 
 .user_main{
   margin-top: 30px;
-  height: 520px;
+  height: 450px;
   background: white;
 }
 
 .user_settings{
   display: flex;
-  padding-top: 40px;
+  padding-top: 30px;
   margin-left: 20px;
   margin-right: 20px;
   height: 400px;

@@ -4,16 +4,35 @@ import {onMounted, ref} from "vue";
 import {FolderOpened} from "@element-plus/icons-vue";
 import {useUserStore} from "~/stores/user";
 import {PICTURE_ADDR} from "~/config";
+import {ElMessage} from "element-plus";
 
 const user = useUserStore()
 const profileChoose = ref(false)
 const imgPath = ref<string[]>([])
 const choice = ref(-1)
+const choiceSrc = ref('')
 
 const changeProfile = () =>{
-  user.picture = imgPath.value[choice.value]
+  choiceSrc.value = imgPath.value[choice.value]
   choice.value = -1
   profileChoose.value = false
+  ElMessage({
+    message: '请更新',
+    type: 'success',
+  })
+}
+
+const update = () =>{
+  user.picture = choiceSrc.value
+  choiceSrc.value = ''
+  ElMessage({
+    message: '更新成功',
+    type: 'success',
+  })
+}
+
+const cancel = () =>{
+  choiceSrc.value = ''
 }
 
 onMounted(()=>{
@@ -30,8 +49,8 @@ onMounted(()=>{
     <div class="profile">
        <div class="profile_main">
          <div style="width: 50%">
-          <el-image class="profile_image" :src="user.picture"></el-image>
-           <div style="margin-top: 10px;color: #9ba3af;font-size: 13px">
+          <el-image class="profile_image" :src="choiceSrc != '' ? choiceSrc : user.picture"></el-image>
+           <div style="margin-top: 15px;margin-left:3px;color: #9ba3af;font-size: 13px">
              当前头像
            </div>
          </div>
@@ -51,7 +70,10 @@ onMounted(()=>{
       图片需小于2M
     </div>
     <div style="display: flex;  justify-content:center; align-items:center;">
-       <div class="profile_update" :class="{profile_update_active : false}">
+      <div class="profile_update" style="pointer-events: auto;cursor: pointer" @click="cancel" v-if="choiceSrc != ''">
+        取消
+      </div>
+       <div class="profile_update" :class="{profile_update_active : choiceSrc != ''}" @click="update">
           更新
        </div>
     </div>
@@ -122,7 +144,7 @@ onMounted(()=>{
 .profile_update{
   display: flex;
   margin-top: 30px;
-  margin-right: 60px;
+  margin-right: 30px;
   justify-content:center;
   align-items:center;
   height: 38px;
@@ -131,12 +153,14 @@ onMounted(()=>{
   color: #d2dae6;
   border-radius: 5px;
   text-align: center;
+  pointer-events: none;
 }
 
 .profile_update_active{
   background: #26aeea;
   color: white;
   cursor: pointer;
+  pointer-events: auto;
 }
 
 .profile_image_list{
