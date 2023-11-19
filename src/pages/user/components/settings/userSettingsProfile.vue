@@ -45,7 +45,7 @@ onMounted(()=>{
 </script>
 
 <template>
-  <div style="width: 40%;height: 300px;margin-top: 40px">
+  <div style="width: 40%;height: 300px;margin-top: 60px;margin-left: 105px">
     <div class="profile">
        <div class="profile_main">
          <div style="width: 50%">
@@ -70,7 +70,7 @@ onMounted(()=>{
       图片需小于2M
     </div>
     <div style="display: flex;  justify-content:center; align-items:center;">
-      <div class="profile_update" style="pointer-events: auto;cursor: pointer" @click="cancel" v-if="choiceSrc != ''">
+      <div class="profile_update" style="pointer-events: auto;cursor: pointer;color: rgba(10,10,10,0.7)" @click="cancel" v-if="choiceSrc != ''">
         取消
       </div>
        <div class="profile_update" :class="{profile_update_active : choiceSrc != ''}" @click="update">

@@ -74,8 +74,7 @@ const certain = () => {
 .info{
   box-sizing: border-box;
   width: 60%;
-  border-left: 2px solid rgba(155, 163, 175, 0.3);
-  padding: 20px 30px 30px 45px;
+  padding: 40px 30px 30px 105px;
 }
 
 .info_text{

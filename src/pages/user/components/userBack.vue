@@ -19,7 +19,7 @@ const resizeEnd = () =>{
   resize.value = false
 }
 const resizeProfile = () =>{
-  router.push('/user/settings')
+  router.push('/user/settings/profile')
 }
 
 </script>
