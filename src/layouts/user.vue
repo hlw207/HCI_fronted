@@ -22,18 +22,19 @@ onMounted(() =>{
 <template>
   <RightSide />
   <UserMenu />
-  <div class="user">
-    <UserBack />
-    <UserDetailMenu />
+  <div style="background : #f7f4f5">
+    <div class="user">
+      <UserBack />
+      <UserDetailMenu />
+    </div>
     <router-view></router-view>
   </div>
 </template>
 
 <style scoped>
 .user{
-  height: v-bind(height + 'px');
-  padding-left: v-bind(width / 11 + 'px');
-  padding-right: v-bind(width / 11 + 32 + 'px');
-  background: #f4f5f7;
+  margin-right: 32px;
+  padding: 0 v-bind(width / 11 + 'px');
+  background: #f7f4f5;
 }
 </style>

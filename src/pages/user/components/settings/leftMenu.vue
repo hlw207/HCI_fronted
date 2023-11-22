@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import {onMounted, ref, watch} from "vue";
-import {House, Key, Phone} from "@element-plus/icons-vue";
+import {House, Key, Phone, User} from "@element-plus/icons-vue";
 import {useRoute, useRouter} from "vue-router";
 
 const route = useRoute()

@@ -13,7 +13,7 @@ const props = defineProps<{
 }>()
 
 const windows = useWindowStore()
-const width = windows.width - windows.width * 2 / 11 - 32 - 200
+const width = windows.width - windows.width * 2 / 11 - 32 - 170
 const height = width * 0.6
 const position = ref()
 const show = ref(false)
@@ -56,7 +56,7 @@ const cancel_collection = () =>{
 <style scoped>
 .collection{
   width: v-bind(width / 4 + 'px');
-  margin: 10px 20px;
+  margin: 12px 20px;
 }
 
 .collection_picture{
@@ -79,6 +79,7 @@ const cancel_collection = () =>{
 }
 
 .collection_cancel{
+  z-index: 999;
   position: absolute;
   top: 25px;
   left: 5px;
@@ -91,8 +92,9 @@ const cancel_collection = () =>{
 }
 
 .collection_cancel_main{
-  margin-top: 3px;
+  margin-top: 2px;
   padding-top: 3px;
+  margin-bottom: 2px;
 }
 
 .collection_cancel_main:hover{

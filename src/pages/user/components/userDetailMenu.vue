@@ -10,7 +10,6 @@ const width = window.width
 const router = useRouter()
 const route = useRoute()
 const user = useUserStore()
-const height = window.height
 
 const menus = ref([{is: false, path : '/user', name: '收藏'}
                         ,{is: false, path : '/user/comments', name: '评论'}
@@ -20,7 +19,7 @@ const pathChoice = () =>{
   const path = route.path
   let i : number;
   for (i = 0;i < 3;i++){
-    menus.value[i].is = path == menus.value[i].path;
+    menus.value[i].is = path.substring(0, 14) == menus.value[i].path;
   }
 }
 

@@ -43,7 +43,7 @@ const certain = () => {
       </div>
       <div class="info_text" style="margin-top: 20px">
         <span>个性签名：</span>
-        <el-input v-model="autoGraph" class="info_text_input_1" maxlength="150" show-word-limit :rows="3" type="textarea" :autosize="{ minRows: 3, maxRows: 4 }"></el-input>
+        <el-input v-model="autoGraph" class="info_text_input_1" maxlength="50" show-word-limit :rows="3" type="textarea" :autosize="{ minRows: 3, maxRows: 4 }"></el-input>
       </div>
       <div class="info_text" style="margin-top: 10px;margin-left: 2px">
         <span>&nbsp;&nbsp;&nbsp;手机号：</span>

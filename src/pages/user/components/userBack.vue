@@ -22,6 +22,10 @@ const resizeProfile = () =>{
   router.push('/user/settings/profile')
 }
 
+const addSignature = () =>{
+  router.push('/user/settings')
+}
+
 </script>
 
 <template>
@@ -35,6 +39,12 @@ const resizeProfile = () =>{
       </div>
       <div class="user_profile" style="z-index: 4" @mouseenter="resizeStart" @mouseleave="resizeEnd" @click="resizeProfile"></div>
       <div class="user_name">{{user.username}}</div>
+      <div class="signature" v-if="user.autoGraph != ''">个性签名： {{user.autoGraph}}</div>
+      <div class="signature" v-if="user.autoGraph == ''">
+        <div class="signature_add" @click="addSignature">
+          点击添加个性签名
+        </div>
+      </div>
   </div>
 </template>
 
@@ -42,7 +52,7 @@ const resizeProfile = () =>{
 @keyframes myFirst
 {
   from {opacity: 0}
-  to {opacity: 0.8}
+  to {opacity: 0.75}
 }
 
 @keyframes showOut
@@ -62,7 +72,7 @@ const resizeProfile = () =>{
   height: v-bind(height / 5 + 'px');
   width: 100%;
   animation:myFirst 1s;
-  opacity: 0.8;
+  opacity: 0.75;
 }
 
 .user_profile{
@@ -92,8 +102,22 @@ const resizeProfile = () =>{
   color: white;
   position: absolute;
   left: 85px;
-  top: v-bind(height / 5 - 70 + 'px');
+  top: v-bind(height / 5 - 65 + 'px');
   font-weight: bold;
 }
 
+.signature{
+  z-index: 2;
+  color: white;
+  position: absolute;
+  left: 85px;
+  top: v-bind(height / 5 - 36 + 'px');
+  font-size: 12px;
+}
+
+.signature_add{
+  font-size: 11px;
+  color: #92d6f4;
+  cursor: pointer;
+}
 </style>

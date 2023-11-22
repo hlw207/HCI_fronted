@@ -45,7 +45,10 @@ onMounted(()=>{
 </script>
 
 <template>
-  <div style="width: 40%;height: 300px;margin-top: 60px;margin-left: 105px">
+  <div style="width: 40%;height: 300px;margin-top: 40px;margin-left: 105px">
+    <div style="color: #26aeea;font-size: 15px;padding-left: 5px;border-left: 3px solid #26aeea;margin-bottom: 20px">
+      头像修改：
+    </div>
     <div class="profile">
        <div class="profile_main">
          <div style="width: 50%">
@@ -100,6 +103,7 @@ onMounted(()=>{
 
 <style scoped>
 .profile{
+  margin-left: 10px;
   display: flex;
   height: 150px;
   width: 100%;
@@ -134,6 +138,7 @@ onMounted(()=>{
 }
 
 .profile_explain{
+  margin-left: 40px;
   text-align: center;
   margin-top: 30px;
   margin-right: 50px;

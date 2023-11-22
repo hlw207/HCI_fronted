@@ -1,14 +1,20 @@
 <script setup lang="ts">
-import UserSettingsProfile from "~/pages/user/components/settings/userSettingsProfile.vue";
 import UserSettingInfo from "~/pages/user/components/settings/userSettingInfo.vue";
 import LeftMenu from "~/pages/user/components/settings/leftMenu.vue";
+import {useWindowStore} from "~/stores/window";
+
+const window = useWindowStore()
+const width = window.width
+const height = window.height - 45
 </script>
 
 <template>
-  <div class="user_main">
-    <div class="user_settings">
-      <LeftMenu />
-      <UserSettingInfo />
+  <div class="user">
+    <div class="user_main">
+      <div class="user_settings">
+        <LeftMenu />
+        <UserSettingInfo />
+      </div>
     </div>
   </div>
 </template>
@@ -19,6 +25,13 @@ import LeftMenu from "~/pages/user/components/settings/leftMenu.vue";
 </route>
 
 <style scoped>
+.user{
+  height: v-bind(height - height / 5 - 55 + 'px');
+  margin-right: 32px;
+  padding: 0 v-bind(width / 11 + 'px');
+  background: #f7f4f5;
+}
+
 .user_main{
   margin: 0;
   padding: 0;

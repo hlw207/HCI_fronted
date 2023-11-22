@@ -8,6 +8,7 @@ export const useUserStore = defineStore('user', {
             id: -1,
             phone: '15971989001',
             username: '南大混饭人',
+            password: '123',
             picture: PICTURE_ADDR + '/profile/0.jpg',
             autoGraph: '123'
         }
