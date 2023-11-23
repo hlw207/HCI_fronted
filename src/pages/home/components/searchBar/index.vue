@@ -44,6 +44,8 @@ const searchFocusOut = () => {
 
 </script>
 
+
+
 <style scoped lang="scss">
 .searchBarContainer{
   width: 100%;

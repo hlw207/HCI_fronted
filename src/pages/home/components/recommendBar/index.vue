@@ -40,6 +40,39 @@ const tabPosition = ref('left')
 
 const carBarCount = ref(1)
 
+const cars = [
+  {
+    name: '奔腾B70',
+    time: '2023年',
+    price: '7.7万'
+  },
+  {
+    name: '奔腾B70',
+    time: '2023年',
+    price: '7.7万'
+  },
+  {
+    name: '奔腾B70',
+    time: '2023年',
+    price: '7.7万'
+  },
+  {
+    name: '奔腾B70',
+    time: '2023年',
+    price: '7.7万'
+  },
+  {
+    name: '奔腾B70',
+    time: '2023年',
+    price: '7.7万'
+  },
+  {
+    name: '奔腾B70',
+    time: '2023年',
+    price: '7.7万'
+  },
+]
+
 const recommends = ref([
   {
     name: '最新上架',
@@ -63,47 +96,16 @@ const recommends = ref([
   }
 ])
 
-const currentDate = ref(new Date())
+onMounted(() => {
+  recommends.value[0].cars = cars
+  carBarCount.value =  recommends.value[0].cars.length > 3 ? 2 : 1
+})
 
 
-const handleRequestCars = (tab, event) => {
+const handleRequestCars = (tab) => {
   if(recommends.value[tab.index].cars.length == 0){
-    recommends.value[tab.index].cars = [
-      {
-        name: '奔腾B70',
-        time: '2023年',
-        price: '7.7万'
-      },
-      {
-        name: '奔腾B70',
-        time: '2023年',
-        price: '7.7万'
-      },
-      {
-        name: '奔腾B70',
-        time: '2023年',
-        price: '7.7万'
-      },
-      {
-        name: '奔腾B70',
-        time: '2023年',
-        price: '7.7万'
-      },
-      {
-        name: '奔腾B70',
-        time: '2023年',
-        price: '7.7万'
-      },
-      {
-        name: '奔腾B70',
-        time: '2023年',
-        price: '7.7万'
-      },
-    ]
-
+    recommends.value[tab.index].cars = cars
     carBarCount.value =  recommends.value[tab.index].cars.length > 3 ? 2 : 1
-
-    console.log( recommends.value[tab.index].cars.slice(4,6))
   }
 }
 

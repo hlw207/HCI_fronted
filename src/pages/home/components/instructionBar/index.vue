@@ -28,7 +28,7 @@
       </el-icon>
       <div style="position: relative; top: 35%">
         <el-result
-            icon="error"
+            icon="info"
             title="买家上门看车"
             sub-title="专属顾问，买车省心"
         >

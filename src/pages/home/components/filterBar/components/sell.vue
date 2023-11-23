@@ -27,29 +27,87 @@
     </div>
   </div>
 
-  <el-dialog v-model="sellDialogShow" title="Shipping address">
+  <el-dialog v-model="sellDialogShow">
+
+    <h1 style="color: #eda01f;margin-top: -20px">先估价，再买车，心里倍儿有底</h1>
 
     <template #footer>
-      <span class="dialog-footer">
-        <el-button @click="sellDialogShow = false">Cancel</el-button>
-        <el-button type="primary" @click="sellDialogShow = false">
-          Confirm
-        </el-button>
-      </span>
+      <el-form :model="form" label-width="120px">
+        <el-form-item label="卖车地点">
+          <el-cascader
+              size="large"
+              :options="options"
+              v-model="form.location"
+          >
+          </el-cascader>
+        </el-form-item>
+        <el-form-item label="车型">
+          <el-cascader
+              size="large"
+              :options="options"
+              v-model="form.type"
+          >
+          </el-cascader>
+        </el-form-item>
+        <el-form-item label="上牌时间">
+          <el-col :span="11">
+            <el-date-picker
+                v-model="form.createTime"
+                type="date"
+                placeholder="选择您的爱车的上牌时间"
+                style="width: 100%"
+            />
+          </el-col>
+        </el-form-item>
+        <el-form-item label="行驶里程">
+          <el-input-number
+              v-model="form.distance"
+              :min="1"
+              controls-position="right"
+              size="large"
+          />
+        </el-form-item>
+        <el-form-item label="接收手机">
+          <el-input v-model="form.phone" placeholder="请输入您的手机号" style="width: 50%;"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <div style="width: 100%;display: flex;flex-direction: row;justify-content: end;align-items: center">
+            <el-button size="large"  color="#eda01f"  type="primary" style="color: white" @click="onSubmit;">爱车估价</el-button>
+            <el-button size="large" color="#eda01f" @click="sellDialogShow = false" plain>取消</el-button>
+          </div>
+        </el-form-item>
+      </el-form>
     </template>
   </el-dialog>
 </template>
 
 <script setup lang="ts">
 import {ref} from "vue";
+import {provinceAndCityData} from "element-china-area-data";
 
 
 const loginState = ref(false)
 const cert = ref('')
 const sellDialogShow = ref(false)
+const options = provinceAndCityData
 
 const circleUrl = ref('https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png')
 
+
+const form = ref({
+  location: [],
+  type: [],
+  createTime: '',
+  distance: 0,
+  phone: ''
+})
+
+const handleChange = (value) =>{
+  console.log(value)
+}
+const onSubmit = () => {
+  console.log(form)
+}
 </script>
 
 <style scoped>
