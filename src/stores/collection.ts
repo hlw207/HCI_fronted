@@ -13,11 +13,11 @@ export const useCollectionStore = defineStore('collection', {
     actions: {
         fetch(page: number) {
             this.collections = []
-            if(16 * page >= this.total_num)
+            if(12 * page >= this.total_num)
                 return
             this.page = page
             let i : number
-            for(i = 0;i < (this.total_num - page * 16 > 16 ? 16 : this.total_num - page * 16);i++){
+            for(i = 0;i < (this.total_num - page * 12 > 12 ? 12 : this.total_num - page * 12);i++){
                 const info: CarCollection = {id: i, picturePath: '~/../public/pictures/car/0.jpg', name: "雅迪", price: 20.99}
                 this.collections.push(info)
             }

@@ -18,7 +18,7 @@ watch(page,(()=>{
 }))
 
 watch(collections,(()=>{
-  maxPage.value = collections.total_num == 0 ? 1 : (collections.total_num - 1 >> 4) + 1
+  maxPage.value = collections.total_num == 0 ? 1 : Math.floor((collections.total_num - 1) / 12) + 1
 }))
 
 const certain = () => {
@@ -31,13 +31,14 @@ const certain = () => {
 const changePage = (p : number) => {
   collections.fetch(p)
   real_page.value = old_page.value = page.value = p + 1
+  document.documentElement.scrollTop = 0
 }
 
 onMounted(()=>{
   collections.fetch(0)
   page.value = collections.page + 1
   real_page.value = old_page.value = page.value
-  maxPage.value = (collections.total_num >> 4) + 1
+  maxPage.value = Math.floor(collections.total_num / 12) + 1
 })
 </script>
 
@@ -72,7 +73,8 @@ onMounted(()=>{
   display: flex;
   justify-content:center;
   align-items:center;
-  margin-bottom: 35px;
+  margin-top: 30px;
+  padding-bottom: 35px;
 }
 
 .collection_bottom_main{

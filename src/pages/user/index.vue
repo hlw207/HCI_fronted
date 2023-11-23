@@ -1,42 +1,34 @@
 <script setup lang="ts">
-import {useWindowStore} from "~/stores/window";
-import Right_side from "~/components/rightSide.vue";
-import UserBack from "~/pages/user/components/userBack.vue";
-import UserDetailMenu from "~/pages/user/components/userDetailMenu.vue";
 import UserCollectionPage from "~/pages/user/components/collection/userCollectionPage.vue";
+import {useWindowStore} from "~/stores/window";
 
 const window = useWindowStore()
 const width = window.width
-const height = window.height - 45
-
+const height = window.height
 </script>
-
 <template>
-  <Right_side />
   <div class="user">
-    <UserBack />
-    <UserDetailMenu />
-
     <div class="user_main">
       <UserCollectionPage />
     </div>
   </div>
 </template>
 
+<route lang="yaml">
+    meta:
+       layout: user
+</route>
+
 <style scoped>
 .user{
-  height: v-bind(height + 'px');
-  padding-left: v-bind(width / 11 + 'px');
-  padding-right: v-bind(width / 11 + 32 + 'px');
-  background: #f4f5f7;
-  text-align: right;
+  margin-right: 32px;
+  background: #f7f4f5;
+  padding: 0 v-bind(width / 11 + 'px') 30px;
 }
 
 .user_main{
   margin-top: 15px;
   padding-top: 10px;
-  height: 450px;
   background: white;
-  overflow-y: auto;
 }
 </style>

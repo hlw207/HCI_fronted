@@ -6,6 +6,7 @@ import {computed, onMounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {useUserStore} from "~/stores/user";
 import {Pointer, Star} from "@element-plus/icons-vue";
+import {ElNotification} from "element-plus";
 
 // const props = defineProps<{
 //   pageIndex: string
@@ -36,7 +37,7 @@ const moveToLogin = () =>{
   window.addEventListener('mousemove',throttledHandle)
 }
 
-const mouseHandle = (event) => {
+const mouseHandle = (event : MouseEvent) => {
   const x = event.clientX
   const y = event.clientY
   const t = login_position.value
@@ -49,6 +50,11 @@ const mouseHandle = (event) => {
 const throttledHandle = throttle(mouseHandle, 100);
 
 const login = () => {
+  ElNotification({
+    title: '临时账号密码',
+    message: '账号：hlw，密码：123',
+    type: 'info',
+  })
   loginInfo.value = false
   window.removeEventListener('mousemove',throttledHandle)
   loginShow.value = true
@@ -66,7 +72,24 @@ const setRegister = () => {
 }
 
 const routerTo = (num : number) => {
-  router.push(menus.value[num].path)
+  if(num == 4 && user.id == -1){
+    ElNotification({
+      title: '您尚未登录',
+      message: '请先登录',
+      type: 'error',
+      duration: 1000,
+    })
+    ElNotification({
+      title: '临时账号密码',
+      message: '账号：hlw，密码：123',
+      type: 'info',
+      offset: 100,
+      duration: 0
+    })
+    loginShow.value = true
+  }else {
+    router.push(menus.value[num].path)
+  }
 }
 
 const pathChoice = () =>{
@@ -115,11 +138,13 @@ onMounted(() => {
         <span>{{menu}}</span>
       </div>
     </template>
-    <div class="menu_login">
-      <div class="menu_login_font" v-if="user.id === ''" @mouseenter="moveToLogin" @click="login">
+    <div class="menu_login"  v-if="user.id == -1" @mouseenter="moveToLogin" @click="login">
+      <div class="menu_login_font">
           登录
       </div>
     </div>
+    <el-image class="menu_login" v-if="user.id != -1" @click="router.push('/user')" :src="user.picture">
+    </el-image>
     <div class="menu_phone">
        <span>
            联系我们： 15971989001
