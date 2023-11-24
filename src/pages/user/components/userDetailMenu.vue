@@ -74,7 +74,7 @@ onMounted(() => {
 }
 
 .menu_box:hover{
-  color: #26aeea;
+  color: #fa5c3d;
   border-bottom: 3px solid #26aeea;;
 }
 

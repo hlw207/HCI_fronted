@@ -2,7 +2,10 @@ interface CarCollection{
   id: number,
   picturePath: string,
   name: string,
-  price: number
+  price: number,
+  time: string,
+  mileage: number,
+  source: string
 }
 
 export {CarCollection}

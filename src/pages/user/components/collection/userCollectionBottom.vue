@@ -25,6 +25,7 @@ const certain = () => {
   if(real_page.value != page.value) {
     real_page.value = old_page.value = page.value
     collections.fetch(real_page.value - 1)
+    document.documentElement.scrollTop = 0
   }
 }
 
@@ -96,12 +97,12 @@ onMounted(()=>{
 }
 
 .collection_bottom_page:hover{
-  border: 1px solid #26aeea;
-  color: #26aeea;
+  border: 1px solid #fa5c3d;
+  color: #fa5c3d;
 }
 
 .collection_bottom_page_active{
-  background: #26aeea;
+  background: #fa5c3d;
   color: white;
 }
 
@@ -123,7 +124,7 @@ onMounted(()=>{
 }
 
 .collection_bottom_input:focus{
-  border: 1px solid #26aeea;
+  border: 1px solid #fa5c3d;
 }
 
 .collection_bottom_text{
@@ -137,7 +138,7 @@ onMounted(()=>{
   margin-top: 5px;
   margin-left: 10px;
   font-size: 12px;
-  background: #26aeea;
+  background: #fa5c3d;
   color: white;
   border: 1px solid grey;
   padding-top: 3px;

@@ -2,7 +2,7 @@
 
 import {useWindowStore} from "~/stores/window";
 import {StarFilled} from "@element-plus/icons-vue";
-import {ref} from "vue";
+import {computed, ref} from "vue";
 import {throttle} from "lodash";
 
 const props = defineProps<{
@@ -10,13 +10,19 @@ const props = defineProps<{
   picturePath : string,
   name: string,
   price: number
+  time : string,
+  mileage: number,
+  source: string
 }>()
 
 const windows = useWindowStore()
-const width = windows.width - windows.width * 2 / 11 - 32 - 170
-const height = width * 0.6
 const position = ref()
 const show = ref(false)
+const date = computed(() =>{
+  let d = props.time.split('/')
+  return d[0] + '年' + d[1] + '月'
+})
+const firstPay = computed(() => (props.price / 4).toFixed(2))
 
 const clickAt = () =>{
   window.removeEventListener('click',throttledHandle)
@@ -39,10 +45,8 @@ const cancel_collection = () =>{
 
 <template>
   <div class="collection">
-    <el-image :src="props.picturePath" class="collection_picture"></el-image>
-    <div class="collection_text">
-      <span>品牌：{{props.name}}&nbsp;&nbsp;&nbsp</span>
-      <span>价格：{{props.price}}万</span>
+    <div class="collection_container">
+      <el-image :src="props.picturePath" class="collection_picture"></el-image>
       <el-icon class="collection_icon">
         <StarFilled @click="showOut"/>
         <div class="collection_cancel" v-if="show">
@@ -50,39 +54,90 @@ const cancel_collection = () =>{
         </div>
       </el-icon>
     </div>
+    <div class="collection_text">
+      <div style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin: 10px 8px 0">
+       <span>{{props.name}} 2021款 586E</span>
+      </div>
+      <div style="color: #9ba3af;font-size: 11px;margin: 5px 0 0 8px">
+        {{date}} / {{props.mileage}}万公里 / {{props.source}}
+      </div>
+      <div style="display:flex;margin: 20px 0 3px 8px;position: relative">
+        <span style="color: #fa5c3d;font-size: 20px">{{props.price}}万</span>
+        <div style="margin: 10px 0 0 12px">
+          <span style="font-size: 11px;color: #9ba3af;">首付{{firstPay}}万</span>
+        </div>
+        <div class="collection_button">免费咨询</div>
+      </div>
+    </div>
   </div>
 </template>
 
 <style scoped>
 .collection{
-  width: v-bind(width / 4 + 'px');
-  margin: 12px 20px;
+  box-sizing: border-box;
+  width: 23%;
+  margin: 1% 1%;
+  cursor: pointer;
+  padding: 1px 1px 5px;
+}
+
+.collection:hover{
+  border: 1px solid red;
+}
+
+.collection_container{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .collection_picture{
-  width: v-bind(width / 4 + 'px');
-  height: v-bind(height / 4 + 'px');
+  width: 99.5%;
+  transition: width 0.1s;
+}
+
+.collection_picture:hover{
+  transform: scale(101%);
 }
 
 .collection_text{
-  display: flex;
-  font-size: 14px;
+  font-size: 13px;
   text-align: left;
-  margin-left: 5px;
+}
+
+.collection_button{
+  position: absolute;
+  right: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 11px;
+  color: #fa5c3d;
+  border: 1px solid #fa5c3d;
+  padding: 5px 10px;
+  margin-left: 18px;
+}
+
+.collection:hover .collection_button{
+  background: #fa5c3d;
+  color: white;
 }
 
 .collection_icon{
+  position: absolute;
   color: #f0a03c;
-  margin-left: 15px;
-  font-size: 18px;
+  bottom: 5px;
+  right: 10px;
+  font-size: 25px;
   cursor: pointer;
 }
 
 .collection_cancel{
   z-index: 999;
   position: absolute;
-  top: 25px;
-  left: 5px;
+  top: 35px;
+  right: -5px;
   width: 70px;
   color: black;
   font-size: 13px;
@@ -92,9 +147,8 @@ const cancel_collection = () =>{
 }
 
 .collection_cancel_main{
-  margin-top: 2px;
+  margin: 1px 0;
   padding-top: 3px;
-  margin-bottom: 2px;
 }
 
 .collection_cancel_main:hover{

@@ -42,7 +42,7 @@ const changeCollection = () =>{
     <template v-for="collection_line in collection_list">
       <div class="collection_line">
         <template v-for="collection in collection_line">
-            <UserCollection :id="collection.id" :picture-path="collection.picturePath" :price="collection.price" :name="collection.name"/>
+            <UserCollection :id="collection.id" :picture-path="collection.picturePath" :price="collection.price" :name="collection.name" :time="collection.time" :mileage="collection.mileage" :source="collection.source"/>
         </template>
       </div>
     </template>
