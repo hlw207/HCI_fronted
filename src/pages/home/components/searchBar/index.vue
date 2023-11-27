@@ -1,7 +1,6 @@
 <template>
   <div class="searchBarContainer">
     <div class="searchInputBar">
-
       <el-popover
           placement="bottom"
           title="热门推荐"
@@ -45,6 +44,8 @@ const searchFocusOut = () => {
 
 </script>
 
+
+
 <style scoped lang="scss">
 .searchBarContainer{
   width: 100%;
@@ -53,7 +54,7 @@ const searchFocusOut = () => {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-image: url('/pictures/searchBarBackground.png');
+  background-image: url('/pictures/home/searchBarBackground.png');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;

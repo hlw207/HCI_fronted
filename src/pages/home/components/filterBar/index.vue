@@ -43,6 +43,7 @@ import Sell from '~/pages/home/components/filterBar/components/sell.vue'
 
 <style scoped lang="scss">
 .filterContainer{
+  margin-right: 32px;
   width: 80%;
   height: 300px;
   background-color: #fff;

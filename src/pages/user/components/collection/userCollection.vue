@@ -46,7 +46,9 @@ const cancel_collection = () =>{
 <template>
   <div class="collection">
     <div class="collection_container">
-      <el-image :src="props.picturePath" class="collection_picture"></el-image>
+      <div class="collection_picture">
+          <el-image :src="props.picturePath" class="collection_picture_main"></el-image>
+      </div>
       <el-icon class="collection_icon">
         <StarFilled @click="showOut"/>
         <div class="collection_cancel" v-if="show">
@@ -93,12 +95,18 @@ const cancel_collection = () =>{
 }
 
 .collection_picture{
-  width: 99.5%;
-  transition: width 0.1s;
+  overflow: hidden;
+  width: 100%;
 }
 
-.collection_picture:hover{
-  transform: scale(101%);
+.collection_picture_main{
+  width: 100%;
+  transition: all 0.5s;
+}
+
+.collection_picture_main:hover{
+  transform: scale(110%);
+  transition: all 0.5s;
 }
 
 .collection_text{
