@@ -5,7 +5,7 @@ import { throttle } from 'lodash';
 import {computed, onMounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {useUserStore} from "~/stores/user";
-import {Pointer, Star} from "@element-plus/icons-vue";
+import {ArrowRightBold, Message, Pointer, Setting, Star, SwitchButton} from "@element-plus/icons-vue";
 import {ElNotification} from "element-plus";
 
 // const props = defineProps<{
@@ -30,11 +30,17 @@ const menus = ref([{is : false, path: "/home"},
 const loginShow = ref(false)
 const registerShow = ref(false)
 const loginInfo = ref(false)
-const login_position = computed(()=> 2 * windowWidth / 3 + 10 * 5 + 17)
+const loginClick = ref(false)
+const login_position = computed(()=> windowWidth - 427.5)
 
 const moveToLogin = () =>{
   loginInfo.value = true
   window.addEventListener('mousemove',throttledHandle)
+}
+
+const clickProfile = () => {
+  loginClick.value = true
+  window.addEventListener('mousemove',throttledHandle1)
 }
 
 const mouseHandle = (event : MouseEvent) => {
@@ -48,6 +54,18 @@ const mouseHandle = (event : MouseEvent) => {
 }
 
 const throttledHandle = throttle(mouseHandle, 100);
+
+const mouseHandle1 = (event : MouseEvent) => {
+  const x = event.clientX
+  const y = event.clientY
+  const t = login_position.value - 15
+  if(!(y >= 0 && y <= 90 && x >= t - 35 && x <= t + 35 || y >= 45 && y <= 290 && x >= t - 110 && x <= t + 110)){
+    loginClick.value = false
+    window.removeEventListener('mousemove',throttledHandle1)
+  }
+}
+
+const throttledHandle1 = throttle(mouseHandle1, 100);
 
 const login = () => {
   ElNotification({
@@ -69,6 +87,13 @@ const register = () => {
 
 const setRegister = () => {
   registerShow.value = false
+}
+
+const exit = () =>{
+  user.id = -1;
+  loginClick.value = false
+  window.removeEventListener('mousemove',throttledHandle1)
+  router.push('/')
 }
 
 const routerTo = (num : number) => {
@@ -143,7 +168,7 @@ onMounted(() => {
           登录
       </div>
     </div>
-    <el-image class="menu_login" v-if="user.id != -1" @click="router.push('/user')" :src="user.picture">
+    <el-image class="menu_login" @mouseenter="clickProfile" :class="{menu_login_active : loginClick}" v-if="user.id != -1" @click="router.push('/user')" :src="user.picture">
     </el-image>
     <div class="menu_phone">
        <span>
@@ -151,7 +176,7 @@ onMounted(() => {
         </span>
     </div>
   </div>
-  <div class="login_info" v-if="loginInfo" @mouseleave="loginInfo = false">
+  <div class="login_info" v-if="loginInfo">
     <p>登录后你可以：</p>
     <div class="login_info_line">
       <div class="login_info_icon">
@@ -173,6 +198,32 @@ onMounted(() => {
     <div class="login_info_bottom">
       <span>首次使用？</span>
       <span style="color: #26aeea" @click="register">点我注册</span>
+    </div>
+  </div>
+  <div class="login_profile" v-if="loginClick">
+    <div class="login_profile_title">
+      <span>{{user.username}}</span>
+    </div>
+    <div class="login_profile_menu" style="margin-top: 13px" @click="router.push('/user')">
+      <el-icon style="color: #f0a03c;" class="login_profile_menu_suffix"><Star /></el-icon>
+      <div class="login_profile_menu_text">我的收藏</div>
+      <el-icon class="login_profile_menu_last"><ArrowRightBold /></el-icon>
+    </div>
+    <div class="login_profile_menu" @click="router.push('/user/comments')">
+      <el-icon style="color: #f97499;" class="login_profile_menu_suffix"><Message /></el-icon>
+      <div class="login_profile_menu_text">我的信息</div>
+      <el-icon class="login_profile_menu_last"><ArrowRightBold /></el-icon>
+    </div>
+    <div class="login_profile_menu" @click="router.push('/user/settings')">
+      <el-icon style="color: #25b5d9" class="login_profile_menu_suffix"><Setting /></el-icon>
+      <div class="login_profile_menu_text">我的设置</div>
+      <el-icon class="login_profile_menu_last"><ArrowRightBold /></el-icon>
+    </div>
+    <div class="login_profile_menu_bottom">
+      <div class="login_profile_menu" style="margin: 8px 5px;color: #9ba3af;" @click="exit">
+        <el-icon class="login_profile_menu_suffix"><SwitchButton /></el-icon>
+        <div class="login_profile_menu_text">退出登录</div>
+      </div>
     </div>
   </div>
 
@@ -221,14 +272,26 @@ onMounted(() => {
 }
 
 .menu_login{
+  z-index: 991;
+  position: absolute;
+  right: 400px;
   background: #26aeea;
   width: 35px;
   height: 35px;
   margin-top: 7px;
-  margin-left: v-bind(windowWidth / 15 + 'px');
   border-radius: 50%;
   text-align: center;
   cursor: pointer;
+  transition-property: all;
+  transition-duration: 0.8s;
+}
+
+.menu_login_active{
+  margin-top: 25px;
+  width: 65px;
+  height: 65px;
+  transition-property: all;
+  transition-duration: 0.8s;
 }
 
 .menu_login_font{
@@ -238,9 +301,11 @@ onMounted(() => {
 }
 
 .menu_phone{
+  position: absolute;
+  top: 4px;
+  right: 120px;
   box-sizing : border-box;
-  width: v-bind(windowWidth / 5 + 'px');
-  margin: 4px 60px;
+  width: 200px;
   padding: 10px 20px;
   font-size: 12px;
 }
@@ -301,5 +366,64 @@ onMounted(() => {
 
 .login_info_bottom span{
   font-size: 11px;
+}
+
+.login_profile{
+  z-index: 990;
+  position: absolute;
+  top: 60px;
+  left: v-bind(login_position - 125 + 'px');
+  width: 220px;
+  height: 225px;
+  background: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.login_profile_title{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 32px;
+  font-size: 16px;
+}
+
+.login_profile_menu{
+  display: flex;
+  position: relative;
+  margin: 4px 15px;
+  height: 32px;
+  border-radius: 8px;
+  color: #61666d;
+  background: white;
+}
+
+.login_profile_menu_suffix{
+  margin-top: 7px;
+  margin-left: 5px;
+  font-size: 18px;
+}
+
+.login_profile_menu_text{
+  margin-top: 8px;
+  margin-left: 10px;
+  font-size: 12px;
+  color: black;
+}
+
+.login_profile_menu_last{
+  position: absolute;
+  right: 15px;
+  top: 11px;
+  font-size: 11px;
+}
+
+.login_profile_menu:hover{
+  background: rgba(227, 229, 231, 0.8);
+}
+
+.login_profile_menu_bottom{
+  margin: 8px 10px 0;
+  border-top: 1px solid #b8babb;
 }
 </style>

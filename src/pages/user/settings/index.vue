@@ -26,7 +26,7 @@ const height = window.height - 45
 
 <style scoped>
 .user{
-  height: v-bind(height - height / 5 - 55 + 'px');
+  height: v-bind(height - height / 5 - 54 + 'px');
   margin-right: 32px;
   padding: 0 v-bind(width / 11 + 'px');
   background: #f7f4f5;

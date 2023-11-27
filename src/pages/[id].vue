@@ -19,12 +19,6 @@ const handleChange = (file: any) =>{
   alert(file.name)
   let formData=new FormData();
   formData.append('file', file.raw)
-  let url = "https://box.nju.edu.cn/api/v2.1/share-links/07d3ddadbcd84a228e26/upload/"
-  let config : AxiosRequestConfig<any> = {
-    timeout: 5000,
-    withCredentials: true
-  }
-  axios.post(url,formData,config)
   request({
     url: '/hello/file',
     method: "POST",
