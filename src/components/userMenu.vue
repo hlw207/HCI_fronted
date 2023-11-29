@@ -114,6 +114,7 @@ const routerTo = (num : number) => {
     loginShow.value = true
   }else {
     router.push(menus.value[num].path)
+    document.documentElement.scrollTop = 0
   }
 }
 
@@ -236,8 +237,13 @@ onUnmounted(() => {
 .user_menu{
   display: flex;
   height: 45px;
-  background: white;
   padding-left: v-bind(windowWidth / 10 + 'px');
+}
+
+@keyframes myFirst
+{
+  from {opacity: 0; top: -30px}
+  to {opacity: 1; top: 0}
 }
 
 .fix{
@@ -245,6 +251,8 @@ onUnmounted(() => {
   box-sizing: border-box;
   width: v-bind(windowWidth + 'px');
   position: fixed;
+  background: white;
+  animation: myFirst 0.5s;
 }
 
 .menu_brand{
@@ -276,7 +284,7 @@ onUnmounted(() => {
 }
 
 .menu_login{
-  z-index: 999;
+  z-index: 989;
   position: fixed;
   right: 400px;
   background: #f9c022;
