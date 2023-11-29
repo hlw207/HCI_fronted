@@ -2,7 +2,7 @@
 import Login from "~/components/login.vue";
 import {useWindowStore} from "~/stores/window";
 import { throttle } from 'lodash';
-import {computed, onMounted, ref, watch} from "vue";
+import {computed, onMounted, onUnmounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {useUserStore} from "~/stores/user";
 import {ArrowRightBold, Message, Pointer, Setting, Star, SwitchButton} from "@element-plus/icons-vue";
@@ -26,7 +26,7 @@ const menus = ref([{is : false, path: "/home"},
   {is : false, path: "/pay"},
   {is : false, path: "/user"}])
 
-// const isShow = computed(() => !props.ifFixed || windows.scrollPositionY >= 45)
+const isShow = computed(() => windows.scrollPositionY >= 1)
 const loginShow = ref(false)
 const registerShow = ref(false)
 const loginInfo = ref(false)
@@ -134,24 +134,24 @@ onMounted(() => {
   pathChoice()
 })
 
-// onMounted(() =>{
-//   // let i : number;
-//   // for (i = 0;i < 5;i++){
-//   //   if (props.pageIndex == menus.value[i].path){
-//   //     menus.value[i].is = true
-//   //   }
-//   // }
-//   window.addEventListener('scroll', windows.handleScroll);
-//
-// })
-// onUnmounted(() => {
-//   window.removeEventListener('scroll', windows.handleScroll);
-// });
+onMounted(() =>{
+  // let i : number;
+  // for (i = 0;i < 5;i++){
+  //   if (props.pageIndex == menus.value[i].path){
+  //     menus.value[i].is = true
+  //   }
+  // }
+  window.addEventListener('scroll', windows.handleScroll);
+
+})
+onUnmounted(() => {
+  window.removeEventListener('scroll', windows.handleScroll);
+});
 </script>
 
 <template>
 <!--  <div class="user_menu" :class="{fix : props.ifFixed}" v-if="isShow">-->
-  <div class="user_menu">
+  <div class="user_menu" :class="{fix : isShow}">
     <div class="menu_brand">
         <img src="../../public/pictures/trademark.png" height="45" alt="wrong.png">
     </div>
@@ -176,17 +176,19 @@ onMounted(() => {
         </span>
     </div>
   </div>
+  <div class="user_menu" v-if="isShow">
+  </div>
   <div class="login_info" v-if="loginInfo">
     <p>登录后你可以：</p>
     <div class="login_info_line">
       <div class="login_info_icon">
-        <el-icon style="color: #26aeea"><Star /></el-icon>
+        <el-icon style="color: #f9c022"><Star /></el-icon>
       </div>
       <div class="login_info_text">
         <span>收藏/取消车辆</span>
       </div>
       <div class="login_info_icon" style="margin-left: 30px">
-        <el-icon style="color: #26aeea"><Pointer /></el-icon>
+        <el-icon style="color: #f9c022"><Pointer /></el-icon>
       </div>
       <div class="login_info_text">
         <span>查看/发布评论</span>
@@ -197,7 +199,7 @@ onMounted(() => {
     </div>
     <div class="login_info_bottom">
       <span>首次使用？</span>
-      <span style="color: #26aeea" @click="register">点我注册</span>
+      <span style="color: #f9c022" @click="register">点我注册</span>
     </div>
   </div>
   <div class="login_profile" v-if="loginClick">
@@ -239,6 +241,8 @@ onMounted(() => {
 }
 
 .fix{
+  z-index: 990;
+  box-sizing: border-box;
   width: v-bind(windowWidth + 'px');
   position: fixed;
 }
@@ -272,10 +276,10 @@ onMounted(() => {
 }
 
 .menu_login{
-  z-index: 991;
-  position: absolute;
+  z-index: 999;
+  position: fixed;
   right: 400px;
-  background: #26aeea;
+  background: #f9c022;
   width: 35px;
   height: 35px;
   margin-top: 7px;
@@ -301,7 +305,7 @@ onMounted(() => {
 }
 
 .menu_phone{
-  position: absolute;
+  position: fixed;
   top: 4px;
   right: 120px;
   box-sizing : border-box;
@@ -311,7 +315,7 @@ onMounted(() => {
 }
 
 .login_info{
-  z-index: 997;
+  z-index: 990;
   position: fixed;
   top: 60px;
   left: v-bind(login_position - 130 + 'px');
@@ -349,7 +353,7 @@ onMounted(() => {
   box-sizing : border-box;
   margin: 15px 16px 5px;
   height: 30px;
-  background: #26aeea;
+  background: #f9c022;
   border-radius: 5px;
   text-align: center;
   padding-top: 5px;
@@ -369,8 +373,8 @@ onMounted(() => {
 }
 
 .login_profile{
-  z-index: 990;
-  position: absolute;
+  z-index: 99;
+  position: fixed;
   top: 60px;
   left: v-bind(login_position - 125 + 'px');
   width: 220px;

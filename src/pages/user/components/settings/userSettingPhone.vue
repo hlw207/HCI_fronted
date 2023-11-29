@@ -40,7 +40,7 @@ const certain = () => {
 
 <template>
   <div class="info">
-    <div style="color: #26aeea;font-size: 15px;padding-left: 5px;border-left: 3px solid #26aeea;">
+    <div style="color: #f9c022;font-size: 15px;padding-left: 5px;border-left: 3px solid #f9c022;">
       手机换绑：
     </div>
     <el-steps style="margin-top: 40px" :active="active" align-center finish-status="success" process-status="finish">
@@ -52,7 +52,7 @@ const certain = () => {
         手机号：&nbsp;&nbsp;{{user.phone}}
       </div>
       <div style="margin-left: 25px">
-        <span style="font-size: 12px;color: #26aeea;cursor: pointer" @click="sendCode" v-if="!count">获取验证码</span>
+        <span style="font-size: 12px;color: #f9c022;cursor: pointer" @click="sendCode" v-if="!count">获取验证码</span>
         <span style="font-size: 12px;color: #9ba3af" @click="sendCode" v-if="count">{{time}}s后重新获取</span>
       </div>
     </div>
@@ -77,7 +77,7 @@ const certain = () => {
                 clearable
       />
       <div style="margin-left: 15px;margin-top: 1px">
-        <span style="font-size: 12px;color: #26aeea;cursor: pointer" @click="sendCode" v-if="!count">获取验证码</span>
+        <span style="font-size: 12px;color: #f9c022;cursor: pointer" @click="sendCode" v-if="!count">获取验证码</span>
         <span style="font-size: 12px;color: #9ba3af" @click="sendCode" v-if="count">{{time}}s后重新获取</span>
       </div>
     </div>
@@ -140,7 +140,7 @@ const certain = () => {
   height: 35px;
   border-radius: 8px;
   text-align: center;
-  background: #26aeea;
+  background: #f9c022;
   color: white;
   border: 1px solid #e3e5e7;
   cursor: pointer;

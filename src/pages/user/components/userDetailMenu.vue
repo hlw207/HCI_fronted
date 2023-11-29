@@ -71,16 +71,15 @@ onMounted(() => {
   display: flex;
   margin-left: 15px;
   margin-right: 15px;
+  cursor: pointer;
 }
 
 .menu_box:hover{
-  color: #fa5c3d;
-  border-bottom: 3px solid #26aeea;;
+  border-bottom: 3px solid #f9c022;;
 }
 
 .active_menu_box{
-  color: #26aeea;
-  border-bottom: 3px solid #26aeea;;
+  border-bottom: 3px solid #f9c022;;
 }
 
 .menu_icon{

@@ -105,7 +105,7 @@ const fileChange = () =>{
 }
 
 .profile_update_active{
-  background: #26aeea;
+  background: #f9c022;
   color: white;
   cursor: pointer;
 }

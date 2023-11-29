@@ -42,5 +42,19 @@ const height = window.height - 45
 .user_settings{
   display: flex;
   height: 400px;
+  animation: myFirst 0.5s;
 }
+
+@keyframes myFirst
+{
+  0% {
+    margin-left: -50px;
+    opacity: 0;
+  }
+  100% {
+    margin-left: 0;
+    opacity: 1;
+  }
+}
+
 </style>

@@ -103,7 +103,7 @@ const rule = (type : number) => {
 
 <template>
   <div class="info">
-    <div style="color: #26aeea;font-size: 15px;padding-left: 5px;border-left: 3px solid #26aeea;">
+    <div style="color: #f9c022;font-size: 15px;padding-left: 5px;border-left: 3px solid #f9c022;">
       密码修改：
     </div>
     <el-steps style="margin-top: 40px" :active="active" align-center finish-status="success" process-status="finish">
@@ -211,7 +211,7 @@ const rule = (type : number) => {
   height: 35px;
   border-radius: 8px;
   text-align: center;
-  background: #26aeea;
+  background: #f9c022;
   color: white;
   border: 1px solid #e3e5e7;
   cursor: pointer;

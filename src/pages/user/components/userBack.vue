@@ -30,7 +30,7 @@ const addSignature = () =>{
 
 <template>
   <div class="user_background">
-      <el-image class="picture_background" src="../../../public/pictures/user_background.png"></el-image>
+      <el-image class="picture_background" src="../../../public/pictures/home/searchBarBackground.png"></el-image>
       <el-image class="user_profile" :src="user.picture"></el-image>
       <div v-if="resize" class="user_profile mask">
         <div style="margin-top: 17px;margin-left: 5px">
@@ -83,7 +83,7 @@ const addSignature = () =>{
   height: 50px;
   width: 50px;
   border-radius: 50px;
-  border: 2px solid yellow;
+  border: 2px solid #f9c022;
   cursor: pointer;
 }
 

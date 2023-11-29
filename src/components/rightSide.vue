@@ -55,7 +55,7 @@ const appear = reactive({
 
 <style scoped>
 .fixed_right{
-  z-index: 1;
+  z-index: 999;
   position: fixed;
   right: 2px;
   top: 0;
