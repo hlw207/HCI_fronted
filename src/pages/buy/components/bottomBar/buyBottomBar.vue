@@ -45,25 +45,25 @@ onMounted(()=>{
 </script>
 
 <template>
-    <div class="collection_bottom">
-        <div class="collection_bottom_main">
-            <div class="collection_bottom_page" style="padding-top: 6px" v-if="real_page != 1" @click="changePage(real_page - 2)">上一页</div>
-            <div class="collection_bottom_page" v-if="1 < real_page - 1" @click="changePage(0)">1</div>
+    <div class="car_bottom">
+        <div class="car_bottom_main">
+            <div class="car_bottom_page" style="padding-top: 6px" v-if="real_page != 1" @click="changePage(real_page - 2)">上一页</div>
+            <div class="car_bottom_page" v-if="1 < real_page - 1" @click="changePage(0)">1</div>
             <div style="margin-top: 12px;margin-left: 3px;margin-right: 3px" v-if="1 < real_page - 2">...</div>
-            <div class="collection_bottom_page" v-if="real_page >= 2" @click="changePage(real_page - 2)">{{real_page - 1}}</div>
-            <div class="collection_bottom_page collection_bottom_page_active">{{real_page}}</div>
-            <div class="collection_bottom_page" v-if="real_page + 1 <= maxPage" @click="changePage(real_page)">{{real_page + 1}}</div>
+            <div class="car_bottom_page" v-if="real_page >= 2" @click="changePage(real_page - 2)">{{real_page - 1}}</div>
+            <div class="car_bottom_page car_bottom_page_active">{{real_page}}</div>
+            <div class="car_bottom_page" v-if="real_page + 1 <= maxPage" @click="changePage(real_page)">{{real_page + 1}}</div>
             <div style="margin-top: 12px;margin-left: 3px;margin-right: 3px" v-if="maxPage > real_page + 2">...</div>
-            <div class="collection_bottom_page" v-if="maxPage > real_page + 1" @click="changePage(maxPage - 1)">{{maxPage}}</div>
-            <div class="collection_bottom_page" style="padding-top: 6px" v-if="real_page != maxPage" @click="changePage(real_page)">下一页</div>
-            <div class="collection_bottom_text">
+            <div class="car_bottom_page" v-if="maxPage > real_page + 1" @click="changePage(maxPage - 1)">{{maxPage}}</div>
+            <div class="car_bottom_page" style="padding-top: 6px" v-if="real_page != maxPage" @click="changePage(real_page)">下一页</div>
+            <div class="car_bottom_text">
                 共 {{maxPage}} 页，跳至
             </div>
-            <input class="collection_bottom_input" type="number" min="1" :max="maxPage" v-model="page">
-            <div class="collection_bottom_text">
+            <input class="car_bottom_input" type="number" min="1" :max="maxPage" v-model="page">
+            <div class="car_bottom_text">
                 页
             </div>
-            <div class="collection_bottom_button" @click="certain">
+            <div class="car_bottom_button" @click="certain">
                 确定
             </div>
         </div>
@@ -71,7 +71,7 @@ onMounted(()=>{
 </template>
 
 <style scoped>
-.collection_bottom{
+.car_bottom{
     display: flex;
     justify-content:center;
     align-items:center;
@@ -79,11 +79,11 @@ onMounted(()=>{
     padding-bottom: 35px;
 }
 
-.collection_bottom_main{
+.car_bottom_main{
     display: flex;
 }
 
-.collection_bottom_page{
+.car_bottom_page{
     box-sizing: border-box;
     height: 30px;
     margin: 0 3px;
@@ -97,22 +97,22 @@ onMounted(()=>{
     cursor: pointer;
 }
 
-.collection_bottom_page:hover{
+.car_bottom_page:hover{
     border: 1px solid #fa5c3d;
     color: #fa5c3d;
 }
 
-.collection_bottom_page_active{
+.car_bottom_page_active{
     background: #fa5c3d;
     color: white;
 }
 
-.collection_bottom_page_active:hover{
+.car_bottom_page_active:hover{
     border: 1px solid rgba(128, 128, 128, 0.4);
     color: white;
 }
 
-.collection_bottom_input{
+.car_bottom_input{
     box-shadow:none;
     outline: none;
     margin-top: 6px;
@@ -124,18 +124,18 @@ onMounted(()=>{
     margin-left: 12px;
 }
 
-.collection_bottom_input:focus{
+.car_bottom_input:focus{
     border: 1px solid #fa5c3d;
 }
 
-.collection_bottom_text{
+.car_bottom_text{
     margin-top: 10px;
     margin-left: 10px;
     font-size: 11px;
     color: #9ba3af;
 }
 
-.collection_bottom_button{
+.car_bottom_button{
     margin-top: 5px;
     margin-left: 10px;
     font-size: 12px;

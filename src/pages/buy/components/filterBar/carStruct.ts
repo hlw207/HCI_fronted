@@ -6,7 +6,8 @@ interface CarStruct{
     image: string,
     time: string,
     mileage: number,
-    source: string
+    source: string,
+    shine: boolean
 }
 
 export {CarStruct}

@@ -21,23 +21,38 @@
         </el-container>
 
         <el-container>
-            <div class="car-container">
+            <div class="car-container" @click="router.push('/detail')">
                 <el-row :span="4" v-for="(group, index) in groupedCars" :key="index">
                     <el-card v-for="car in group" :key="car.id" class="car-item">
                         <div class="car-info">
                             <div class="car-image">
-                                <img :src="car.image" alt="Car Image">
+                                <div class="car_picture">
+                                    <img :src="car.image" alt="Car Image" class="car_picture_main">
+                                </div>
                             </div>
                             <div class="car-details">
                                 <h2>{{ car.brand }} - {{ car.series }}</h2>
-                                <p>价格：{{ car.price }} 元</p>
-                                <p>颜色：{{ car.color }}</p>
+                                <div style="margin: 15px 0 0 0">
+                                    <span style="color: #fa5c3d;font-size: 20px">{{ car.price }} 元 </span>
+                                    <span style="font-size: 16px;"> 首付：{{car.price / 2}} 元</span>
+                                </div>
+                                <div style="display: flex; align-items: center;">
+                                    <p style="margin-right: 150px;">{{ car.color }}</p>
+                                    <el-icon @click.stop="toggleShow(car)" style="font-size: 25px;">
+                                        <Star :style="{ color: isCarShining(car) ? '#fa5c3d' : '#9ba3af'}" />
+                                    </el-icon>
+                                </div>
+                                <div style="color: #9ba3af;font-size: 15px">
+                                    {{car.time}} / {{car.mileage}}万公里 / {{car.source}}
+                                </div>
                             </div>
                         </div>
                     </el-card>
                 </el-row>
             </div>
         </el-container>
+
+        <buy-bottom-bar/>
 
 
     </div>
@@ -47,13 +62,26 @@
 import { computed, reactive } from 'vue';
 import carData from './carData';
 import CarFilters from './carFilters.vue';
+import BuyBottomBar from "~/pages/buy/components/bottomBar/buyBottomBar.vue";
+import {useRouter} from "vue-router";
 
 export default {
     name: 'CarBuyingPage',
     components: {
+        BuyBottomBar,
         CarFilters,
     },
+    methods: {
+        toggleShow(car) {
+            car.shine = !car.shine;
+        },
+        isCarShining(car) {
+            return car.shine;
+        },
+    },
     setup() {
+        const router = useRouter()
+
         const state = reactive({
             selectedBrand: '',
             selectedSeries: '',
@@ -152,6 +180,7 @@ export default {
         };
 
         return {
+            router,
             brands,
             seriesList,
             priceRanges,
@@ -198,8 +227,12 @@ export default {
 
 }
 
+.filled {
+    color: #fa5c3d;
+}
+
 .filters .active {
-    background-color: #409eff;
+    background-color: #ff5040;
     color: #fff;
 }
 
@@ -214,7 +247,7 @@ export default {
     margin-left: 5px;
     margin-right: 5px;
     padding: 2px;
-    border: 1px solid #ccc;
+    border: 1px solid #ff7940;
     border-radius: 10px;
 }
 
@@ -234,6 +267,21 @@ export default {
 .car-image img {
     max-width: 100%;
     max-height: 100%;
+}
+
+.car_picture{
+    overflow: hidden;
+    width: 100%;
+}
+
+.car_picture_main{
+    width: 100%;
+    transition: all 0.5s;
+}
+
+.car_picture_main:hover{
+    transform: scale(110%);
+    transition: all 0.5s;
 }
 
 .car-details {

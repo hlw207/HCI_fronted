@@ -6,7 +6,7 @@ import carData from "~/pages/buy/components/bottomBar/carData";
 export const buyBottomStore = defineStore('buy', {
     state: () => {
         return {
-            total_num : 122,
+            total_num : 130,
             page : 0,
             cars : [] as CarStruct[],
         }
@@ -31,6 +31,7 @@ export const buyBottomStore = defineStore('buy', {
                     time: car.time,
                     mileage: car.mileage,
                     source: car.source,
+                    shine: car.shine,
                 };
                 this.cars.push(info);
             }
