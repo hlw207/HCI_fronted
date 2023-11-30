@@ -2,81 +2,57 @@
     <div class="car-buying-page">
         <h1>我要买车</h1>
 
-        <el-row class="filters">
-            <el-button
-                :class="{ active: selectedBrand === '' }"
-                @click="selectBrand('')"
-            >
-                全部品牌
-            </el-button>
-            <el-button
-                v-for="brand in brands"
-                :key="brand"
-                :class="{ active: selectedBrand === brand }"
-                @click="selectBrand(brand)"
-            >
-                {{ brand }}
-            </el-button>
-        </el-row>
-
-        <el-row class="filters">
-            <el-button
-                :class="{ active: selectedSeries === '' }"
-                @click="selectSeries('')"
-            >
-                全部车系
-            </el-button>
-            <el-button
-                v-for="series in seriesList"
-                :key="series"
-                :class="{ active: selectedSeries === series }"
-                @click="selectSeries(series)"
-            >
-                {{ series }}
-            </el-button>
-        </el-row>
-
-        <el-row class="filters">
-            <el-button
-                :class="{ active: selectedPrice === '' }"
-                @click="selectPrice('')"
-            >
-                全部价格
-            </el-button>
-            <el-button
-                v-for="priceRange in priceRanges"
-                :key="priceRange"
-                :class="{ active: selectedPrice === priceRange }"
-                @click="selectPrice(priceRange)"
-            >
-                {{ priceRange }}
-            </el-button>
-        </el-row>
-
-        <el-row :span="4" v-for="(group, index) in groupedCars" :key="index">
-            <el-card v-for="car in group" :key="car.id" class="car-item">
-                <div class="car-info">
-                    <div class="car-image">
-                        <img :src="car.image" alt="Car Image">
-                    </div>
-                    <div class="car-details">
-                        <h2>{{ car.brand }} - {{ car.series }}</h2>
-                        <p>价格：{{ car.price }} 元</p>
-                        <p>颜色：{{ car.color }}</p>
-                    </div>
+        <el-container>
+            <div class="filter-container">
+                <div class="filter-card">
+                    <car-filters
+                        :selectedBrand="selectedBrand"
+                        :selectedSeries="selectedSeries"
+                        :selectedPrice="selectedPrice"
+                        :brands="brands"
+                        :seriesList="seriesList"
+                        :priceRanges="priceRanges"
+                        :selectBrand="selectBrand"
+                        :selectSeries="selectSeries"
+                        :selectPrice="selectPrice"
+                    ></car-filters>
                 </div>
-            </el-card>
-        </el-row>
+            </div>
+        </el-container>
+
+        <el-container>
+            <div class="car-container">
+                <el-row :span="4" v-for="(group, index) in groupedCars" :key="index">
+                    <el-card v-for="car in group" :key="car.id" class="car-item">
+                        <div class="car-info">
+                            <div class="car-image">
+                                <img :src="car.image" alt="Car Image">
+                            </div>
+                            <div class="car-details">
+                                <h2>{{ car.brand }} - {{ car.series }}</h2>
+                                <p>价格：{{ car.price }} 元</p>
+                                <p>颜色：{{ car.color }}</p>
+                            </div>
+                        </div>
+                    </el-card>
+                </el-row>
+            </div>
+        </el-container>
+
+
     </div>
 </template>
 
 <script>
 import { computed, reactive } from 'vue';
 import carData from './carData';
+import CarFilters from './carFilters.vue';
 
 export default {
     name: 'CarBuyingPage',
-    components: {},
+    components: {
+        CarFilters,
+    },
     setup() {
         const state = reactive({
             selectedBrand: '',
@@ -194,15 +170,42 @@ export default {
     margin-left: 10%;
     margin-right: 1%;
     padding: 5px;
+
 }
+
+.filter-container {
+    width: 100%;
+    height: 180px;
+    background-image: url('/pictures/home/searchBarBackground.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    overflow: clip;
+    border-radius: 10px;
+
+}
+
+.filter-card {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
 
 .filters {
     margin-bottom: 20px;
+
 }
 
 .filters .active {
     background-color: #409eff;
     color: #fff;
+}
+
+.car-container {
+    width: 100%;
+    margin-top: 20px;
 }
 
 .car-item {
