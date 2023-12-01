@@ -7,9 +7,10 @@ export const useUserStore = defineStore('user', {
         return {
             id: -1,
             phone: '15971989001',
-            username: '南大混饭人',
+            username: 'hlw',
+            nickname: '南大混饭人',
             password: '123',
-            picture: PICTURE_ADDR + '/profile/0.jpg',
+            profile: PICTURE_ADDR + '/profile/0.jpg',
             autoGraph: '123'
         }
     },
@@ -18,12 +19,16 @@ export const useUserStore = defineStore('user', {
         fetch() {
             request({
                 url: '/user',
-                method: 'GET'
+                method: 'GET',
+                params: {
+                    username: localStorage.getItem("username")
+                }
             }).then((res) => {
                 this.id = res.data.id
-                this.phone = res.data.phone
                 this.username = res.data.username
-                this.phone = res.data.picture
+                this.phone = res.data.phone
+                this.profile = PICTURE_ADDR + res.data.profile
+                this.autoGraph = res.data.autoGraph
             }).catch((err) => {
                 console.log(err)
             })

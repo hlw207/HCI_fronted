@@ -30,7 +30,6 @@ declare module '@vue/runtime-core' {
     ElInput: typeof import('element-plus/es')['ElInput']
     ElInputNumber: typeof import('element-plus/es')['ElInputNumber']
     ElLink: typeof import('element-plus/es')['ElLink']
-    ElMain: typeof import('element-plus/es')['ElMain']
     ElPopover: typeof import('element-plus/es')['ElPopover']
     ElResult: typeof import('element-plus/es')['ElResult']
     ElRow: typeof import('element-plus/es')['ElRow']
@@ -46,6 +45,7 @@ declare module '@vue/runtime-core' {
     RightSide: typeof import('./components/rightSide.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    UserCollection: typeof import('./pages/user/components/collection/userCollection.vue')['default']
     UserMenu: typeof import('./components/userMenu.vue')['default']
   }
 }

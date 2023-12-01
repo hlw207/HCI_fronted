@@ -1,25 +1,28 @@
 <script setup lang="ts">
 
 import {useWindowStore} from "~/stores/window";
-import {StarFilled} from "@element-plus/icons-vue";
+import {Star, StarFilled} from "@element-plus/icons-vue";
 import {computed, ref} from "vue";
 import {throttle} from "lodash";
 import {useRouter} from "vue-router";
+import {ElMessage} from "element-plus";
 
 const props = defineProps<{
   id: number,
-  picturePath : string,
   name: string,
-  price: number
-  time : string,
+  price: number,
+  color: string,
+  image: string,
+  time: string,
   mileage: number,
-  source: string
+  source: string,
+  shine: boolean
 }>()
 
 const windows = useWindowStore()
 const router = useRouter()
 const position = ref()
-const show = ref(false)
+const shine = ref(false)
 const date = computed(() =>{
   let d = props.time.split('/')
   return d[0] + '年' + d[1] + '月'
@@ -27,22 +30,33 @@ const date = computed(() =>{
 const firstPay = computed(() => (props.price / 4).toFixed(2))
 
 const click = (event) => {
-  if(event.target.className != "collection_button" && event.target.tagName !="path"){
+  if(event.target.className != "collection_button" && event.target.tagName !="path"&& event.target.tagName !="svg"){
     router.push("/detail")
   }
 }
-const clickAt = () =>{
-  window.removeEventListener('click',throttledHandle)
-  show.value = false
+
+const clickStar = () => {
+  ElMessage.success("成功关注")
+  shine.value = true
 }
 
-const throttledHandle = throttle(clickAt, 100);
-const showOut = () => {
-  show.value = true
-  setTimeout(() => {
-    window.addEventListener('click',throttledHandle)
-  }, 50);
+const cancelStar = () => {
+  ElMessage.success("取消关注")
+  shine.value = false
 }
+// const clickAt = () =>{
+//   window.removeEventListener('click',throttledHandle)
+//
+//   show.value = false
+// }
+//
+// const throttledHandle = throttle(clickAt, 100);
+// const showOut = () => {
+//   show.value = true
+//   setTimeout(() => {
+//     window.addEventListener('click',throttledHandle)
+//   }, 50);
+// }
 
 const cancel_collection = () =>{
 }
@@ -53,18 +67,16 @@ const cancel_collection = () =>{
   <div class="collection" @click="click">
     <div class="collection_container">
       <div class="collection_picture">
-          <el-image :src="props.picturePath" class="collection_picture_main"></el-image>
+        <el-image :src="props.image" class="collection_picture_main"></el-image>
       </div>
       <el-icon class="collection_icon">
-        <StarFilled @click="showOut"/>
-        <div class="collection_cancel" v-if="show">
-          <div class="collection_cancel_main" ref="position" @click="cancel_collection">取消收藏</div>
-        </div>
+        <StarFilled class="show" v-if="shine" @click="cancelStar"/>
+        <StarFilled style="color: white" v-if="!shine" @click="clickStar"><Star /></StarFilled>
       </el-icon>
     </div>
     <div class="collection_text">
       <div style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin: 10px 8px 0">
-       <span>{{props.name}} 2021款 586E</span>
+        <span>{{props.name}} 2021款 586E</span>
       </div>
       <div style="color: #9ba3af;font-size: 11px;margin: 5px 0 0 8px">
         {{date}} / {{props.mileage}}万公里 / {{props.source}}
@@ -81,9 +93,16 @@ const cancel_collection = () =>{
 </template>
 
 <style scoped>
+@keyframes myFirst
+{
+  0% {opacity: 0; margin-top: 0}
+  50% {opacity: 1; margin-top: -10px}
+  100% {opacity: 1; margin-top: 0}
+}
+
 .collection{
   box-sizing: border-box;
-  width: 23%;
+  width: 25%;
   margin: 1% 1%;
   cursor: pointer;
   padding: 1px 1px 5px;
@@ -140,7 +159,6 @@ const cancel_collection = () =>{
 
 .collection_icon{
   position: absolute;
-  z-index: 100;
   color: #f0a03c;
   bottom: 5px;
   right: 10px;
@@ -169,5 +187,9 @@ const cancel_collection = () =>{
 .collection_cancel_main:hover{
   color: #26aeea;
   background: rgba(128, 128, 128, 0.1);
+}
+
+.show{
+  animation: myFirst 0.5s;
 }
 </style>

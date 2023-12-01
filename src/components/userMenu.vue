@@ -7,6 +7,7 @@ import {useRoute, useRouter} from "vue-router";
 import {useUserStore} from "~/stores/user";
 import {ArrowRightBold, Message, Pointer, Setting, Star, SwitchButton} from "@element-plus/icons-vue";
 import {ElNotification} from "element-plus";
+import {request} from "~/utils/request";
 
 // const props = defineProps<{
 //   pageIndex: string
@@ -91,6 +92,17 @@ const setRegister = () => {
 
 const exit = () =>{
   user.id = -1;
+  request({
+    url: '/logout',
+    method: 'POST',
+    params: {
+      username: localStorage.getItem("username")
+    }
+  }).then((res) => {
+    localStorage.removeItem("username")
+  }).catch((err) => {
+    console.log(err)
+  })
   loginClick.value = false
   window.removeEventListener('mousemove',throttledHandle1)
   router.push('/')
@@ -127,11 +139,25 @@ const pathChoice = () =>{
   }
 }
 
-watch(route,() => {
-  pathChoice()
-})
+const session = () => {
+  if(localStorage.getItem("username") == null)
+    return
+  else {
+    request({
+      url: '/session',
+      method: 'POST',
+      params: {
+        username : localStorage.getItem("username")
+      }
+    }).then((res) => {
+      user.fetch()
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
+}
 
-onMounted(() => {
+watch(route,() => {
   pathChoice()
 })
 
@@ -142,8 +168,9 @@ onMounted(() =>{
   //     menus.value[i].is = true
   //   }
   // }
+  pathChoice()
   window.addEventListener('scroll', windows.handleScroll);
-
+  session()
 })
 onUnmounted(() => {
   window.removeEventListener('scroll', windows.handleScroll);
@@ -169,7 +196,7 @@ onUnmounted(() => {
           登录
       </div>
     </div>
-    <el-image class="menu_login" @mouseenter="clickProfile" :class="{menu_login_active : loginClick}" v-if="user.id != -1" @click="router.push('/user')" :src="user.picture">
+    <el-image class="menu_login" @mouseenter="clickProfile" :class="{menu_login_active : loginClick}" v-if="user.id != -1" @click="router.push('/user')" :src="user.profile">
     </el-image>
     <div class="menu_phone">
        <span>

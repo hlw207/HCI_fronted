@@ -31,7 +31,7 @@ const addSignature = () =>{
 <template>
   <div class="user_background">
       <el-image class="picture_background" src="../../../public/pictures/home/searchBarBackground.png"></el-image>
-      <el-image class="user_profile" :src="user.picture"></el-image>
+      <el-image class="user_profile" :src="user.profile"></el-image>
       <div v-if="resize" class="user_profile mask">
         <div style="margin-top: 17px;margin-left: 5px">
           <span>修改头像</span>

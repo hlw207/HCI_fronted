@@ -8,7 +8,6 @@ import {useRouter} from "vue-router";
 
 const collection_list = ref([] as CarCollection[][])
 const collections = useCollectionStore()
-const router = useRouter()
 
 watch(collections,()=>{
   changeCollection()
@@ -42,7 +41,7 @@ const changeCollection = () =>{
       我的收藏：
     </div>
     <template v-for="collection_line in collection_list">
-      <div class="collection_line" @click="router.push('/detail')">
+      <div class="collection_line">
         <template v-for="collection in collection_line">
             <UserCollection :id="collection.id" :picture-path="collection.picturePath" :price="collection.price" :name="collection.name" :time="collection.time" :mileage="collection.mileage" :source="collection.source"/>
         </template>

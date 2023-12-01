@@ -4,6 +4,8 @@ import {Close} from "@element-plus/icons-vue";
 import {computed, reactive, ref, watch} from "vue";
 import {ElMessage} from "element-plus";
 import {useUserStore} from "~/stores/user";
+import {request} from "~/utils/request";
+import {PICTURE_ADDR} from "~/config";
 
 const windows = useWindowStore()
 const user = useUserStore()
@@ -36,12 +38,25 @@ const login = () => {
   else if(information.password == ''){
     ElMessage.error('密码未输入')
   }
-  else if(information.username == 'hlw'&& information.password == '123'){
-    ElMessage.success('登录成功')
-    user.id = 0;
+  else{
+    localStorage.setItem("username", information.username)
+    // user.id = 0;
+    request({
+      url: '/login',
+      method: 'POST',
+      params:{
+        username: information.username,
+        password: information.password
+      }
+    }).then((res) => {
+      user.fetch()
+      ElMessage.success('登录成功')
+    }).catch((err) => {
+      localStorage.removeItem("username")
+      console.log(err)
+      ElMessage.error('账号或密码错误')
+    })
     clear()
-  }else {
-    ElMessage.error('账号或用户名错误')
   }
 }
 const clear = () => {

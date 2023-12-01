@@ -23,7 +23,7 @@ const changeProfile = () =>{
 }
 
 const update = () =>{
-  user.picture = choiceSrc.value
+  user.profile = choiceSrc.value
   choiceSrc.value = ''
   ElMessage({
     message: '更新成功',
@@ -52,7 +52,7 @@ onMounted(()=>{
     <div class="profile">
        <div class="profile_main">
          <div style="width: 50%">
-          <el-image class="profile_image" :src="choiceSrc != '' ? choiceSrc : user.picture"></el-image>
+          <el-image class="profile_image" :src="choiceSrc != '' ? choiceSrc : user.profile"></el-image>
            <div style="margin-top: 15px;margin-left:3px;color: #9ba3af;font-size: 13px">
              当前头像
            </div>

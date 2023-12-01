@@ -1,14 +1,14 @@
-<template>
-    <div class="buyContainer">
-        <FilterBar />
-    </div>
-</template>
-
 <script setup lang="ts">
 
 import FilterBar from "~/pages/buy/components/filterBar/index.vue"
 
 </script>
+
+<template>
+    <div class="buyContainer">
+        <FilterBar />
+    </div>
+</template>
 
 <style>
 .buyContainer {

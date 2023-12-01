@@ -4,6 +4,7 @@ import {useRoute, useRouter} from "vue-router";
 import {ref, onMounted, watch} from "vue";
 import {Message, Setting, Star, SwitchButton} from "@element-plus/icons-vue";
 import {useUserStore} from "~/stores/user";
+import {request} from "~/utils/request";
 
 const window = useWindowStore()
 const width = window.width
@@ -25,6 +26,17 @@ const pathChoice = () =>{
 
 const exit = () =>{
   user.id = -1;
+  request({
+    url: '/logout',
+    method: 'POST',
+    params: {
+      username: localStorage.getItem("username")
+    }
+  }).then((res) => {
+    localStorage.removeItem("username")
+  }).catch((err) => {
+    console.log(err)
+  })
   router.push('/')
 }
 

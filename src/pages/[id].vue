@@ -2,6 +2,7 @@
 import {UploadFilled} from "@element-plus/icons-vue";
 import {request} from "~/utils/request";
 import axios, {AxiosRequestConfig} from "axios";
+import {onMounted} from "vue";
 
 const up = () =>{
   request({

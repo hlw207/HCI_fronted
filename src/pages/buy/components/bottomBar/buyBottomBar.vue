@@ -1,10 +1,10 @@
 <script setup lang="ts">
 
 import {onMounted, ref, watch} from "vue";
-import {buyBottomStore} from "~/pages/buy/components/bottomBar/buyBottomStore";
+import {useBuyBottomStore} from "~/stores/buyBottomStore";
 
 
-const carsBuy = buyBottomStore()
+const carsBuy = useBuyBottomStore()
 const maxPage = ref()
 const real_page = ref()
 const page = ref()
@@ -19,7 +19,7 @@ watch(page,(()=>{
 }))
 
 watch(carsBuy,(()=>{
-    maxPage.value = carsBuy.total_num == 0 ? 1 : Math.floor((carsBuy.total_num - 1) / 12) + 1
+    maxPage.value = carsBuy.total_num == 0 ? 1 : Math.floor((carsBuy.total_num - 1) / 32) + 1
 }))
 
 const certain = () => {
@@ -40,7 +40,7 @@ onMounted(()=>{
     carsBuy.fetch(0)
     page.value = carsBuy.page + 1
     real_page.value = old_page.value = page.value
-    maxPage.value = Math.floor(carsBuy.total_num / 12) + 1
+    maxPage.value = Math.floor(carsBuy.total_num / 32) + 1
 })
 </script>
 
