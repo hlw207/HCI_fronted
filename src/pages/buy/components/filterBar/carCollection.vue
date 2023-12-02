@@ -71,7 +71,7 @@ const cancel_collection = () =>{
       </div>
       <el-icon class="collection_icon">
         <StarFilled class="show" v-if="shine" @click="cancelStar"/>
-        <StarFilled style="color: white" v-if="!shine" @click="clickStar"><Star /></StarFilled>
+        <StarFilled style="color: #9ba3af" v-if="!shine" @click="clickStar"><Star /></StarFilled>
       </el-icon>
     </div>
     <div class="collection_text">

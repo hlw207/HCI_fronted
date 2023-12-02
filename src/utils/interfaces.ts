@@ -20,4 +20,9 @@ interface CarStruct{
   shine: boolean
 }
 
-export {CarCollection, CarStruct}
+interface TypeChoose{
+  type: string,
+  choose : boolean
+}
+
+export {CarCollection, CarStruct, TypeChoose}

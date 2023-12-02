@@ -1,6 +1,6 @@
 <template>
     <div class="detailContainer">
-        <SearchBar />
+<!--        <SearchBar />-->
         <CarBar />
         <SimilarBar />
         <ReportBar />

@@ -1,13 +1,13 @@
 <template>
   <div class="filterContainer">
     <div class="filterBuyContainer">
-      <div class="filterTitle">
+      <div class="filterTitle" style="margin-left: 32px">
         <el-text tag="b" style="font-size: 22px">我要买车</el-text>
         <Filter />
       </div>
     </div>
     <div class="filterSellContainer">
-      <div class="filterTitle">
+      <div class="filterTitle" style="margin-top: 42px">
         <el-text tag="b" style="font-size: 22px">我要卖车</el-text>
         <Sell />
       </div>
@@ -63,7 +63,7 @@ import Sell from '~/pages/home/components/filterBar/components/sell.vue'
 }
 
 .filterSellContainer{
-  width: 40%;
+  width: 50%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -72,7 +72,6 @@ import Sell from '~/pages/home/components/filterBar/components/sell.vue'
 .filterTitle{
   width: 100%;
   margin-top: 30px;
-  margin-left: 30px;
 }
 
 </style>

@@ -7,7 +7,9 @@
           <span style="margin-left: 10px;font-size: 20px">{{mark.name}}</span>
         </div>
         <div class="singleMark" @click="drawer = true">
-          <span style="font-size: 15px;margin-left: 20px">所有品牌</span>
+          <div style="font-size: 14px;margin-left: 20px;width: 28px;margin-right: 10px">
+            所有品牌
+          </div>
           <el-icon >
             <ArrowRight />
           </el-icon>

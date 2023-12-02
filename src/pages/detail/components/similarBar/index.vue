@@ -24,7 +24,7 @@ const cars = ref([
 
 ]);
 
-const similarDivTop = ref('580px');
+const similarDivTop = ref('615px');
 
 const updateSimilarDivPosition = () => {
     const scrollTop = document.documentElement.scrollTop;
@@ -35,7 +35,7 @@ const updateSimilarDivPosition = () => {
         if(scrollTop > 580 + similarDivHeight - viewportHeight){
             similarDivTop.value = scrollTop - similarDivHeight + viewportHeight + "px";
         }else{
-            similarDivTop.value = 580 + "px";
+            similarDivTop.value = 615 + "px";
         }
     }
 };
@@ -53,7 +53,7 @@ onUnmounted(() => {
 .similarDiv {
     position: absolute;
     background-color: #e0e0e0;
-    right: 35px;
+    right: 32px;
     width: 250px;
     display: flex;
     flex-direction: column;

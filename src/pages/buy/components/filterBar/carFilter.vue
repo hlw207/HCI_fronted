@@ -1,18 +1,34 @@
 <script setup lang="ts">
 import {useCarsData} from "~/stores/carsData";
-import {onMounted, reactive, ref, watch} from "vue";
+import {computed, onMounted, reactive, ref, watch} from "vue";
 import TypeChoice from "~/pages/buy/components/filterBar/typeChoice.vue";
 import {ElMessage} from "element-plus";
+import {useRouter} from "vue-router";
+import {Search} from "@element-plus/icons-vue";
+import ChooseBox from "~/pages/buy/components/filterBar/chooseBox.vue";
+import ExtraBox from "~/pages/buy/components/filterBar/extraBox.vue";
 
+const router = useRouter()
 const carsData = useCarsData()
 const choice = reactive({
-  brand: "不限",
-  carType: "不限",
-  price: "不限",
+  brand: '不限',
+  carType: '不限',
+  price: '不限',
 })
 
 const startPrice = ref('')
 const endPrice = ref('')
+const show = ref(true)
+const isShow = computed(()=>{
+  let result = false
+  Object.values(choice).forEach(value => {
+    if(value != '不限'){
+      result = true
+    }
+  });
+  return result
+})
+
 
 watch(startPrice, ()=>{
   let num = parseInt(startPrice.value);
@@ -30,6 +46,20 @@ watch(endPrice, ()=>{
     endPrice.value = num.toString()
 })
 
+watch(choice,()=>{
+  show.value = false
+  setTimeout(()=>{
+    show.value = true
+  },1)
+  let querys = {}
+  Object.keys(choice).forEach(key => {
+    if(choice[key] != '不限'){
+      querys[key] = choice[key]
+    }
+  });
+  router.push({path: '/buy',query: querys})
+})
+
 const choose = (type : string, title: string) =>{
   if(type == "brands"){
     choice.brand = title;
@@ -37,6 +67,9 @@ const choose = (type : string, title: string) =>{
   }else if(type == "carTypes"){
     choice.carType = title;
   }else if(type == "prices"){
+    if(carsData.prices.length > 9){
+      carsData.prices.pop()
+    }
     if(title == '不限'){
       startPrice.value = endPrice.value= ''
     }else if (title == '3万以下'){
@@ -54,15 +87,52 @@ const choose = (type : string, title: string) =>{
   }
 }
 
+const clickItem = (n : number)=>{
+  if(n == 0){
+    router.push('/home')
+  }else if(n == 1){
+    choose("brands","不限")
+  }else if(n == 2){
+    choose("brands",choice.brand)
+  }
+}
+
+const cancel = (type : string) =>{
+  choice[type] = '不限'
+}
+
+const clear = () => {
+  Object.keys(choice).forEach(key => {
+    choice[key] = '不限'
+  });
+}
+
 const certainNum = () =>{
   if(parseInt(endPrice.value) <= parseInt(startPrice.value)){
     ElMessage.warning("第二个值要更大哦")
     startPrice.value = endPrice.value = ''
     return
   }
+
   if(carsData.prices.length > 9){
     carsData.prices.pop()
   }
+
+  if(startPrice.value  + "-" + endPrice.value+ "万" == "0-3万"){
+    choice.price = '3万以下'
+    return;
+  }else if(startPrice.value  + "-" + endPrice.value+ "万" == "30-1000万"){
+    choice.price = '30万以上'
+    return;
+  }
+  let i:number
+  for (i = 0;i < carsData.prices.length;i++){
+    if(startPrice.value  + "-" + endPrice.value+ "万" == carsData.prices[i]){
+      choice.price = carsData.prices[i]
+      return;
+    }
+  }
+
   carsData.prices.push(startPrice.value  + "-" + endPrice.value+ "万")
   choice.price =  carsData.prices[carsData.prices.length - 1]
 }
@@ -73,6 +143,26 @@ onMounted(()=>{
 </script>
 
 <template>
+  <div class="top_show" v-if="show"></div>
+
+  <div class="top_container">
+    <div class="top_text" @click="clickItem(0)">二手车主页</div>
+    <div class="top_text extra_text"> > </div>
+    <div class="top_text" @click="clickItem(1)">二手车出售</div>
+    <div class="top_text extra_text" v-if="choice.brand != '不限'"> > </div>
+    <div class="top_text" v-if="choice.brand != '不限'" @click="clickItem(2)"> {{choice.brand}} </div>
+    <div class="top_text extra_text" v-if="choice.carType != '不限'"> > </div>
+    <div class="top_text" v-if="choice.carType != '不限'" @click="clickItem(3)"> {{choice.carType}} </div>
+    <div class="top_search">
+      <div class="top_search_left">
+        <input class="top_search_input" placeholder="二手车搜索"/>
+      </div>
+      <div class="top_search_right">
+        <el-icon style="margin-left: 20%"><Search /></el-icon>
+      </div>
+    </div>
+  </div>
+
   <div class="filter-container">
     <div class="filter-brand">
       <div class="filter-title">品牌:</div>
@@ -108,14 +198,118 @@ onMounted(()=>{
         <div class="filter-certain" @click="certainNum" v-if="endPrice!=''&&startPrice!=''">确 定</div>
       </div>
     </div>
-    <div></div>
+    <div class="filter-extra">
+      <div class="filter-title">更多:</div>
+      <div class="filter-main">
+        <ExtraBox :choose="[{choose:false,type:'123'},{choose:false,type:'123'},{choose:false,type:'123'},{choose:false,type:'123'},{choose:false,type:'123'}]" type="何立伟"/>
+        <ExtraBox :choose="[]" type="何立伟123"/>
+      </div>
+    </div>
+  </div>
+
+  <div class="filter-bottom">
+    <div v-if="isShow" style="margin-right: 10px">已选: </div>
+    <template v-for="(content, key) in choice">
+      <ChooseBox :content=content :type="key" @cancel="cancel" v-if="content != '不限'"/>
+    </template>
+    <div v-if="isShow" class="bottom_text" @click="clear">重置条件</div>
   </div>
 </template>
 
 <style scoped>
+@keyframes myFirst
+{
+  0% {width: 0}
+  100% {width: 100%}
+}
+
+.top_show{
+  top: 0;
+  left: 0;
+  position: fixed;
+  height: 1.5px;
+  width: 0;
+  background: #fc6c2b;
+  animation: myFirst 0.3s;
+}
+
+.top_container{
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 65px;
+}
+
+.top_text{
+  margin-right: 10px;
+  font-size: 11px;
+  color: #7c7c7c;
+  cursor: pointer;
+}
+
+.extra_text{
+  margin-top: 1px;
+  pointer-events: none;
+}
+
+.top_search{
+  display: flex;
+  align-items: center;
+  position: absolute;
+  right: 20px;
+  width: 220px;
+  height: 32px;
+  border-radius: 50px;
+  border: 1px solid rgba(128, 128, 128, 0.3);
+}
+
+.top_search:focus-within{
+  border: 1px solid #f2711c;
+}
+
+.top_search_left{
+  display: flex;
+  align-items: center;
+  width: 82%;
+  height: 100%;
+  border-radius: 50px 0 0 50px;
+}
+
+.top_search_input{
+  border: none;
+  box-shadow:none;
+  outline: none;
+  font-size: 13px;
+  margin-left: 5%;
+  width: 95%;
+  height: 80%;
+}
+
+.top_search_input::placeholder{
+  font-size: 11px;
+  color: #9ba3af;
+}
+
+.top_search_right{
+  display: flex;
+  align-items: center;
+  width: 18%;
+  height: 100%;
+  border-radius:0 50px 50px 0;
+  cursor: pointer;
+}
+
+.top_search_right:hover{
+  color: white;
+  background: #f2711c;
+}
+
+.top_text:hover{
+  color: #f2711c;
+}
+
 .filter-container {
   width: 100%;
-  margin-top: 30px;
   background: #f8f8f8;
   border-radius: 0;
 }
@@ -135,6 +329,13 @@ onMounted(()=>{
 }
 
 .filter-prices{
+  display: flex;
+  margin: 0 12px;
+  padding: 5px 0;
+  border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+}
+
+.filter-extra{
   display: flex;
   margin: 0 12px;
   padding: 5px 0;
@@ -195,4 +396,22 @@ onMounted(()=>{
   cursor: pointer;
 }
 
+.filter-bottom{
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+  align-items: center;
+  font-size: 11px;
+}
+
+.bottom_text{
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.bottom_text:hover{
+  color: #f2711c;
+}
 </style>

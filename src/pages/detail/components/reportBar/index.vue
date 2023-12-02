@@ -28,7 +28,7 @@ const projects = [
 
 <style scoped>
 .reportDiv {
-    margin: 20px 295px 20px 10px;
+    margin: 20px 347px 20px 65px;
     border: 1px solid #ccc;
     border-radius: 10px;
     padding: 20px;

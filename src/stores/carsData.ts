@@ -29,6 +29,10 @@ export const useCarsData = defineStore("carsData", {
             this.prices.push("不限","3万以下","3-5万","5-8万","8-10万","10-15万","15-20万","20-30万","30万以上")
         },
         getCarTypes(brand: string){
+            if(brand == '不限'){
+                this.carTypes = ['不限']
+                return
+            }
             request({
                 url: '/carTypes',
                 method: 'GET',

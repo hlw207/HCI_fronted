@@ -51,8 +51,6 @@ const changeCollection = () =>{
           </template>
         </div>
         <buy-bottom-bar/>
-
-
     </div>
 </template>
 
@@ -63,7 +61,7 @@ const changeCollection = () =>{
 }
 
 .car-collection{
-  margin: 20px 0;
+  margin: 10px 0;
 }
 
 .collection_line{

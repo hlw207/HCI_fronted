@@ -5,8 +5,8 @@
       <el-input placeholder="请输入手机号" />
 
       <div style="display: flex;flex-direction: row;align-items: center;margin-top: 10px">
-        <el-input v-model="cert" maxlength="6" placeholder="验证码"/>
-        <el-button color="#eda01f" style="width: 80px" plain @click="loginState=true">获取验证码</el-button>
+        <el-input v-model="cert" maxlength="6" placeholder="验证码" style="margin-right: 10px;height: 30px"/>
+        <el-button color="#eda01f" style="width: 70px;font-size: 10px;height: 28px" plain @click="loginState=true">获取验证码</el-button>
       </div>
     </div>
 
@@ -116,7 +116,6 @@ const onSubmit = () => {
   height: 200px;
   display: flex;
   flex-direction: row;
-  align-items: center;
 }
 .sellPredict{
   width: 50%;
@@ -130,11 +129,12 @@ const onSubmit = () => {
 .sellUser{
   width: 40%;
   height: 100%;
-  padding-right: 10px;
+  padding-right: 30px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   border-right: 1px solid #808080;
+  margin-right: 10px;
 }
 </style>

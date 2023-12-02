@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import {ref, onMounted, computed} from 'vue';
 import ImageModal from '~/pages/detail/components/image/imageModal.vue';
+import {Star, StarFilled} from "@element-plus/icons-vue";
+import {ElMessage} from "element-plus";
 
 const ImageModalRef = ref()
 
@@ -24,6 +26,7 @@ const thumbnailContainer = ref(null);
 const thumbnailWidth = ref(130); // 设置缩略图的宽度
 const isLeftArrowHovered = ref(false);
 const isRightArrowHovered = ref(false);
+const shine = ref('false')
 
 const nextPicture = () => {
     currentPictureIndex.value = (currentPictureIndex.value + 1) % pictures.length;
@@ -63,6 +66,16 @@ const handleArrowHover = (hovered, direction) => {
         isRightArrowHovered.value = hovered;
     }
 };
+
+const clickStar = () => {
+  ElMessage.success("成功关注")
+  shine.value = true
+}
+
+const cancelStar = () => {
+  ElMessage.success("取消关注")
+  shine.value = false
+}
 
 const leftArrowImage = computed(() => isLeftArrowHovered.value ? '../../../../public/pictures/arrow-left-over.jpg' : '../../../../public/pictures/arrow-left.jpg');
 const rightArrowImage = computed(() => isRightArrowHovered.value ? '../../../../public/pictures/arrow-right-over.jpg' : '../../../../public/pictures/arrow-right.jpg');
@@ -143,7 +156,13 @@ onMounted(() => {
             <!-- 车辆信息 -->
             <div class="carInfo">
                 <!-- 1. 车辆名称 -->
-                <div class="carName">车辆名称</div>
+                <div class="carName">
+                  车辆名称
+                  <el-icon class="collection_icon">
+                    <StarFilled class="show" v-if="shine" @click="cancelStar"/>
+                    <StarFilled style="color: #9ba3af;" v-if="!shine" @click="clickStar"><Star /></StarFilled>
+                  </el-icon>
+                </div>
 
                 <!-- 2. 车辆价格 -->
                 <div class="carPrice">
@@ -186,7 +205,7 @@ onMounted(() => {
                 </div>
 
                 <!-- 4. 购车按钮 -->
-                <button class="buyButton">购车</button>
+                <button class="buyButton">预约看车</button>
             </div>
         </div>
     </div>
@@ -194,14 +213,14 @@ onMounted(() => {
 
 <style scoped>
 .carDiv {
-    margin: 40px 35px 20px 35px;
-    height: 480px;
+    margin: 40px 97px 30px 65px;
+    height: 500px;
     display: flex;
     overflow: hidden;
 }
 
 .carPicture {
-    width: 600px;
+    width: 50%;
     display: flex;
     flex-direction: column;
     position: relative;
@@ -334,6 +353,8 @@ onMounted(() => {
 }
 
 .carInfo {
+  margin-left: 10px;
+  margin-top: -20px;
     flex: 1; /* 占据剩余空间 */
     padding: 40px;
     display: flex;
@@ -341,27 +362,29 @@ onMounted(() => {
 }
 
 .carName {
-    font-size: 28px;
+    display: flex;
+    font-size: 25px;
     margin-bottom: 20px;
+    margin-left: 40px;
 }
 
 .carPrice {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+     margin-left: 40px;
     margin-bottom: 30px;
 }
 
 .totalPrice {
-    font-size: 40px;
+    font-size: 32px;
     color: orangered;
     font-weight: bold;
 }
 
 .downPayment {
-    font-size: 16px;
-    margin-top: 20px;
-    margin-right: 200px;
+    font-size: 14px;
+    margin-top: 18px;
+    margin-left: 20px;
     color: #666; /* 灰色 */
 }
 
@@ -379,7 +402,7 @@ onMounted(() => {
 
 .detailContainer {
     flex: 1;
-    height: 80px;
+    height: 65px;
     padding: 10px;
     margin-right: 10px;
     display: flex;
@@ -387,7 +410,7 @@ onMounted(() => {
 }
 
 .value {
-    font-size: 28px;
+    font-size: 24px;
     color: black;
     text-align: center; /* 水平居中 */
 }
@@ -401,16 +424,19 @@ onMounted(() => {
 
 
 .buyButton {
-    margin-right: 10px;
+    margin-left: 30px;
     margin-top: 5px;
     padding: 10px 20px;
     background-color: #ff8621;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: none;
     color: white;
-    height: 80px;
+    height: 50px;
     width: 160px;
     border-radius: 5px;
-    font-size: 30px;
+    font-size: 20px;
     cursor: pointer;
     /* 添加样式 */
     transition: background-color 0.3s ease; /* 添加过渡效果 */
@@ -419,6 +445,15 @@ onMounted(() => {
 .buyButton:hover {
     background-color: #ffb072; /* 鼠标悬停时的背景颜色 */
 }
+
+
+.collection_icon{
+  color: #f0a03c;
+  margin-left: 20px;
+  font-size: 35px;
+  cursor: pointer;
+}
+
 
 .fade-enter-from{
     opacity: 0.5;
@@ -433,4 +468,6 @@ onMounted(() => {
 .fade-leave-active {
     transition: opacity 0.5s;
 }
+
+
 </style>

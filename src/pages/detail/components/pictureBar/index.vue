@@ -96,7 +96,7 @@ const openPicture = (url) =>{
 
 <style scoped>
 .pictureDiv {
-    margin: 20px 295px 20px 5px;
+    margin: 35px 347px 35px 65px;
     display: flex;
     flex-direction: column;
 }
@@ -109,7 +109,7 @@ const openPicture = (url) =>{
     background-color: white;
     border: 1px solid #ddd; /* 更浅的边框颜色 */
     border-radius: 8px;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 添加轻微阴影 */
 }
 

@@ -84,7 +84,7 @@ const parameterDetails = {
 
 <style scoped>
 .configDiv {
-    margin: 20px 295px 20px 5px;
+    margin: 20px 347px 20px 65px;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 10px;
