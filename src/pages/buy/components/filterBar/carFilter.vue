@@ -16,6 +16,9 @@ const choice = reactive({
   price: '不限',
 })
 
+const searchShow = ref(false)
+
+const searchInfo = ref('')
 const startPrice = ref('')
 const endPrice = ref('')
 const show = ref(true)
@@ -60,10 +63,20 @@ watch(choice,()=>{
   router.push({path: '/buy',query: querys})
 })
 
+const input_info = () =>{
+  searchShow.value = false
+}
+
+const submit = (data : string) => {
+  searchInfo.value = data
+  input_info()
+}
+
 const choose = (type : string, title: string) =>{
   if(type == "brands"){
     choice.brand = title;
     carsData.getCarTypes(choice.brand)
+    choice.carType = '不限'
   }else if(type == "carTypes"){
     choice.carType = title;
   }else if(type == "prices"){
@@ -154,12 +167,13 @@ onMounted(()=>{
     <div class="top_text extra_text" v-if="choice.carType != '不限'"> > </div>
     <div class="top_text" v-if="choice.carType != '不限'" @click="clickItem(3)"> {{choice.carType}} </div>
     <div class="top_search">
-      <div class="top_search_left">
-        <input class="top_search_input" placeholder="二手车搜索"/>
+      <div class="top_search_left" @click="searchShow = true">
+        <input class="top_search_input" placeholder="二手车搜索" v-model="searchInfo" @input="input_info"/>
       </div>
       <div class="top_search_right">
         <el-icon style="margin-left: 20%"><Search /></el-icon>
       </div>
+      <CascaderChoose :left="0" :top="40" :is-show="searchShow" @disShow="searchShow = false" @submit="submit"/>
     </div>
   </div>
 

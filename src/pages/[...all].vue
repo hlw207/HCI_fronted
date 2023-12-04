@@ -1,23 +1,12 @@
 <script setup lang="ts">
+import {ref} from "vue";
+
+const show = ref(true)
 </script>
 
 <template>
-  <div class="flex">
-    <div class="flex1">
-      123
-    </div>
-    <div class="flex1">
-      123
-    </div>
-    <div class="flex1">
-      123
-    </div>
-    <div class="flex1">
-      123
-    </div>
-    <div class="flex1">
-      123
-    </div>
+  <div style="background: #f2711c;width: 100px;height: 30px;position: relative">
+    <CascaderChoose @disShow="show = false" :top="30" :left="0" :is-show="show"/>
   </div>
 </template>
 

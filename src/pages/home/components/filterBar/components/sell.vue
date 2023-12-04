@@ -72,7 +72,7 @@
         </el-form-item>
         <el-form-item>
           <div style="width: 100%;display: flex;flex-direction: row;justify-content: end;align-items: center">
-            <el-button size="large"  color="#eda01f"  type="primary" style="color: white" @click="onSubmit;">爱车估价</el-button>
+            <el-button size="large"  color="#eda01f"  type="primary" style="color: white" @click="onSubmit">爱车估价</el-button>
             <el-button size="large" color="#eda01f" @click="sellDialogShow = false" plain>取消</el-button>
           </div>
         </el-form-item>
@@ -106,6 +106,7 @@ const handleChange = (value) =>{
   console.log(value)
 }
 const onSubmit = () => {
+  alert(form.value.type)
   console.log(form)
 }
 </script>
