@@ -92,14 +92,10 @@
       </div>
     </div>
     <div class="bottomBar">
-      <el-steps :space="800" :active="1" style="margin-left: 350px;">
-        <el-step title="企业基本信息">
-          <i class="step01" slot="icon"></i>
-        </el-step>
-        <el-step title="步骤 2" icon="el-icon-upload">
-        </el-step>
-        <el-step title="步骤 3" icon="el-icon-picture">
-        </el-step>
+      <el-steps :active="1" finish-status="success" simple>
+        <el-step title="输入手机号" />
+        <el-step title="完善相关信息" />
+        <el-step title="等待审核" />
       </el-steps>
     </div>
   </div>
@@ -250,14 +246,12 @@ const onSubmit = () => {
 .bottomBar{
   width: 100%;
   height: 100px;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .formItem{
   margin-bottom: 30px;
 }
 
-.steps{
 
-}
 </style>
