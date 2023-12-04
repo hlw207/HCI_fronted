@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {useWindowStore} from "~/stores/window";
-import {ChatDotRound, Download, Edit, PhoneFilled} from "@element-plus/icons-vue";
-import {reactive} from "vue";
+import {ChatDotRound, Download, Edit, PhoneFilled, Top} from "@element-plus/icons-vue";
+import {onMounted, reactive, ref} from "vue";
 
 const windows = useWindowStore()
 const height = windows.height
@@ -11,8 +11,25 @@ const appear = reactive({
   wechat: false,
   suggest: false,
   suggest_page : false,
-  phone: false
+  phone: false,
+  top: false
 })
+
+const isAtTop = ref(true);
+
+onMounted(() => {
+    window.addEventListener("scroll", handleScroll);
+});
+
+const handleScroll = () => {
+    isAtTop.value = window.scrollY === 0;
+};
+
+const scrollToTop = () => {
+    if (isAtTop.value) return;
+    appear.top = false;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+};
 </script>
 
 <template>
@@ -29,6 +46,10 @@ const appear = reactive({
     <div class="icon_container" @mouseenter="appear.phone = true" @mouseleave="appear.phone = false">
       <el-icon class="icon"><PhoneFilled /></el-icon>
     </div>
+      <div v-if="!isAtTop" class="icon_top" @mouseenter="appear.top = true" @mouseleave="appear.top = false" @click="scrollToTop">
+          <el-icon class="icon"><Top /></el-icon>
+          <p class="top_word">top</p>
+      </div>
   </div>
   <div v-if="appear.download" class="download">
     <div>
@@ -50,6 +71,9 @@ const appear = reactive({
   <div v-if="appear.phone" class="phone">
     <p style="font-size: 12px">免费咨询: 15971989001</p>
   </div>
+    <div v-if="appear.top" class="top">
+        <p style="font-size: 12px">回到顶部</p>
+    </div>
   <el-dialog v-model="appear.suggest_page"></el-dialog>
 </template>
 
@@ -70,6 +94,18 @@ const appear = reactive({
   padding-bottom: 3px;
   padding-left: 5px;
   margin-bottom: 8px;
+}
+.icon_top{
+    color: #a4a5aa;
+    padding-top: 240px;
+    padding-bottom: 3px;
+    padding-left: 5px;
+}
+.top_word{
+    color: #a4a5aa;
+    font-size: 12px;
+    padding-left: 3px;
+    margin-top: 0;
 }
 .icon_container:hover{
   color: aliceblue;
@@ -131,11 +167,22 @@ const appear = reactive({
   z-index: 1;
   position: fixed;
   right: 40px;
-  top: v-bind(height / 2.4 + 'px');
+  top: v-bind(height / 2.3 + 'px');
   width: 220px;
   border-radius: 5px;
   border:4px solid whitesmoke;
   text-align: center;
   background: white;
+}
+.top{
+    z-index: 1;
+    position: fixed;
+    right: 40px;
+    top: v-bind(height / 1.15 + 'px');
+    width: 100px;
+    border-radius: 5px;
+    border:4px solid whitesmoke;
+    text-align: center;
+    background: white;
 }
 </style>
