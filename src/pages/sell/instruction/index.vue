@@ -132,8 +132,6 @@ const handlePhoneNumberSubmit = () => {
 }
 
 const handleScroll = () => {
-  console.log(window.scrollY)
-
   fixInputVisible.value = window.scrollY > 327
 }
 </script>
