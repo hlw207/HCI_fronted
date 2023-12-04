@@ -2,7 +2,7 @@
 import {computed, defineComponent, defineEmits, provide, ref} from 'vue';
 import {ElMessage, ElNotification} from "element-plus";
 import {useRouter} from "vue-router";
-import Newpop from "~/pages/buy/components/newPop/index.vue"
+
 
 const { emit } = defineEmits(['close']);
 const close = () => {
@@ -18,20 +18,10 @@ const router = useRouter()
 
 const onSubmit = () => {
     if(shineUp.value){
-        showPopup()
+        router.push('/buyForm')
     }else {
     }
-
 }
-
-const isPopupVisible = ref(false);
-const showPopup = () => {
-    isPopupVisible.value = true;
-};
-
-const closePopup = () => {
-    isPopupVisible.value = false;
-};
 
 </script>
 
@@ -47,10 +37,9 @@ const closePopup = () => {
                 <div class="border-wrapper">
                     <input class="custom-input" id="phone-input" type="text" placeholder="请输入您的手机号">
                     <button class="input-button" id="submit-button" @click="onSubmit">提 交</button>
-                    <Newpop v-if="isPopupVisible"/>
                     <div class="flex-row">
                         <label class="checkbox-container">
-                            <input class="custom-checkbox" id="agree-checkbox" type="checkbox" @click="Get(this)">
+                            <input class="custom-checkbox" id="agree-checkbox" type="checkbox" @click="Get(this)" >
                             <span class="checkmark"></span>
                         </label>
                         <label>请务必勾选此项，阅读并同意《用户服务协议》、《隐私政策》提交并注册为用户。</label>
