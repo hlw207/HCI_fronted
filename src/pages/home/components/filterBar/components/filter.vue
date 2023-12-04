@@ -2,7 +2,7 @@
   <el-collapse v-model="activeName" accordion class="filter">
     <el-collapse-item title="品牌" name="1">
       <div class="marks">
-        <div v-for="(mark,index) in marks" class="singleMark">
+        <div v-for="(mark,index) in marks" class="singleMark" @click="routerTo('brand', mark.name)">
           <img :src="mark.url" style="width: 24px;height: 24px">
           <span style="margin-left: 10px;font-size: 20px">{{mark.name}}</span>
         </div>
@@ -18,16 +18,16 @@
     </el-collapse-item>
     <el-collapse-item title="选你所爱" name="2" style="font-size: 25px">
       <el-row class="row-bg" justify="space-evenly" style="margin-bottom: 20px">
-        <el-col class="filterCol" :span="6">4万以下</el-col>
-        <el-col class="filterCol" :span="6">4-8万</el-col>
-        <el-col class="filterCol" :span="6">8-15万</el-col>
-        <el-col class="filterCol" :span="6">更多价位</el-col>
+        <el-col class="filterCol" :span="6" @click="routerTo('price','0-4万')">4万以下</el-col>
+        <el-col class="filterCol" :span="6" @click="routerTo('price','4-8万')">4-8万</el-col>
+        <el-col class="filterCol" :span="6" @click="routerTo('price','8-15万')">8-15万</el-col>
+        <el-col class="filterCol" :span="6" @click="router.push('/buy')">更多价位</el-col>
       </el-row>
       <el-row class="row-bg" justify="space-evenly">
         <el-col class="filterCol" :span="6">入门练手</el-col>
         <el-col class="filterCol" :span="6">自家SUV</el-col>
         <el-col class="filterCol" :span="6">商务7座</el-col>
-        <el-col class="filterCol" :span="6">更多车源</el-col>
+        <el-col class="filterCol" :span="6" @click="router.push('/buy')">更多车源</el-col>
       </el-row>
     </el-collapse-item>
 
@@ -53,9 +53,11 @@
 <script setup lang="ts" >
 import {ref} from "vue";
 import {ArrowRight} from "@element-plus/icons-vue";
+import {useRouter} from "vue-router";
 
 const activeName = ref('1')
 const drawer = ref(false)
+const router = useRouter()
 
 const marks = [
   {
@@ -105,7 +107,11 @@ const carBrands = [
   {name: '比亚迪', headLetter: 'B'},
 ];
 
-
+const routerTo = (type: string, value: string) =>{
+    const query = {}
+    query[type] = value
+    router.push({path: '/buy', query: query})
+}
 
 </script>
 

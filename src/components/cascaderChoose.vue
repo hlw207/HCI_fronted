@@ -26,6 +26,10 @@ const first = ref('Hot')
 const second = ref('')
 const third = ref('')
 
+const exist = (num : number)=>{
+  return num != 5 && num != 9 && num != 21 && num != 22
+}
+
 const choose = (data : string) =>{
   third.value = data
   emits('submit', second.value + '-' + third.value)
@@ -89,7 +93,7 @@ onMounted(()=>{
              @click="first='Hot'">Hot</div>
         <template v-for="index in 26">
           <div class="left_container_box" :class="{left_container_box_active : first == String.fromCharCode(index + 64)}"
-                 @click="first=String.fromCharCode(index + 64)">
+                 @click="first=String.fromCharCode(index + 64)" v-if="exist(index)">
             {{String.fromCharCode(index + 64)}}
           </div>
         </template>
@@ -133,27 +137,27 @@ onMounted(()=>{
 }
 
 .container{
-  z-index: 500;
+  z-index: 900;
   display: flex;
   position: absolute;
   top: v-bind(top + 'px');
   left: v-bind(left + 'px');
-  height: 406px;
+  height: 348px;
   width: 400px;
 }
 
 .container_main{
   display: flex;
-  height: 406px;
+  height: 348px;
   animation: myFirst 0.5s;
   background: white;
+  border: 1px solid rgba(128, 128, 128, 0.25);
 }
 
 
 .left_container{
   padding: 3px 0;
-  border: 1px solid rgba(128, 128, 128, 0.08);
-  border-right: 1px solid rgba(128, 128, 128, 0.3);
+  border-right: 1px solid rgba(128, 128, 128, 0.4);
 }
 
 .left_container_box{
@@ -178,9 +182,7 @@ onMounted(()=>{
 .middle_container_box{
   box-sizing: border-box;
   padding: 3px 0;
-  border-top: 1px solid rgba(128, 128, 128, 0.08);
-  border-bottom: 1px solid rgba(128, 128, 128, 0.08);
-  border-right: 1px solid rgba(128, 128, 128, 0.3);
+  border-right: 1px solid rgba(128, 128, 128, 0.4);
   overflow-y: auto;
   height: 100%;
 }
@@ -216,9 +218,6 @@ onMounted(()=>{
   box-sizing: border-box;
   padding: 3px 0;
   min-width: 100px;
-  border-top: 1px solid rgba(128, 128, 128, 0.08);
-  border-bottom: 1px solid rgba(128, 128, 128, 0.08);
-  border-right: 1px solid rgba(128, 128, 128, 0.08);
   overflow-y: auto;
   height: 100%;
 }

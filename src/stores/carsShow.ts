@@ -11,19 +11,9 @@ export const useCarsShow = defineStore("carsShow", {
 
     actions: {
         fetch() {
-            this.brands = []
+            this.brands = ['大众','丰田','奥迪','奔驰','宝马','本田','别克','日产','福特','雷克萨斯'
+                ,'马自达','现代','路虎','沃尔沃','比亚迪','保时捷','英菲尼迪','雪佛兰']
             this.carTypes = []
-            request({
-                url: '/brands',
-                method: 'GET',
-            }).then((res) => {
-                let i: number
-                for (i = 0;i < res.data.length;i++){
-                    this.brands.push(res.data[i])
-                }
-            }).catch((err) => {
-                console.log("获取错误")
-            })
         },
 
         getById(id: number) {

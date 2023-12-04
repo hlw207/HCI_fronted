@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="min-width: 1400px;min-height: 500px">
     <RightSide />
     <UserMenu />
     <router-view></router-view>
