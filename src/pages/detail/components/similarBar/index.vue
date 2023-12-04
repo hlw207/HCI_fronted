@@ -11,6 +11,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
+import {ElMessage} from "element-plus";
 
 const cars = ref([
     { id: 1, name: '车辆名称 1', price: 5, image: '../../../../public/pictures/car1.jpg' },
@@ -32,9 +33,12 @@ const updateSimilarDivPosition = () => {
     const similarDiv = document.querySelector('.similarDiv');
     const similarDivHeight = similarDiv.clientHeight;
     if (similarDiv) {
-        if(scrollTop > 580 + similarDivHeight - viewportHeight){
+        if(scrollTop > 2820 + similarDivHeight - viewportHeight){
+            similarDivTop.value = 2820 + "px";
+        }else if(scrollTop > 580 + similarDivHeight - viewportHeight){
             similarDivTop.value = scrollTop - similarDivHeight + viewportHeight + "px";
-        }else{
+        }
+        else{
             similarDivTop.value = 615 + "px";
         }
     }

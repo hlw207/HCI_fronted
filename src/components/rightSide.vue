@@ -97,9 +97,10 @@ const scrollToTop = () => {
 }
 .icon_top{
     color: #a4a5aa;
-    padding-top: 240px;
-    padding-bottom: 3px;
+    padding-top: 8px;
+    padding-bottom: 1px;
     padding-left: 5px;
+    margin-top: 250px;
 }
 .top_word{
     color: #a4a5aa;
@@ -111,6 +112,11 @@ const scrollToTop = () => {
   color: aliceblue;
   padding-left: 5px;
   background: rgba(255,255,255,0.1);
+}
+.icon_top:hover{
+    color: aliceblue;
+    padding-left: 5px;
+    background: rgba(255,255,255,0.1);
 }
 .icon{
   font-size: 20px;
@@ -167,7 +173,7 @@ const scrollToTop = () => {
   z-index: 1;
   position: fixed;
   right: 40px;
-  top: v-bind(height / 2.3 + 'px');
+  top: v-bind(height / 2.4 + 'px');
   width: 220px;
   border-radius: 5px;
   border:4px solid whitesmoke;
@@ -178,7 +184,7 @@ const scrollToTop = () => {
     z-index: 1;
     position: fixed;
     right: 40px;
-    top: v-bind(height / 1.15 + 'px');
+    margin-top: 610px;
     width: 100px;
     border-radius: 5px;
     border:4px solid whitesmoke;
