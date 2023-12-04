@@ -1,26 +1,43 @@
 <script setup lang="ts">
 import {ref} from "vue";
+import {CaretBottom, CaretTop} from "@element-plus/icons-vue";
+const isShow = ref(false)
 
-const show = ref(true)
+const show = ()=>{
+  isShow.value = true
+}
 </script>
 
 <template>
-  <div style="background: #f2711c;width: 100px;height: 30px;position: relative">
-    <CascaderChoose @disShow="show = false" :top="30" :left="0" :is-show="show"/>
+  <div class="extra_container" @mouseenter="show">
+    <div>更多</div>
+    <div class="extra_icon">
+      <el-icon v-if="isShow"><CaretBottom /></el-icon>
+      <el-icon v-if="!isShow"><CaretTop /></el-icon>
+    </div>
+  </div>
+  <div>
+
   </div>
 </template>
 
 <style scoped>
-.flex{
+.extra_container{
+  z-index: 800;
+  position: absolute;
   display: flex;
-  width: 100px;
-  background: #db2828;
-  flex-wrap: wrap;
+  margin: 5px 0;
+  padding: 3px 8px;
+  color: black;
+  font-size: 11px;
+  cursor: pointer;
 }
 
-.flex1{
-  width: 31%;
-  margin: 1%;
-  background: #26aeea;
+.extra_icon{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+  font-size: 12px;
 }
 </style>
