@@ -172,6 +172,7 @@ const onSubmit = () => {
   flex-direction: column;
   justify-content: start;
   align-items: center;
+  height: 690px;
 }
 
 .headBar{
@@ -197,7 +198,7 @@ const onSubmit = () => {
 }
 
 .sellForm{
-  margin-top: -280px;
+  margin-top: -250px;
   width: 80%;
   height: 500px;
   background-color: #fff;
@@ -246,7 +247,7 @@ const onSubmit = () => {
 .bottomBar{
   width: 100%;
   height: 100px;
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 .formItem{

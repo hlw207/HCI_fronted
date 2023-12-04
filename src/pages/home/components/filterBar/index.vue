@@ -17,7 +17,6 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue";
 import Filter from '~/pages/home/components/filterBar/components/filter.vue'
 import Sell from '~/pages/home/components/filterBar/components/sell.vue'
 
