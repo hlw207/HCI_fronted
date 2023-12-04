@@ -22,19 +22,17 @@
         </span>
       </div>
     </div>
-    <transition name="fade">
-      <div v-show="isVisible" class="feature">
-        <div class="featureTitle">
-          保卖服务
-        </div>
-
-        <div class="featureItems">
-          <SellIcon icon-u-r-l="/public/pictures/sell/feature02.png" title="高价卖车" content="面向全国买家"/>
-          <SellIcon icon-u-r-l="/public/pictures/sell/feature01.png" title="专人服务" content="专业服务顾问指导"/>
-          <SellIcon icon-u-r-l="/public/pictures/sell/feature03.png" title="省时省心" content="车辆过户不操心"/>
-        </div>
+    <div v-show="isVisible" class="feature">
+      <div class="featureTitle">
+        保卖服务
       </div>
-    </transition>
+
+      <div class="featureItems">
+        <SellIcon class="icon01" icon-u-r-l="/public/pictures/sell/feature02.png" title="高价卖车" content="面向全国买家"/>
+        <SellIcon class="icon02" icon-u-r-l="/public/pictures/sell/feature01.png" title="专人服务" content="专业服务顾问指导"/>
+        <SellIcon class="icon03" icon-u-r-l="/public/pictures/sell/feature03.png" title="省时省心" content="车辆过户不操心"/>
+      </div>
+    </div>
   </div>
 
   <div class="instructionBar">
@@ -112,6 +110,18 @@ import {CaretRight} from "@element-plus/icons-vue";
 
 onMounted(() => {
   window.addEventListener("scroll",handleScroll)
+  setTimeout(() => {
+    featureTop.value = '-150px'
+  }, 50); // 500毫秒延迟
+  setTimeout(() => {
+    showIcon01.value = 1
+  }, 500); // 500毫秒延迟
+  setTimeout(() => {
+    showIcon02.value = 1
+  }, 1000); // 500毫秒延迟
+  setTimeout(() => {
+    showIcon03.value = 1
+  }, 1500); // 1000毫秒延迟
 })
 
 const phoneNumber = ref('')
@@ -119,6 +129,12 @@ const agreement = ref(false)
 const isVisible = ref(true)
 const route = useRouter()
 const fixInputVisible = ref(false)
+
+const featureTop = ref('-500px')
+const showIcon01 = ref(0)
+const showIcon02 = ref(0)
+const showIcon03 = ref(0)
+
 
 const handlePhoneNumberSubmit = () => {
   if (agreement.value){
@@ -172,7 +188,7 @@ const handleScroll = () => {
   height: 300px;
   position: relative;
   left: 650px;
-  top: -150px;
+  top: v-bind(featureTop);
   background-color: #fff;
   border-radius: 5px;
   display: flex;
@@ -180,6 +196,9 @@ const handleScroll = () => {
   justify-content: center;
   align-items: center;
   box-shadow: 30px -16px #eda01f;
+
+  transition: 0.6s;
+
 }
 
 .featureTitle{
@@ -201,6 +220,7 @@ const handleScroll = () => {
   align-items: center;
   width: 100%;
   height: 80%;
+  transition: 0.6s ease-in-out;
 }
 
 .instructionBar{
@@ -274,13 +294,11 @@ const handleScroll = () => {
   box-shadow: 0 0 5px 2px #bbbbbb;
 }
 
-.fade-enter-active,
-.fade-leave-active {
-  transition: 1s;
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 1s;
 }
-
-.fade-enter-to {
-  transform: translateY(0)
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 
 
@@ -290,5 +308,19 @@ const handleScroll = () => {
   background-color: #ccc;
 }
 
+.icon01{
+  opacity: v-bind(showIcon01);
+  transition: 0.6s;
+}
+
+.icon02{
+  opacity: v-bind(showIcon02);
+  transition: 0.6s;
+}
+
+.icon03{
+  opacity: v-bind(showIcon03);
+  transition: 0.6s;
+}
 
 </style>

@@ -105,6 +105,7 @@
 import {ref} from "vue";
 import {provinceAndCityData} from "element-china-area-data";
 import {CaretRight} from "@element-plus/icons-vue";
+import {useRouter} from "vue-router";
 
 const options = provinceAndCityData
 const form = ref({
@@ -143,7 +144,10 @@ const shortcuts = [
     },
   },
 ]
+
+const route = useRouter()
 const onSubmit = () => {
+  route.push('/sell')
   console.log(form.value)
 }
 
