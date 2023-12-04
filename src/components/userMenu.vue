@@ -23,7 +23,7 @@ const windowWidth = windows.width
 const choice = ref(["我要买车","我要卖车","功能待定","个人主页"])
 const menus = ref([{is : false, path: "/home"},
   {is : false, path: "/buy"},
-  {is : false, path: "/copy"},
+  {is : false, path: "/sell"},
   {is : false, path: "/pay"},
   {is : false, path: "/user"}])
 

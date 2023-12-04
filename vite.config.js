@@ -31,6 +31,12 @@ export default defineConfig({
                         redirect: '/home'
                     }
                 }
+                if(route.path === '/sell'){
+                    return {
+                        ...route,
+                        redirect: '/sell/instruction'
+                    }
+                }
             }
         }),
         Layouts({
