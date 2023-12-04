@@ -3,11 +3,13 @@ import {useCarsData} from "~/stores/carsData";
 import {computed, onMounted, reactive, ref, watch} from "vue";
 import TypeChoice from "~/pages/buy/components/filterBar/typeChoice.vue";
 import {ElMessage} from "element-plus";
-import {useRouter} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
 import {Search} from "@element-plus/icons-vue";
 import ChooseBox from "~/pages/buy/components/filterBar/chooseBox.vue";
 import ExtraBox from "~/pages/buy/components/filterBar/extraBox.vue";
+import WholeBrand from "~/pages/buy/components/filterBar/wholeBrand.vue";
 
+const route = useRoute()
 const router = useRouter()
 const carsData = useCarsData()
 const choice = reactive({
@@ -16,6 +18,9 @@ const choice = reactive({
   price: '不限',
 })
 
+const searchShow = ref(false)
+
+const searchInfo = ref('')
 const startPrice = ref('')
 const endPrice = ref('')
 const show = ref(true)
@@ -60,13 +65,45 @@ watch(choice,()=>{
   router.push({path: '/buy',query: querys})
 })
 
+const input_info = () =>{
+  searchShow.value = false
+}
+
+const submit = (data : string) => {
+  searchInfo.value = ''
+  input_info()
+  let info = data.split('-')
+  brandSubmit(info[0])
+  choose('carType', info[1])
+}
+
+const brandSubmit = (brand: string) => {
+  let len = carsData.brands.length
+  let i: number
+  for (i = 0;i < len;i++){
+    if(brand == carsData.brands[i]){
+      choice.brand = brand;
+      carsData.getCarTypes(choice.brand)
+      choice.carType = '不限'
+      return
+    }
+  }
+  if(len > 19)
+    carsData.brands.pop()
+  carsData.brands.push(brand)
+  choice.brand = brand;
+  carsData.getCarTypes(choice.brand)
+  choice.carType = '不限'
+}
+
 const choose = (type : string, title: string) =>{
-  if(type == "brands"){
+  if(type == "brand"){
     choice.brand = title;
     carsData.getCarTypes(choice.brand)
-  }else if(type == "carTypes"){
+    choice.carType = '不限'
+  }else if(type == "carType"){
     choice.carType = title;
-  }else if(type == "prices"){
+  }else if(type == "price"){
     if(carsData.prices.length > 9){
       carsData.prices.pop()
     }
@@ -91,9 +128,9 @@ const clickItem = (n : number)=>{
   if(n == 0){
     router.push('/home')
   }else if(n == 1){
-    choose("brands","不限")
+    choose("brand","不限")
   }else if(n == 2){
-    choose("brands",choice.brand)
+    choose("brand",choice.brand)
   }
 }
 
@@ -105,6 +142,7 @@ const clear = () => {
   Object.keys(choice).forEach(key => {
     choice[key] = '不限'
   });
+  choose('brand', '不限')
 }
 
 const certainNum = () =>{
@@ -139,6 +177,9 @@ const certainNum = () =>{
 
 onMounted(()=>{
   carsData.fetch()
+  Object.keys(route.query).forEach(key => {
+    choose(key, route.query[key])
+  });
 })
 </script>
 
@@ -154,12 +195,13 @@ onMounted(()=>{
     <div class="top_text extra_text" v-if="choice.carType != '不限'"> > </div>
     <div class="top_text" v-if="choice.carType != '不限'" @click="clickItem(3)"> {{choice.carType}} </div>
     <div class="top_search">
-      <div class="top_search_left">
-        <input class="top_search_input" placeholder="二手车搜索"/>
+      <div class="top_search_left" @click="searchShow = true">
+        <input class="top_search_input" placeholder="二手车搜索" v-model="searchInfo" @input="input_info"/>
       </div>
       <div class="top_search_right">
         <el-icon style="margin-left: 20%"><Search /></el-icon>
       </div>
+      <CascaderChoose :left="0" :top="40" :is-show="searchShow" @disShow="searchShow = false" @submit="submit"/>
     </div>
   </div>
 
@@ -168,15 +210,16 @@ onMounted(()=>{
       <div class="filter-title">品牌:</div>
       <div class="filter-main">
         <template v-for="brand in carsData.brands">
-          <TypeChoice :title="brand" type="brands" :choice="choice.brand" @choose="choose"/>
+          <TypeChoice :title="brand" type="brand" :choice="choice.brand" @choose="choose"/>
         </template>
       </div>
+      <WholeBrand @submit="brandSubmit"/>
     </div>
     <div class="filter-types">
       <div class="filter-title">车系:</div>
       <div class="filter-main">
         <template v-for="carType in carsData.carTypes">
-          <TypeChoice :title="carType" type="carTypes" :choice="choice.carType" @choose="choose"/>
+          <TypeChoice :title="carType" type="carType" :choice="choice.carType" @choose="choose"/>
         </template>
       </div>
     </div>
@@ -184,7 +227,7 @@ onMounted(()=>{
       <div class="filter-title">价格:</div>
       <div class="filter-main">
         <template v-for="price in carsData.prices">
-          <TypeChoice :title="price" type="prices" :choice="choice.price" @choose="choose"/>
+          <TypeChoice :title="price" type="price" :choice="choice.price" @choose="choose"/>
         </template>
         <div class="filter-input" style="margin-left: 10px">
           <input v-model="startPrice" class="filter-input-main"/>
@@ -315,6 +358,7 @@ onMounted(()=>{
 }
 
 .filter-brand{
+  position: relative;
   display: flex;
   margin: 0 12px;
   padding: 5px 40px 5px 0;
