@@ -14,6 +14,7 @@
     "element-plus": "^2.3.3",
     "pinia": "^2.1.1",
     "pinyin-pro": "^3.18.2",
+    "react-router-dom": "^6.20.1",
     "vite-plugin-style-import": "^2.0.0",
     "vite-plugin-vue-layouts": "^0.8.0",
     "vue": "^3.2.47",

@@ -9,6 +9,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    Bottom: typeof import('./components/bottom.vue')['default']
     CascaderChoose: typeof import('./components/cascaderChoose.vue')['default']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']
     ElButton: typeof import('element-plus/es')['ElButton']
@@ -30,7 +31,6 @@ declare module '@vue/runtime-core' {
     ElInputNumber: typeof import('element-plus/es')['ElInputNumber']
     ElLink: typeof import('element-plus/es')['ElLink']
     ElPopover: typeof import('element-plus/es')['ElPopover']
-    ElResult: typeof import('element-plus/es')['ElResult']
     ElRow: typeof import('element-plus/es')['ElRow']
     ElSelect: typeof import('element-plus/es')['ElSelect']
     ElStep: typeof import('element-plus/es')['ElStep']
@@ -39,8 +39,11 @@ declare module '@vue/runtime-core' {
     ElTabs: typeof import('element-plus/es')['ElTabs']
     ElText: typeof import('element-plus/es')['ElText']
     ElUpload: typeof import('element-plus/es')['ElUpload']
+    FindCar: typeof import('./components/bottomBar/findCar.vue')['default']
+    Information: typeof import('./components/bottomBar/information.vue')['default']
     Item: typeof import('./components/right_side/components/item/index.vue')['default']
     Login: typeof import('./components/login.vue')['default']
+    Notify: typeof import('./components/bottomBar/notify.vue')['default']
     Right_side: typeof import('./components/right_side/right_side.vue')['default']
     RightSide: typeof import('./components/rightSide.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
