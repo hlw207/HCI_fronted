@@ -19,7 +19,7 @@ const emits = defineEmits(['cancel'])
   display: flex;
   align-items: center;
   border: 1px solid rgba(242, 113, 28, 0.5);
-  margin: 2px 4px 0;
+  margin: 2px 8px 5px 0;
 }
 
 .box:hover{

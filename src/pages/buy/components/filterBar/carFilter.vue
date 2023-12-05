@@ -8,6 +8,7 @@ import {Search} from "@element-plus/icons-vue";
 import ChooseBox from "~/pages/buy/components/filterBar/chooseBox.vue";
 import ExtraBox from "~/pages/buy/components/filterBar/extraBox.vue";
 import WholeBrand from "~/pages/buy/components/filterBar/wholeBrand.vue";
+import carChoice from "~/pages/buy/components/filterBar/carChoice";
 
 const route = useRoute()
 const router = useRouter()
@@ -16,6 +17,24 @@ const choice = reactive({
   brand: '不限',
   carType: '不限',
   price: '不限',
+})
+
+const extraChoice = reactive({
+  carLevel: carChoice.carLevel,
+  carType: carChoice.carType,
+  carAge: carChoice.carAge,
+  carPollution: carChoice.carPollution,
+  carDistance: carChoice.carDistance,
+  carColor: carChoice.carColor
+})
+
+const extraChoiceName = reactive({
+  carLevel: '车辆级别',
+  carType: '车辆类型',
+  carAge: '车龄',
+  carPollution: '排量',
+  carDistance: '里程',
+  carColor: '颜色'
 })
 
 const searchShow = ref(false)
@@ -29,6 +48,13 @@ const isShow = computed(()=>{
   Object.values(choice).forEach(value => {
     if(value != '不限'){
       result = true
+    }
+  });
+  Object.values(extraChoice).forEach(value => {
+    let i: number
+    for(i = 0;i < value.length;i++){
+      if(value[i].choose)
+        result = true
     }
   });
   return result
@@ -96,6 +122,18 @@ const brandSubmit = (brand: string) => {
   choice.carType = '不限'
 }
 
+const extraSubmit = (type: string, choice : boolean[]) =>{
+  let t = ''
+  Object.keys(extraChoiceName).forEach(key => {
+    if(extraChoiceName[key] == type)
+      t = key
+  });
+  let i: number
+  for (i = 0;i < choice.length; i++){
+    extraChoice[t][i].choose = choice[i]
+  }
+}
+
 const choose = (type : string, title: string) =>{
   if(type == "brand"){
     choice.brand = title;
@@ -135,7 +173,12 @@ const clickItem = (n : number)=>{
 }
 
 const cancel = (type : string) =>{
-  choice[type] = '不限'
+  choose(type, '不限')
+}
+
+const cancelExtra = (type : string) =>{
+  const t = type.split('-')
+  extraChoice[t[0]][parseInt(t[1])].choose = false
 }
 
 const clear = () => {
@@ -143,6 +186,12 @@ const clear = () => {
     choice[key] = '不限'
   });
   choose('brand', '不限')
+  Object.values(extraChoice).forEach(value => {
+    let i: number
+    for(i = 0;i < value.length;i++){
+      value[i].choose = false
+    }
+  });
 }
 
 const certainNum = () =>{
@@ -244,8 +293,9 @@ onMounted(()=>{
     <div class="filter-extra">
       <div class="filter-title">更多:</div>
       <div class="filter-main">
-        <ExtraBox :choose="[{choose:false,type:'123'},{choose:false,type:'123'},{choose:false,type:'123'},{choose:false,type:'123'},{choose:false,type:'123'}]" type="何立伟"/>
-        <ExtraBox :choose="[]" type="何立伟123"/>
+        <template v-for="(content, key) in extraChoice">
+          <ExtraBox :choose="content" :type="extraChoiceName[key]" @submit="extraSubmit"/>
+        </template>
       </div>
     </div>
   </div>
@@ -254,6 +304,11 @@ onMounted(()=>{
     <div v-if="isShow" style="margin-right: 10px">已选: </div>
     <template v-for="(content, key) in choice">
       <ChooseBox :content=content :type="key" @cancel="cancel" v-if="content != '不限'"/>
+    </template>
+    <template v-for="(content, key) in extraChoice">
+      <template v-for="(detail, index) in content">
+        <ChooseBox :content=detail.type :type="key + '-' + index" @cancel="cancelExtra" v-if="extraChoice[key][index].choose"/>
+      </template>
     </template>
     <div v-if="isShow" class="bottom_text" @click="clear">重置条件</div>
   </div>

@@ -86,7 +86,7 @@
             placeholder="请输入手机号"
             style="width: 80%;height: 40px"
         />
-        <el-button color="#eda01f"  style="margin-left: 20px;color: white;height: 40px" @click="handlePhoneNumberSubmit">开始估价</el-button>
+        <el-button color="#eda01f"  style="/margin-left: 20px;color: white;height: 40px" @click="handlePhoneNumberSubmit">开始估价</el-button>
       </div>
       <div style="width: 90%;display: flex;flex-direction: row;justify-content: center;align-items: center">
         <el-checkbox style="margin-right: 10px" v-model="agreement"></el-checkbox>
@@ -153,9 +153,9 @@ const handleScroll = () => {
 </script>
 
 <style scoped>
+
 .headBar{
   height: 400px;
-  width: 100%;
   background-image: url('/pictures/sell/sellBanner.jpg');
 }
 
@@ -164,7 +164,7 @@ const handleScroll = () => {
   height: 200px;
   background-color: #fff;
   position: relative;
-  left: 200px;
+  left: 12%;
   top: 100px;
   border-radius: 5px;
   box-shadow: 30px -16px #eda01f;
@@ -184,10 +184,10 @@ const handleScroll = () => {
 }
 
 .feature{
-  width: 700px;
+  width: 45%;
   height: 300px;
   position: relative;
-  left: 650px;
+  left: 45%;
   top: v-bind(featureTop);
   background-color: #fff;
   border-radius: 5px;
@@ -196,7 +196,6 @@ const handleScroll = () => {
   justify-content: center;
   align-items: center;
   box-shadow: 30px -16px #eda01f;
-
   transition: 0.6s;
 
 }
@@ -224,7 +223,8 @@ const handleScroll = () => {
 }
 
 .instructionBar{
-  width: 100%;
+  margin-right: 32px;
+  box-sizing: border-box;
   height: 500px;
   display: flex;
   flex-direction: column;
@@ -233,7 +233,8 @@ const handleScroll = () => {
 }
 
 .instructionBarItems{
-  width: 100%;
+  padding-right: 32px;
+  width: 80%;
   height: 80%;
   display: flex;
   flex-direction: row;
@@ -243,7 +244,7 @@ const handleScroll = () => {
 
 
 .questionBarContainer{
-  width: 100%;
+  margin-right: 32px;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -275,6 +276,7 @@ const handleScroll = () => {
 
 .fixInputContainer{
   position: fixed;
+  margin-right: 32px;
   bottom: 0;
   width: 100%;
   display: flex;

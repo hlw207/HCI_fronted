@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {CaretBottom, CaretTop} from "@element-plus/icons-vue";
-import {onMounted, ref} from "vue";
+import {computed, onMounted, ref, watch} from "vue";
 import {throttle} from "lodash";
 import {TypeChoose} from "~/utils/interfaces";
 
@@ -8,6 +8,8 @@ const props = defineProps({
   type: String,
   choose : [] as TypeChoose[]
 })
+
+const emits= defineEmits(['submit'])
 
 const icon_show = ref(false)
 const extra_box = ref(null)
@@ -21,11 +23,42 @@ const extra_right = ref()
 
 const choice = ref([] as boolean[])
 
+const show = computed(()=>{
+  let i: number
+  for (i = 0;i < props.choose.length;i++){
+    if(props.choose[i].choose)
+      return true
+  }
+  return false
+})
+
+watch(props,(()=>{
+  let i: number
+  for (i = 0;i < choice.value.length;i++){
+    choice.value[i] = props.choose[i].choose
+  }
+}))
+
 const click = (index: number)=>{
   choice.value[index] = !choice.value[index]
 }
 
-const enter = () =>{
+const cancel = () => {
+  let i: number
+  for (i = 0;i < choice.value.length;i++){
+    choice.value[i] = props.choose[i].choose
+  }
+  icon_show.value = false
+  window.removeEventListener('mousemove',throttledHandle)
+}
+
+const submit = () => {
+  emits('submit', props.type, choice.value)
+  icon_show.value = false
+  window.removeEventListener('mousemove',throttledHandle)
+}
+
+const enter = () => {
   icon_show.value = true
   setTimeout(()=>{
     top.value = Math.floor(extra_box.value.getBoundingClientRect().top)
@@ -59,7 +92,7 @@ onMounted(()=>{
 
 <template>
   <div class="extra_container" @mouseenter="enter" ref="extra_box">
-    <div class="extra_left">
+    <div class="extra_left" :class="{extra_left_active: icon_show || show}">
       {{type}}
     </div>
     <div class="extra_right">
@@ -80,18 +113,30 @@ onMounted(()=>{
         </template>
       </div>
       <div class="extra_choose_down">
-        <div class="extra_choose_button certain_button">确定</div>
-        <div class="extra_choose_button cancel_button">取消</div>
+        <div class="extra_choose_button certain_button" @click="submit">确定</div>
+        <div class="extra_choose_button cancel_button" @click="cancel">取消</div>
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+@keyframes myFirst
+{
+  0% {
+    top: 25px;
+    opacity: 0;
+  }
+  100% {
+    top: 30px;
+    opacity: 1;
+  }
+}
+
 .extra_container{
   position: relative;
   display: flex;
-  margin: 4px 8px 4px 0;
+  margin: 4px 12px 4px 0;
   padding: 0 5px;
   font-size: 11px;
   border: 1px solid rgba(128, 128, 128, 0.3);
@@ -105,6 +150,10 @@ onMounted(()=>{
   margin-right: 8px;
 }
 
+.extra_left_active{
+  color: #f2711c;
+}
+
 .extra_right{
   display: flex;
   justify-content: center;
@@ -115,11 +164,13 @@ onMounted(()=>{
 .extra_choose{
   z-index: 10;
   position: absolute;
-  width: 300px;
+  width: 400px;
   background: white;
   top: 30px;
   left: 0;
   border: 1px solid rgba(128, 128, 128, 0.2);
+  animation: myFirst 0.3s;
+  letter-spacing: 0.5px;
 }
 .extra_choose_up{
   display: flex;
@@ -149,7 +200,7 @@ onMounted(()=>{
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
+  border: 1px solid rgba(128, 128, 128, 0.3);
   border-radius: 1px;
   width: 12px;
   height: 12px;
@@ -178,10 +229,19 @@ onMounted(()=>{
   color: white;
 }
 
+.certain_button:hover{
+  background: rgba(242, 113, 28, 0.7);
+}
+
 .cancel_button{
   box-sizing: border-box;
   background: white;
   border: 1px solid rgba(128, 128, 128, 0.2);
   color: black;
+}
+
+.cancel_button:hover{
+  color: rgba(242, 113, 28, 0.7);
+  border: 1px solid rgba(242, 113, 28, 0.7);
 }
 </style>

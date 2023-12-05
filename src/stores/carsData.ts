@@ -4,8 +4,7 @@ import {request} from "~/utils/request";
 export const useCarsData = defineStore("carsData", {
     state: () => {
         return {
-            brands: ['不限','大众','丰田','奥迪','奔驰','宝马','本田','别克','日产','福特','雷克萨斯'
-                ,'马自达','现代','路虎','沃尔沃','比亚迪','保时捷','英菲尼迪','雪佛兰'],
+            brands: [] as String[],
             carTypes: [] as String[],
             prices: [] as String[],
             wholeBrands: [] as String[][]
@@ -15,6 +14,8 @@ export const useCarsData = defineStore("carsData", {
     actions: {
         fetch() {
             this.wholeBrands = []
+            this.brands = ['不限','大众','丰田','奥迪','奔驰','宝马','本田','别克','日产','福特','雷克萨斯'
+                ,'马自达','现代','路虎','沃尔沃','比亚迪','保时捷','英菲尼迪','雪佛兰']
             this.carTypes = ['不限']
             this.prices = []
             this.prices.push("不限","3万以下","3-5万","5-8万","8-10万","10-15万","15-20万","20-30万","30万以上")

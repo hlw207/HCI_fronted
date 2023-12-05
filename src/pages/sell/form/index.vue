@@ -13,12 +13,7 @@
         </div>
         <el-form label-width="120px" style="margin-left: 50px;margin-top: 50px;">
           <el-form-item class="formItem" label="品牌车型">
-            <el-cascader
-                size="large"
-                :options="options"
-                v-model="form.type"
-            >
-            </el-cascader>
+            <el-select size="large" @visible-change="closeIt" ref="selectIt"   ></el-select>
           </el-form-item>
           <el-form-item class="formItem" label="当前里程">
             <el-input-number
@@ -65,7 +60,8 @@
                 type="datetime"
                 placeholder="选择一个您合适的验车时间"
                 :shortcuts="shortcuts"
-                size="large"
+                :disabled-date="disabledDate"
+                size="default"
             />
             <div style="margin-top: 20px;margin-left: -110px;width: 100%;display: flex;flex-direction: row;justify-content: center;align-items: center">
               <el-checkbox style="margin-right: 10px" v-model="form.anotherTime"></el-checkbox>
@@ -104,7 +100,7 @@
 <script setup lang="ts">
 import {ref} from "vue";
 import {provinceAndCityData} from "element-china-area-data";
-import {CaretRight} from "@element-plus/icons-vue";
+import {ArrowDown, CaretRight, Search} from "@element-plus/icons-vue";
 import {useRouter} from "vue-router";
 
 const options = provinceAndCityData
@@ -118,6 +114,15 @@ const form = ref({
   anotherTime: false,
   checkLocation: ''
 })
+const selectIt = ref()
+
+const closeIt = () =>{
+  selectIt.value.visible = false;
+  setTimeout(()=>{
+    selectIt.value.visible = true;
+  },1000)
+}
+
 const shortcuts = [
   {
     text: '现在',
@@ -144,6 +149,10 @@ const shortcuts = [
     },
   },
 ]
+
+const disabledDate = (time: Date) => {
+  return time.getTime() < new Date().getTime() - 86400000
+}
 
 const route = useRouter()
 const onSubmit = () => {
@@ -172,6 +181,7 @@ const onSubmit = () => {
 
 <style scoped >
 .sellFormContainer{
+  margin-right: 32px;
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -251,7 +261,7 @@ const onSubmit = () => {
 .bottomBar{
   width: 100%;
   height: 100px;
-  margin-top: 20px;
+  margin-top: 40px;
 }
 
 .formItem{

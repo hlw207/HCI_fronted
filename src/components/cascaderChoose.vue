@@ -128,7 +128,7 @@ onMounted(()=>{
 {
   0% {
     opacity: 0;
-    top: 0;
+    top: v-bind(top - 10 + 'px');
   }
   100% {
     opacity: 1;
@@ -144,6 +144,7 @@ onMounted(()=>{
   left: v-bind(left + 'px');
   height: 348px;
   width: 400px;
+  animation: myFirst 0.3s;
 }
 
 .container_main{

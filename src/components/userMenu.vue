@@ -20,7 +20,7 @@ const windows = useWindowStore()
 const user = useUserStore()
 const windowWidth = windows.width
 
-const choice = ref(["我要买车","我要卖车","功能待定","个人主页"])
+const choice = ref(["我要买车","我要卖车","加入我们","个人主页"])
 const menus = ref([{is : false, path: "/home"},
   {is : false, path: "/buy"},
   {is : false, path: "/sell"},
