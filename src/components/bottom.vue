@@ -1,8 +1,5 @@
 <template>
-
-  <FindCar />
   <Information />
-
 </template>
 
 <script>

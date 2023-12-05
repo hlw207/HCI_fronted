@@ -13,7 +13,7 @@ const route = useRoute()
 const user = useUserStore()
 
 const menus = ref([{is: false, path : '/user', name: '收藏'}
-                        ,{is: false, path : '/user/comments', name: '评论'}
+                        ,{is: false, path : '/user/records', name: '记录'}
                         ,{is: false, path : '/user/settings', name: '设置'}])
 
 const pathChoice = () =>{
@@ -57,7 +57,7 @@ onMounted(() => {
       </div>
       <div class="menu_box" :class="{active_menu_box: menus[1].is}" @click="router.push(menus[1].path)">
           <el-icon class="menu_icon" style="color: #f97499;"><Message /></el-icon>
-          <div class="menu_font"><span>评论</span></div>
+          <div class="menu_font"><span>记录</span></div>
       </div>
       <div class="menu_box" :class="{active_menu_box: menus[2].is}"  @click="router.push(menus[2].path)">
           <el-icon class="menu_icon" style="color: #25b5d9"><Setting /></el-icon>

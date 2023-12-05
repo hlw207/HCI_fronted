@@ -1,5 +1,5 @@
 <template>
-    <div :class="{ 'bottomFind': isBuyPage }">
+    <div class="bottomFind">
         <div class="findCarContainer">
             <div class="find">
                 <div class="findPicture">
@@ -106,7 +106,6 @@ export default {
             selectedCarPrice: "price0",
             carDescription: "",
             contactPhone: "",
-            isBuyPage: false,
             showPhoneError: false,
             showNotify: false,
         };
@@ -129,25 +128,19 @@ export default {
         closeNotify() {
             this.showNotify = false;
         },
-    },
-    mounted() {
-        this.isBuyPage = this.$route.path === '/buy';
-
-        this.$router.afterEach((to) => {
-            this.isBuyPage = to.path === '/buy';
-        });
-    },
+    }
 };
 </script>
 
 <style scoped>
 .bottomFind {
     position: relative;
-    margin-top: 1500px;
     width: 100%;
+    background: #ebebeb;
 }
 
 .findCarContainer {
+    margin-right: 32px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -155,16 +148,19 @@ export default {
 }
 
 .find{
+  background: #f2711c;
+    width: 40%;
     display: flex;
+    align-items: center;
 }
 
 .findPicture{
-    margin-left: 30px;
+    width: 80%;
+    margin-left: 20px;
 }
 
 .findPicture img {
-    margin-top: 30px;
-    max-width: 380px;
+    width: 100%;
     height: auto;
 }
 
@@ -184,6 +180,7 @@ export default {
 }
 
 .selectContainer {
+    width: 40%;
     flex-grow: 1;
     margin-left: 60px;
     margin-right: 50px;
@@ -192,17 +189,20 @@ export default {
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: #f8f8f9;
+    font-size: 14px;
 }
 .selectContainer select{
     margin-left: 10px;
-    width: 200px;
+    width: 150px;
+    height: 30px;
     padding: 8px;
     box-sizing: border-box;
     margin-right: 6px;
 }
 
 .inputContainer textarea{
-    width: 530px;
+    width: 450px;
     padding: 8px;
     box-sizing: border-box;
 }
@@ -238,6 +238,8 @@ export default {
 
 .dropdownContainer {
     width: 48%;
+    display: flex;
+    align-items: center;
 }
 
 .inputContainer {
@@ -266,7 +268,7 @@ input {
     cursor: pointer;
     font-size: 16px;
     font-weight: bold;
-    width: 300px;
+    width: 200px;
     margin-left: 30px;
 }
 

@@ -13,8 +13,8 @@
         </div>
         <div class="footer-column">
             <h3>交易流程</h3>
-            <router-link to="/buy-process">买车流程</router-link>
-            <router-link to="/sell-process">卖车流程</router-link>
+            <router-link to="/buy">买车流程</router-link>
+            <router-link to="/sell">卖车流程</router-link>
             <router-link to="/long-distance-purchase">异地购车</router-link>
         </div>
         <div class="footer-column">
@@ -45,9 +45,10 @@
 .footer-links {
     display: flex;
     justify-content: space-around;
-    padding: 20px 50px;
+    padding: 20px 120px 20px 100px;
     background-color: #333;
     color: #fff;
+    font-size: 12px;
 }
 
 .footer-column {
@@ -57,7 +58,7 @@
 }
 
 h3 {
-    font-size: 20px;
+    font-size: 15px;
     margin-bottom: 10px;
 }
 
