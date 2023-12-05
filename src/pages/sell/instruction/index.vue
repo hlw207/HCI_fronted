@@ -22,7 +22,7 @@
         </span>
       </div>
     </div>
-    <div v-show="isVisible" class="feature">
+    <div class="feature">
       <div class="featureTitle">
         保卖服务
       </div>
@@ -98,6 +98,22 @@
       </div>
     </div>
   </div>
+
+
+  <el-dialog v-model="dialogTableVisible" width="30%" center top="20%">
+    <div class="certifyContainer">
+      <el-image src="/public/pictures/sell/certify.png" style="width: 60px;height: 60px;position: relative;top: -80px" />
+      <div class="certifyPic">
+        <el-input v-model="certifyPicCode" placeholder="请输入图片验证码" minlength="4" maxlength="4" clearable />
+        <CertifyCode />
+      </div>
+      <div class="certifyCode">
+        <el-input v-model="certifyPhoneCode" placeholder="请输入您收到的验证码" minlength="6" maxlength="6" clearable />
+        <p style="color: #eda01f;width: 110px;height: 50px;margin-left: -110px;z-index: 1;cursor: pointer" @click="handleGetCertifyCode" text>{{certifyPhoneMessage}}</p>
+      </div>
+      <el-button color="#eda01f" style="width: 200px;color: white;height: 40px;margin-bottom: -10px" @click="handleCertificationSubmit">提交</el-button>
+    </div>
+  </el-dialog>
 </template>
 
 <script setup lang="ts">
@@ -105,6 +121,7 @@ import {onMounted, ref} from "vue";
 import {ElMessage} from "element-plus";
 import SellIcon from '../components/sellIcon/index.vue'
 import Question from './components/question/index.vue'
+import CertifyCode from "~/pages/sell/instruction/components/certifyCode/index.vue";
 import { useRouter} from "vue-router";
 import {CaretRight} from "@element-plus/icons-vue";
 
@@ -126,9 +143,13 @@ onMounted(() => {
 
 const phoneNumber = ref('')
 const agreement = ref(false)
-const isVisible = ref(true)
 const route = useRouter()
 const fixInputVisible = ref(false)
+const dialogTableVisible = ref(false)
+const certifyPicCode = ref('')
+const certifyPhoneCode = ref('')
+const certifyPhoneMessage = ref('获取短信验证码')
+const certifyGetable = ref(true)
 
 const featureTop = ref('-500px')
 const showIcon01 = ref(0)
@@ -138,7 +159,7 @@ const showIcon03 = ref(0)
 
 const handlePhoneNumberSubmit = () => {
   if (agreement.value){
-    route.push('form')
+    dialogTableVisible.value = true
   } else {
     ElMessage({
       message: '请先勾选同意条款',
@@ -150,7 +171,44 @@ const handlePhoneNumberSubmit = () => {
 const handleScroll = () => {
   fixInputVisible.value = window.scrollY > 327
 }
+
+const handleGetCertifyCode = () => {
+  if (!certifyGetable.value){
+    return
+  }
+  let timeCount = 60
+  certifyGetable.value = false
+  const timeInterval = setInterval(() => {
+    timeCount--
+    certifyPhoneMessage.value = String(timeCount) + '秒后重新获取'
+    if(timeCount === 0){
+      clearInterval(timeInterval)
+      certifyPhoneMessage.value = '获取短信验证码'
+      certifyGetable.value = true
+    }
+  },1000)
+}
+
+const handleCertificationSubmit = () => {
+  route.push('form')
+}
 </script>
+
+<style>
+.el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner{
+  background-color:#eda01f;
+  border-color:#eda01f;
+}
+.el-checkbox__input.is-checked + .el-checkbox__label {
+  color: #eda01f;
+}
+.el-checkbox.is-bordered.is-checked{
+  border-color: #eda01f;
+}
+.el-checkbox__input.is-focus .el-checkbox__inner{
+  border-color:  #eda01f;
+}
+</style>
 
 <style scoped>
 
@@ -323,6 +381,33 @@ const handleScroll = () => {
 .icon03{
   opacity: v-bind(showIcon03);
   transition: 0.6s;
+}
+
+.certifyContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.certifyPic{
+  width: 100%;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: -50px;
+  margin-bottom: 10px;
+}
+
+.certifyCode{
+  width: 100%;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-bottom: 10px;
 }
 
 </style>
