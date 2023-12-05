@@ -38,7 +38,6 @@ declare module '@vue/runtime-core' {
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
     ElText: typeof import('element-plus/es')['ElText']
-    ElUpload: typeof import('element-plus/es')['ElUpload']
     FindCar: typeof import('./components/bottomBar/findCar.vue')['default']
     Information: typeof import('./components/bottomBar/information.vue')['default']
     Item: typeof import('./components/right_side/components/item/index.vue')['default']
