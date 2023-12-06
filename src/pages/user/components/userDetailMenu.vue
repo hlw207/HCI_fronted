@@ -30,10 +30,10 @@ const exit = () =>{
     url: '/logout',
     method: 'POST',
     params: {
-      username: localStorage.getItem("username")
+      phone: localStorage.getItem("phone")
     }
   }).then((res) => {
-    localStorage.removeItem("username")
+    localStorage.removeItem("phone")
   }).catch((err) => {
     console.log(err)
   })

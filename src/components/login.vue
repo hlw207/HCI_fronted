@@ -2,7 +2,7 @@
 import {useWindowStore} from "~/stores/window";
 import {Close} from "@element-plus/icons-vue";
 import {computed, reactive, ref, watch} from "vue";
-import {ElMessage} from "element-plus";
+import {ElMessage, ElNotification} from "element-plus";
 import {useUserStore} from "~/stores/user";
 import {request} from "~/utils/request";
 import {PICTURE_ADDR} from "~/config";
@@ -14,15 +14,19 @@ const windowHeight = windows.height
 
 const download = ref(false)
 const isLogin = ref(true)
+const timer = ref()
+const time = ref(10)
+const count = ref(false)
+const code = ref('')
 
 const information = reactive({
-  username : '',
+  info : '',
   password : '',
   phone: '',
   code: ''
 })
 
-const isCanLogin = computed(() => information.username!= ''&& information.password != '')
+const isCanLogin = computed(() => information.info!= ''&& information.password != '')
 
 const props = defineProps<{
   loginShow: boolean
@@ -31,38 +35,112 @@ const props = defineProps<{
 
 const emits = defineEmits(['cancelLogin','setRegister'])
 
+const sendCode = () => {
+  const phonePattern = /^1\d{10}$/;
+  if(!phonePattern.test(information.phone)){
+    ElMessage({
+      message: '手机号格式错误',
+      type: 'warning',
+    })
+    return
+  }
+  code.value = user.gainCode()
+  ElNotification({
+    title: '验证码',
+    message: '验证码为' + code.value,
+    type: 'success',
+    duration: 20000
+  })
+  count.value = true
+  timer.value = setInterval(() => {
+    if (time.value == 0) {
+      clearInterval(timer.value);
+      count.value = false
+      time.value = 10
+    } else {
+      time.value--
+    }
+  }, 1000)
+}
+
 const login = () => {
-  if(information.username == ''){
-    ElMessage.error('用户名未输入')
+  if(information.info == ''){
+    ElMessage.error('账号/手机号未输入')
   }
   else if(information.password == ''){
     ElMessage.error('密码未输入')
   }
   else{
-    localStorage.setItem("username", information.username)
     // user.id = 0;
     request({
       url: '/login',
       method: 'POST',
       params:{
-        username: information.username,
+        info: information.info,
         password: information.password
       }
     }).then((res) => {
+      localStorage.setItem("phone", res.data)
       user.fetch()
       ElMessage.success('登录成功')
     }).catch((err) => {
-      localStorage.removeItem("username")
+      localStorage.removeItem("info")
       console.log(err)
       ElMessage.error('账号或密码错误')
     })
     clear()
+    emits('cancelLogin', false)
   }
+}
+
+const register = () => {
+  const phonePattern = /^1\d{10}$/;
+  if(!phonePattern.test(information.phone)){
+    ElMessage({
+      message: '手机号格式错误',
+      type: 'warning',
+    })
+    return
+  }
+  if(code.value != information.code || code.value == ''){
+    ElMessage({
+      message: '验证码错误',
+      type: 'warning',
+    })
+    return
+  }
+  localStorage.setItem("phone", information.phone)
+  request({
+    url: '/loginPhone',
+    method: 'POST',
+    params: {
+      phone: information.phone
+    }
+  }).then((res) => {
+    user.fetch()
+    ElMessage.success('登录成功')
+  }).catch((err) => {
+    localStorage.removeItem("phone")
+    console.log(err)
+    ElMessage.error('登录/注册错误')
+  })
+  clear()
+  setTimeout(()=>{
+    if(user.username == '')
+      emits('cancelLogin', true)
+    else
+      emits('cancelLogin',false)
+  }, 1)
 }
 const clear = () => {
   isLogin.value = true
-  information.username = information.password = information.phone = information.code = ''
-  emits('cancelLogin')
+  information.info = information.password = information.phone = information.code = ''
+  code.value = ''
+}
+
+const exit = () =>{
+  clear()
+  emits('cancelLogin',false)
 }
 
 watch(props,()=>{
@@ -77,7 +155,7 @@ watch(props,()=>{
   <div>
     <div class="login" v-if="loginShow">
       <div class="cancel_login">
-        <el-icon size="20px" @click="clear"><Close /></el-icon>
+        <el-icon size="20px" @click="exit"><Close /></el-icon>
       </div>
       <div class="login_main">
         <div class="login_main_left">
@@ -114,7 +192,7 @@ watch(props,()=>{
           <div class="login_main_right_up_main" v-if="isLogin">
             <div class="input_up">
               <div style="margin: 13px 20px"><span>账号</span></div>
-              <input class="input_input" type="text" v-model="information.username" placeholder="请输入账号">
+              <input class="input_input" type="text" v-model="information.info" placeholder="请输入账号 / 手机号">
             </div>
             <div class="input_down">
               <div style="margin: 13px 20px"><span>密码</span></div>
@@ -143,7 +221,8 @@ watch(props,()=>{
               <div style="margin: 16px 35px 0 20px"><span>+86</span></div>
               <input class="input_input" type="text" v-model="information.phone" placeholder="请输入手机号">
               <div style="margin-top: 14px;margin-left: 4px">
-                <span style="font-size: 12px;color: #f9c022;cursor: pointer">获取验证码</span>
+                <span v-if="!count" style="font-size: 12px;color: #f9c022;cursor: pointer" @click="sendCode">获取验证码</span>
+                <span v-if="count" style="font-size: 12px;color: #9ba3af">{{time}}s后重新获取</span>
               </div>
             </div>
             <div class="input_down">
@@ -152,7 +231,7 @@ watch(props,()=>{
             </div>
           </div>
 
-          <div class="login_main_right_up_down" v-if="!isLogin">
+          <div class="login_main_right_up_down" v-if="!isLogin" @click="register">
             <div class="login_button_login_register">
               <span>
                  登录/注册

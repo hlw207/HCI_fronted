@@ -7,10 +7,8 @@ export const useUserStore = defineStore('user', {
         return {
             id: -1,
             phone: '15971989001',
-            username: 'hlw',
-            nickname: '南大混饭人',
-            password: '123',
-            profile: PICTURE_ADDR + '/profile/0.jpg',
+            username: '',
+            profile: PICTURE_ADDR + 'profile/0.jpg',
             autoGraph: '123'
         }
     },
@@ -21,7 +19,7 @@ export const useUserStore = defineStore('user', {
                 url: '/user',
                 method: 'GET',
                 params: {
-                    username: localStorage.getItem("username")
+                    phone: localStorage.getItem("phone")
                 }
             }).then((res) => {
                 this.id = res.data.id
@@ -32,6 +30,15 @@ export const useUserStore = defineStore('user', {
             }).catch((err) => {
                 console.log(err)
             })
+        },
+        gainCode(){
+            let code = '';
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            for (let i = 0; i < 6; i++) {
+                const randomIndex = Math.floor(Math.random() * characters.length);
+                code += characters[randomIndex];
+            }
+            return code;
         }
     }
 

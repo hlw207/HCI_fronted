@@ -3,6 +3,7 @@
 import {Ref, ref} from "vue";
 import {ElMessage} from "element-plus";
 import {useUserStore} from "~/stores/user";
+import {request} from "~/utils/request";
 
 const user = useUserStore()
 const old_password = ref()
@@ -11,21 +12,28 @@ const password_certain = ref()
 const active = ref(0)
 const certain = () => {
   if(active.value == 0){
-    if(user.password == old_password.value){
+    request({
+      url: '/user/password',
+      method: 'GET',
+      params: {
+        phone: localStorage.getItem("phone"),
+        password: old_password.value
+      }
+    }).then((res) => {
       ElMessage({
         showClose: true,
         message: '验证成功',
         type: 'success',
       })
       active.value = 1
-    }else {
+    }).catch((err) => {
+      console.log(err)
       ElMessage({
-        showClose: true,
-        message: '密码错误，请重试',
+        message: '密码错误',
         type: 'error',
       })
-      old_password.value = ''
-    }
+    })
+    old_password.value = ''
   }else if(active.value == 1){
     if(password.value.length < 6){
       ElMessage({
@@ -46,13 +54,28 @@ const certain = () => {
       })
       password_certain.value = ''
     }else {
-      ElMessage({
-        showClose: true,
-        message: '修改密码成功',
-        type: 'success',
+      request({
+        url: '/user/password',
+        method: 'POST',
+        params: {
+          phone: localStorage.getItem("phone"),
+          password: password_certain.value
+        }
+      }).then((res) => {
+        ElMessage({
+          showClose: true,
+          message: '修改密码成功',
+          type: 'success',
+        })
+        active.value = 1
+      }).catch((err) => {
+        console.log(err)
+        ElMessage({
+          message: '修改失败，请重试',
+          type: 'error',
+        })
       })
-      setTimeout(() => {
-        user.password = password.value
+      setTimeout(()=> {
         old_password.value = password.value = password_certain.value = ''
         active.value = 0
       }, 1000)

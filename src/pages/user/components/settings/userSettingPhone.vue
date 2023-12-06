@@ -2,6 +2,8 @@
 
 import {ref} from "vue";
 import {useUserStore} from "~/stores/user";
+import {ElMessage, ElNotification} from "element-plus";
+import {request} from "~/utils/request";
 
 const user = useUserStore()
 const active = ref(0)
@@ -10,8 +12,33 @@ const timer = ref()
 const count = ref(false)
 const phone = ref()
 const code = ref()
+const Code = ref('')
 const sendCode = () =>{
+  if(active.value == 1){
+    const phonePattern = /^1\d{10}$/;
+    if(!phonePattern.test(phone.value)){
+      ElMessage({
+        message: '手机号格式错误',
+        type: 'warning',
+      })
+      return
+    }
+    if(phone.value == user.phone){
+      ElMessage({
+        message: '手机号不能和之前相同',
+        type: 'warning',
+      })
+      return
+    }
+  }
   count.value = true
+  Code.value = user.gainCode()
+  ElNotification({
+    title: '验证码',
+    message: '验证码为' + Code.value,
+    type: 'success',
+    duration: 10000
+  })
   timer.value = setInterval(() =>{
     if(time.value == 0){
       clearInterval(timer.value);
@@ -25,15 +52,61 @@ const sendCode = () =>{
 
 const certain = () => {
   if(active.value == 0){
-    active.value = 1
-    clearInterval(timer.value);
-    count.value = false
-    time.value = 10
+    if(code.value == Code.value && Code.value != '') {
+      ElMessage({
+        message: '验证成功',
+        type: 'success',
+      })
+      active.value = 1
+      clearInterval(timer.value);
+      count.value = false
+      time.value = 10
+      code.value = ''
+      Code.value = ''
+    }else {
+      ElMessage({
+        message: '验证码错误',
+        type: 'error',
+      })
+    }
   }else {
-    active.value = 0
-    clearInterval(timer.value);
-    count.value = false
-    time.value = 10
+    const phonePattern = /^1\d{10}$/;
+    if(!phonePattern.test(phone.value)){
+      ElMessage({
+        message: '手机号格式错误',
+        type: 'warning',
+      })
+      return
+    }
+    if(code.value == Code.value && Code.value != ''){
+      request({
+        url: '/user/phone',
+        method: 'POST',
+        params: {
+          phone: localStorage.getItem("phone"),
+          newPhone: phone.value
+        }
+      }).then((res) => {
+        ElMessage({
+          showClose: true,
+          message: '修改成功',
+          type: 'success',
+        })
+        localStorage.setItem('phone', phone.value)
+        active.value = 0
+        clearInterval(timer.value);
+        count.value = false
+        time.value = 10
+        code.value = Code.value = ''
+        user.fetch()
+      }).catch((err) => {
+        console.log(err)
+        ElMessage({
+          message: '该手机号已被注册，无法更改',
+          type: 'error',
+        })
+      })
+    }
   }
 }
 </script>
@@ -53,7 +126,7 @@ const certain = () => {
       </div>
       <div style="margin-left: 25px">
         <span style="font-size: 12px;color: #f9c022;cursor: pointer" @click="sendCode" v-if="!count">获取验证码</span>
-        <span style="font-size: 12px;color: #9ba3af" @click="sendCode" v-if="count">{{time}}s后重新获取</span>
+        <span style="font-size: 12px;color: #9ba3af" v-if="count">{{time}}s后重新获取</span>
       </div>
     </div>
     <div class="phone" v-if="active == 0" style="border: none;margin-top: 10px">

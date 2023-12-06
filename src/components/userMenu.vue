@@ -6,7 +6,7 @@ import {computed, onMounted, onUnmounted, ref, watch} from "vue";
 import {useRoute, useRouter} from "vue-router";
 import {useUserStore} from "~/stores/user";
 import {ArrowRightBold, Message, Pointer, Setting, Star, SwitchButton} from "@element-plus/icons-vue";
-import {ElNotification} from "element-plus";
+import {ElMessage, ElNotification} from "element-plus";
 import {request} from "~/utils/request";
 
 // const props = defineProps<{
@@ -33,6 +33,7 @@ const registerShow = ref(false)
 const loginInfo = ref(false)
 const loginClick = ref(false)
 const login_position = computed(()=> windowWidth - 427.5)
+const registerIf = ref(false)
 
 const moveToLogin = () =>{
   loginInfo.value = true
@@ -69,11 +70,6 @@ const mouseHandle1 = (event : MouseEvent) => {
 const throttledHandle1 = throttle(mouseHandle1, 100);
 
 const login = () => {
-  ElNotification({
-    title: '临时账号密码',
-    message: '账号：hlw，密码：123',
-    type: 'info',
-  })
   loginInfo.value = false
   window.removeEventListener('mousemove',throttledHandle)
   loginShow.value = true
@@ -96,10 +92,10 @@ const exit = () =>{
     url: '/logout',
     method: 'POST',
     params: {
-      username: localStorage.getItem("username")
+      phone: localStorage.getItem("phone")
     }
   }).then((res) => {
-    localStorage.removeItem("username")
+    localStorage.removeItem("phone")
   }).catch((err) => {
     console.log(err)
   })
@@ -116,13 +112,6 @@ const routerTo = (num : number) => {
       type: 'error',
       duration: 1000,
     })
-    ElNotification({
-      title: '临时账号密码',
-      message: '账号：hlw，密码：123',
-      type: 'info',
-      offset: 100,
-      duration: 0
-    })
     loginShow.value = true
   }else {
     router.push(menus.value[num].path)
@@ -137,17 +126,34 @@ const pathChoice = () =>{
   for (i = 0;i < 5;i++){
     menus.value[i].is = path_split[1] == menus.value[i].path.substring(1);
   }
+  if(route.path == '/user/settings/password' || route.path == '/user/settings/password/'){
+    request({
+      url: '/user/ifPassword',
+      method: 'GET',
+      params: {
+        phone : localStorage.getItem("phone")
+      }
+    }).then((res) => {
+      if(!res.data){
+        router.back()
+        ElMessage.error("您还未设置密码")
+        registerIf.value = true
+      }
+    }).catch((err) => {
+      console.log(err)
+    })
+  }
 }
 
 const session = () => {
-  if(localStorage.getItem("username") == null)
+  if(localStorage.getItem("phone") == null)
     return
   else {
     request({
       url: '/session',
       method: 'POST',
       params: {
-        username : localStorage.getItem("username")
+        phone : localStorage.getItem("phone")
       }
     }).then((res) => {
       user.fetch()
@@ -157,11 +163,17 @@ const session = () => {
   }
 }
 
+const cancelLogin = (show: boolean) =>{
+  loginShow.value = false
+  registerIf.value = show
+}
+
 watch(route,() => {
   pathChoice()
 })
 
 onMounted(() =>{
+  // localStorage.clear()
   // let i : number;
   // for (i = 0;i < 5;i++){
   //   if (props.pageIndex == menus.value[i].path){
@@ -239,7 +251,7 @@ onUnmounted(() => {
       <div class="login_profile_menu_text">我的收藏</div>
       <el-icon class="login_profile_menu_last"><ArrowRightBold /></el-icon>
     </div>
-    <div class="login_profile_menu" @click="router.push('/user/comments')">
+    <div class="login_profile_menu" @click="router.push('/user/records')">
       <el-icon style="color: #f97499;" class="login_profile_menu_suffix"><Message /></el-icon>
       <div class="login_profile_menu_text">我的信息</div>
       <el-icon class="login_profile_menu_last"><ArrowRightBold /></el-icon>
@@ -257,7 +269,8 @@ onUnmounted(() => {
     </div>
   </div>
 
-  <Login ref="loginInformation" :login-show="loginShow" :register-show="registerShow" @cancel-login="loginShow=false" @set-register="setRegister"/>
+  <Login ref="loginInformation" :login-show="loginShow" :register-show="registerShow" @cancel-login="cancelLogin" @set-register="setRegister"/>
+  <RegisterForm :dialog-visible="registerIf" @cancel="registerIf = false"/>
 </template>
 
 <style scoped>

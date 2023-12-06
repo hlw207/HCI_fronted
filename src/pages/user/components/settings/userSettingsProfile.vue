@@ -5,6 +5,7 @@ import {FolderOpened} from "@element-plus/icons-vue";
 import {useUserStore} from "~/stores/user";
 import {PICTURE_ADDR} from "~/config";
 import {ElMessage} from "element-plus";
+import {request} from "~/utils/request";
 
 const user = useUserStore()
 const profileChoose = ref(false)
@@ -23,7 +24,23 @@ const changeProfile = () =>{
 }
 
 const update = () =>{
-  user.profile = choiceSrc.value
+  request({
+    url: '/user/profile',
+    method: 'POST',
+    params: {
+      phone: localStorage.getItem("phone"),
+      path: choiceSrc.value
+    }
+  }).then((res) => {
+    user.fetch()
+  }).catch((err) => {
+    console.log(err)
+  })
+  choiceSrc.value = ''
+  ElMessage({
+    message: '更新成功',
+    type: 'success',
+  })
   choiceSrc.value = ''
   ElMessage({
     message: '更新成功',
@@ -38,7 +55,7 @@ const cancel = () =>{
 onMounted(()=>{
   let i;
   for(i = 0;i < 53;i++){
-    let path : string = PICTURE_ADDR + "profile/" + (i % 4) + ".jpg"
+    let path : string = "profile/" + (i % 4) + ".jpg"
     imgPath.value.push(path)
   }
 })
@@ -52,7 +69,7 @@ onMounted(()=>{
     <div class="profile">
        <div class="profile_main">
          <div style="width: 50%">
-          <el-image class="profile_image" :src="choiceSrc != '' ? choiceSrc : user.profile"></el-image>
+          <el-image class="profile_image" :src="choiceSrc != '' ? PICTURE_ADDR + choiceSrc : user.profile"></el-image>
            <div style="margin-top: 15px;margin-left:3px;color: #9ba3af;font-size: 13px">
              当前头像
            </div>
@@ -90,7 +107,7 @@ onMounted(()=>{
         </div>
         <div style="overflow-y: auto;height: 350px;">
           <template v-for="(path, index) in imgPath">
-            <el-image class="profile_image_list" :class="{profile_image_list_active : choice == index}" :src="path" @click="choice = index"></el-image>
+            <el-image class="profile_image_list" :class="{profile_image_list_active : choice == index}" :src="PICTURE_ADDR + path" @click="choice = index"></el-image>
           </template>
         </div>
         <div style="display: flex;  justify-content:center;align-items:center;">
