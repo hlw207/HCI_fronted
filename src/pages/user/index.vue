@@ -29,7 +29,7 @@ const height = window.height
 
 .user_main{
   margin-top: 15px;
-  padding-top: 10px;
+  padding-top: 20px;
   background: white;
 }
 

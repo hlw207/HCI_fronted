@@ -6,10 +6,10 @@ export const useUserStore = defineStore('user', {
     state: () => {
         return {
             id: -1,
-            phone: '15971989001',
+            phone: '',
             username: '',
-            profile: PICTURE_ADDR + 'profile/0.jpg',
-            autoGraph: '123'
+            profile: '',
+            autoGraph: ''
         }
     },
 

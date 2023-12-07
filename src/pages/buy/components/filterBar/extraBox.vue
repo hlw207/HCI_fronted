@@ -171,6 +171,7 @@ onMounted(()=>{
   border: 1px solid rgba(128, 128, 128, 0.2);
   animation: myFirst 0.3s;
   letter-spacing: 0.5px;
+  padding-top: 5px;
 }
 .extra_choose_up{
   display: flex;

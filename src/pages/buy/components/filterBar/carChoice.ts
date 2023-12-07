@@ -5,7 +5,7 @@ const carChoice = {
         ,{choose: false, type:'中型号车'}
         ,{choose: false, type:'中大型车'}
         ,{choose: false, type:'大型车'}],
-    carType: [{choose: false, type:'轿车'}
+    carDetailType: [{choose: false, type:'轿车'}
         ,{choose: false, type:'SUV'}
         ,{choose: false, type:'MPV'}
         ,{choose: false, type:'跑车'}
@@ -38,7 +38,9 @@ const carChoice = {
         ,{choose: false, type:'绿色'}
         ,{choose: false, type:'紫色'}
         ,{choose: false, type:'粉色'}
-        ,{choose: false, type:'棕色'}]
+        ,{choose: false, type:'棕色'}],
+    carGear: [{choose: false, type:'手动'}
+        ,{choose: false, type:'自动'}]
 }
 
 export default carChoice

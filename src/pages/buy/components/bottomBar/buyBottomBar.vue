@@ -38,9 +38,11 @@ const changePage = (p : number) => {
 
 onMounted(()=>{
     carsBuy.fetch(0)
-    page.value = carsBuy.page + 1
-    real_page.value = old_page.value = page.value
-    maxPage.value = Math.floor(carsBuy.total_num / 32) + 1
+    setTimeout(()=>{
+      page.value = carsBuy.page + 1
+      real_page.value = old_page.value = page.value
+      maxPage.value = Math.floor(carsBuy.total_num / 32) + 1
+    }, 100)
 })
 </script>
 

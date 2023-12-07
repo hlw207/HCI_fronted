@@ -3,6 +3,8 @@ import {ref, onMounted, computed} from 'vue';
 import ImageModal from '~/pages/detail/components/image/imageModal.vue';
 import {Star, StarFilled} from "@element-plus/icons-vue";
 import {ElMessage} from "element-plus";
+import {useCarsData} from "~/stores/carsData";
+import {useUserStore} from "~/stores/user";
 
 const ImageModalRef = ref()
 
@@ -158,7 +160,7 @@ onMounted(() => {
                 <!-- 1. 车辆名称 -->
                 <div class="carName">
                   车辆名称
-                  <el-icon class="collection_icon">
+                  <el-icon class="collection_icon" v-if="useUserStore().id != -1">
                     <StarFilled class="show" v-if="shine" @click="cancelStar"/>
                     <StarFilled style="color: #9ba3af;" v-if="!shine" @click="clickStar"><Star /></StarFilled>
                   </el-icon>

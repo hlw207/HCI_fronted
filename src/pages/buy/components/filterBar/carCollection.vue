@@ -2,11 +2,11 @@
 
 import {useWindowStore} from "~/stores/window";
 import {Star, StarFilled} from "@element-plus/icons-vue";
-import {computed, inject, ref, toRefs} from "vue";
-import {throttle} from "lodash";
+import {computed, ref} from "vue";
 import {useRouter} from "vue-router";
 import {ElMessage} from "element-plus";
 import Popup from '~/pages/buy/components/popUp/index.vue';
+import {useUserStore} from "~/stores/user";
 
 
 const props = defineProps<{
@@ -75,7 +75,7 @@ const closePopup = (event) => {
             <div class="collection_picture">
                 <el-image :src="props.image" class="collection_picture_main"></el-image>
             </div>
-            <el-icon class="collection_icon">
+            <el-icon class="collection_icon" v-if="useUserStore().id != -1">
                 <StarFilled class="show" v-if="shine" @click="cancelStar"/>
                 <StarFilled style="color: #9ba3af" v-if="!shine" @click="clickStar"><Star /></StarFilled>
             </el-icon>

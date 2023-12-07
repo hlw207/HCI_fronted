@@ -25,4 +25,17 @@ interface TypeChoose{
   choose : boolean
 }
 
-export {CarCollection, CarStruct, TypeChoose}
+interface carRequest{
+  brand: string,
+  carType: string,
+  price: string,
+  carLevel: string,
+  carDetailType: string,
+  carAge: string,
+  carPollution: string,
+  carDistance: string,
+  carColor: string,
+  carGear: string
+}
+
+export {CarCollection, CarStruct, TypeChoose, carRequest}

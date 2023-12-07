@@ -43,6 +43,7 @@
 
 <style scoped>
 .footer-links {
+    margin-right: 2px;
     display: flex;
     justify-content: space-around;
     padding: 20px 120px 20px 100px;

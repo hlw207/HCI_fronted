@@ -124,6 +124,7 @@ import Question from './components/question/index.vue'
 import CertifyCode from "~/pages/sell/instruction/components/certifyCode/index.vue";
 import { useRouter} from "vue-router";
 import {CaretRight} from "@element-plus/icons-vue";
+import {useUserStore} from "~/stores/user";
 
 onMounted(() => {
   window.addEventListener("scroll",handleScroll)
@@ -141,7 +142,8 @@ onMounted(() => {
   }, 1500); // 1000毫秒延迟
 })
 
-const phoneNumber = ref('')
+const user = useUserStore()
+const phoneNumber = ref(user.phone)
 const agreement = ref(false)
 const route = useRouter()
 const fixInputVisible = ref(false)

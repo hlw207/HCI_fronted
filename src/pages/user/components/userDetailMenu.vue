@@ -26,6 +26,7 @@ const pathChoice = () =>{
 
 const exit = () =>{
   user.id = -1;
+  user.phone = user.username = user.autoGraph = user.profile = ''
   request({
     url: '/logout',
     method: 'POST',

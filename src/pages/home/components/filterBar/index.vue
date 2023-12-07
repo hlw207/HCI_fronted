@@ -54,7 +54,7 @@ import Sell from '~/pages/home/components/filterBar/components/sell.vue'
 }
 
 .filterBuyContainer{
-  width: 70%;
+  width: 65%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -62,7 +62,8 @@ import Sell from '~/pages/home/components/filterBar/components/sell.vue'
 }
 
 .filterSellContainer{
-  width: 50%;
+  margin-left: 60px;
+  width: 35%;
   height: 100%;
   display: flex;
   flex-direction: column;

@@ -21,20 +21,22 @@ const choice = reactive({
 
 const extraChoice = reactive({
   carLevel: carChoice.carLevel,
-  carType: carChoice.carType,
+  carDetailType: carChoice.carDetailType,
   carAge: carChoice.carAge,
   carPollution: carChoice.carPollution,
   carDistance: carChoice.carDistance,
-  carColor: carChoice.carColor
+  carColor: carChoice.carColor,
+  carGear: carChoice.carGear
 })
 
 const extraChoiceName = reactive({
   carLevel: '车辆级别',
-  carType: '车辆类型',
+  carDetailType: '车辆类型',
   carAge: '车龄',
   carPollution: '排量',
   carDistance: '里程',
-  carColor: '颜色'
+  carColor: '颜色',
+  carGear: '变速箱'
 })
 
 const searchShow = ref(false)
