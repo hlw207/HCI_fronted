@@ -15,12 +15,12 @@
 
             <div class="selectContainer">
                 <div class="row">
-                    <div class="dropdownContainer">
+                    <div class="dropdownContainer" @click="searchShow = true">
                         <label for="preOrderCar">预购车辆类型：</label>
-                        <select id="preOrderCar" v-model="selectedCar">
-                            <option value="car1">Car 1</option>
-                            <option value="car2">Car 2</option>
-                        </select>
+                        <div>
+                            <input class="carType" placeholder="不限"  @input="searchShow = false" v-model="typeData"/>
+                            <CascaderChoose :left="805" :top="75" class="cascaderChoose" :is-show="searchShow" @disShow="searchShow = false" @submit="submit" v-model="typeData" />
+                        </div>
                     </div>
 
                     <div class="dropdownContainer">
@@ -65,6 +65,7 @@
                             <option value="price7">20-30万</option>
                             <option value="price8">30万以上</option>
                         </select>
+
                     </div>
                 </div>
 
@@ -72,6 +73,7 @@
                     <div class="inputContainer">
                         <label for="carDescription">喜爱车辆描述：</label>
                         <textarea id="carDescription" v-model="carDescription" rows="3" style="resize: none;"></textarea>
+
                     </div>
                 </div>
 
@@ -88,7 +90,6 @@
                 <Notify v-if="showNotify" @close-notify="closeNotify" />
 
 
-
             </div>
         </div>
     </div>
@@ -96,11 +97,13 @@
 
 <script>
 import Notify from "~/components/bottomBar/notify.vue";
+import {ref} from "vue";
 
 export default {
     data() {
         return {
-            selectedCar: "",
+            searchShow: false,
+            typeData: '',
             selectedCarAge: "age0",
             selectedCarTime: "time0",
             selectedCarPrice: "price0",
@@ -117,7 +120,7 @@ export default {
             } else {
                 this.showPhoneError = false;
                 this.showNotify = true;
-                this.selectedCar = "";
+                this.typeData = "";
                 this.selectedCarAge = "age0";
                 this.selectedCarTime = "time0";
                 this.selectedCarPrice = "price0";
@@ -127,6 +130,9 @@ export default {
         },
         closeNotify() {
             this.showNotify = false;
+        },
+        submit(third) {
+            this.typeData = third;
         },
     }
 };
@@ -148,7 +154,7 @@ export default {
 }
 
 .find{
-  background: #f2711c;
+  /*background: #f2711c;*/
     width: 40%;
     display: flex;
     align-items: center;
@@ -157,6 +163,7 @@ export default {
 .findPicture{
     width: 80%;
     margin-left: 20px;
+    margin-right: 20px;
 }
 
 .findPicture img {
@@ -192,10 +199,30 @@ export default {
     background: #f8f8f9;
     font-size: 14px;
 }
+
+.carType{
+    margin-left: 10px;
+    width: 150px;
+    padding: 8px;
+    box-sizing: border-box;
+    margin-right: 6px;
+    font-size: 14px;
+}
+
+.carType::placeholder {
+    font-size: 14px;
+}
+
+/*.cascaderChoose{*/
+/*    position: absolute;*/
+/*    right: 365px;*/
+/*    top: 70px;*/
+/*}*/
+
+
 .selectContainer select{
     margin-left: 10px;
     width: 150px;
-    height: 30px;
     padding: 8px;
     box-sizing: border-box;
     margin-right: 6px;
@@ -226,7 +253,7 @@ export default {
 .selectContainer select,
 .inputContainer textarea,
 .inputContainer input {
-    font-size: 18px;
+    font-size: 15px;
 }
 
 

@@ -4,12 +4,13 @@ import {useCarsShow} from "~/stores/carsShow";
 import {ArrowRight} from "@element-plus/icons-vue";
 
 const props = defineProps({
-  top: Number,
-  left: Number,
-  isShow: Boolean
+    top: Number,
+    left: Number,
+    isShow: Boolean,
 })
 
 const emits = defineEmits(['disShow', 'submit'])
+
 
 const carsShow = useCarsShow()
 const show = ref()
@@ -60,9 +61,8 @@ watch(props,(()=>{
     window.removeEventListener('click',mouseHandle)
     first.value = 'Hot'
     second.value = third.value = ''
-
-
   }
+
 }))
 
 const mouseHandle = (event : MouseEvent) => {
@@ -79,6 +79,15 @@ const mouseHandle = (event : MouseEvent) => {
     }
   }
 }
+
+watch(
+    () => props.isShow,
+    (newVal) => {
+        if (newVal) {
+           third.value = "";
+        }
+    }
+);
 
 onMounted(()=>{
   carsShow.fetch()
