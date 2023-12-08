@@ -2,7 +2,6 @@ import {defineStore} from "pinia";
 import {CarStruct} from "~/pages/buy/components/filterBar/carStruct";
 import {carRequest} from "~/utils/interfaces";
 import {request} from "~/utils/request";
-import {ElMessage} from "element-plus";
 
 
 export const useBuyBottomStore = defineStore('buy', {
@@ -43,30 +42,32 @@ export const useBuyBottomStore = defineStore('buy', {
                 price: "不限"
             }
             this.getCars(carRequest)
-            this.cars = []
-            if(32 * page >= this.total_num)
-                return
-            this.page = page
-            const startIndex = page * 32;
-            const endIndex = Math.min(startIndex + 32, this.total_num);
-            for (let i = startIndex; i < endIndex; i++) {
-                const car = this.carData[i];
-                const info: CarStruct = {
-                    id: car.id,
-                    image: car.image,
-                    name: car.name,
-                    price: car.price,
-                    color: car.color,
-                    time: car.time,
-                    mileage: car.mileage,
-                    source: car.source,
-                    shine: false,
-                };
-                this.cars.push(info);
-            }
+            setTimeout(()=>{
+                this.cars = []
+                if(32 * page >= this.total_num)
+                    return
+                this.page = page
+                const startIndex = page * 32;
+                const endIndex = Math.min(startIndex + 32, this.total_num);
+                for (let i = startIndex; i < endIndex; i++) {
+                    const car = this.carData[i];
+                    const info: CarStruct = {
+                        id: car.id,
+                        image: car.image,
+                        name: car.name,
+                        price: car.price,
+                        color: car.color,
+                        time: car.time,
+                        mileage: car.mileage,
+                        source: car.source,
+                        shine: false,
+                    };
+                    this.cars.push(info);
+                }
+            },100)
         },
         change(total_page : number){
-            this.total_num = total_page
+            this.page = total_page
         }
     }
 

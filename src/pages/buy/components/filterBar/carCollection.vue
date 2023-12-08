@@ -109,7 +109,7 @@ const closePopup = (event) => {
 
 .collection{
     box-sizing: border-box;
-    width: 25%;
+    width: 23%;
     margin: 1% 1%;
     cursor: pointer;
     padding: 1px 1px 5px;
