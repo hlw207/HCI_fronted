@@ -1,26 +1,47 @@
 import { defineStore } from "pinia";
 import {CarCollection} from "~/utils/interfaces";
+import {request} from "~/utils/request";
+import {useUserStore} from "~/stores/user";
 
 export const useCollectionStore = defineStore('collection', {
     state: () => {
         return {
             total_num : 234,
             page : 0,
-            collections : [] as CarCollection[],
+            carCollections: [] as CarCollection[][]
         }
     },
 
     actions: {
         fetch(page: number) {
-            this.collections = []
-            if(12 * page >= this.total_num)
-                return
-            this.page = page
-            let i : number
-            for(i = 0;i < (this.total_num - page * 12 > 12 ? 12 : this.total_num - page * 12);i++){
-                const info: CarCollection = {id: i, picturePath: '~/../public/pictures/car/0.jpg', name: "雅迪-3", price: 20.99, time: "2021/01/21", mileage: 4.68, source: "北京"}
-                this.collections.push(info)
-            }
+            request({
+                url: '/collection',
+                method: 'GET',
+                params: {
+                    userId: useUserStore().id
+                }
+            }).then((res)=>{
+                this.carCollections = []
+                this.total_num = res.data.length;
+                if(12 * page >= this.total_num) {
+                    if(page != 0)
+                        this.fetch(this.page - 1)
+                    return
+                }
+                this.page = page
+                let i: number
+                for (i = 0;i < 3;i++){
+                    let j: number
+                    let collection = [] as CarCollection[]
+                    for (j = 0;j < 4;j++){
+                        if(12 * page + i * 4 + j < this.total_num){
+                            collection.push(res.data[12 * page + i * 4 + j])
+                        }
+                    }
+                    if(collection.length != 0)
+                        this.carCollections.push(collection)
+                }
+            })
         },
         change(total_page:number){
             this.total_num = total_page

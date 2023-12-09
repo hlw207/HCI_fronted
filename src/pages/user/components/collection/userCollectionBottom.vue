@@ -2,7 +2,9 @@
 
 import {onMounted, ref, watch} from "vue";
 import {useCollectionStore} from "~/stores/collection";
+import {useUserStore} from "~/stores/user";
 
+const user = useUserStore()
 const collections = useCollectionStore()
 const maxPage = ref()
 const real_page = ref()
@@ -19,6 +21,9 @@ watch(page,(()=>{
 
 watch(collections,(()=>{
   maxPage.value = collections.total_num == 0 ? 1 : Math.floor((collections.total_num - 1) / 12) + 1
+  if(real_page.value > maxPage.value){
+    real_page.value = old_page.value = page.value = collections.page + 1
+  }
 }))
 
 const certain = () => {
@@ -36,10 +41,19 @@ const changePage = (p : number) => {
 }
 
 onMounted(()=>{
-  collections.fetch(0)
+  collections.fetch(collections.page)
   page.value = collections.page + 1
   real_page.value = old_page.value = page.value
   maxPage.value = Math.floor(collections.total_num / 12) + 1
+})
+
+watch(()=>user.id,()=>{
+  if(user.id != -1){
+    collections.fetch(0)
+    page.value = collections.page + 1
+    real_page.value = old_page.value = page.value
+    maxPage.value = Math.floor(collections.total_num / 12) + 1
+  }
 })
 </script>
 

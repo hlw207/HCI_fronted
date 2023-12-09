@@ -1,10 +1,13 @@
 <script setup lang="ts">
 
-import {useWindowStore} from "~/stores/window";
 import {StarFilled} from "@element-plus/icons-vue";
 import {computed, ref} from "vue";
 import {throttle} from "lodash";
 import {useRouter} from "vue-router";
+import {request} from "~/utils/request";
+import {useUserStore} from "~/stores/user";
+import {ElMessage} from "element-plus";
+import {useCollectionStore} from "~/stores/collection";
 
 const props = defineProps<{
   id: number,
@@ -16,7 +19,7 @@ const props = defineProps<{
   source: string
 }>()
 
-const windows = useWindowStore()
+const collection = useCollectionStore()
 const router = useRouter()
 const position = ref()
 const show = ref(false)
@@ -27,8 +30,8 @@ const date = computed(() =>{
 const firstPay = computed(() => (props.price / 4).toFixed(2))
 
 const click = (event) => {
-  if(event.target.className != "collection_button" && event.target.tagName !="path"){
-    router.push("/detail")
+  if(event.target.className != "collection_button" && event.target.className != 'collection_cancel_main' && event.target.tagName !="path" && event.target.tagName !="I"&& event.target.tagName !="svg"){
+    router.push("/detail/" + props.id)
   }
 }
 const clickAt = () =>{
@@ -45,6 +48,17 @@ const showOut = () => {
 }
 
 const cancel_collection = () =>{
+  request({
+    url: '/cars/collection',
+    method: 'DELETE',
+    params: {
+      userId: useUserStore().id,
+      carId: props.id
+    }
+  }).then((res)=>{
+    collection.fetch(collection.page)
+  })
+  ElMessage.success("取消关注")
 }
 
 </script>
@@ -139,11 +153,12 @@ const cancel_collection = () =>{
 }
 
 .collection_icon{
+  padding: 10px;
   position: absolute;
   z-index: 100;
   color: #f0a03c;
-  bottom: 5px;
-  right: 10px;
+  bottom: 3px;
+  right: 0;
   font-size: 25px;
   cursor: pointer;
 }
@@ -151,8 +166,8 @@ const cancel_collection = () =>{
 .collection_cancel{
   z-index: 999;
   position: absolute;
-  top: 35px;
-  right: -5px;
+  top: 46px;
+  right: 0px;
   width: 70px;
   color: black;
   font-size: 13px;

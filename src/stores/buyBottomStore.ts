@@ -1,7 +1,7 @@
 import {defineStore} from "pinia";
-import {CarStruct} from "~/pages/buy/components/filterBar/carStruct";
-import {carRequest} from "~/utils/interfaces";
+import {CarStruct} from "~/utils/interfaces";
 import {request} from "~/utils/request";
+import {useUserStore} from "~/stores/user";
 
 
 export const useBuyBottomStore = defineStore('buy', {
@@ -9,27 +9,9 @@ export const useBuyBottomStore = defineStore('buy', {
         return {
             total_num : 0,
             page : 0,
-            cars : [] as CarStruct[],
-            carData: [] as CarStruct[]
-        }
-    },
-
-    actions: {
-        getCars(carRequest: carRequest){
-            request({
-                url: '/cars',
-                method: 'POST',
-                data: carRequest
-            }).then((res) => {
-                this.carData = res.data
-                this.total_num = this.carData.length
-                console.log(this.carData)
-            }).catch((err) => {
-                console.log(err)
-            })
-        },
-        fetch(page: number) {
-            const carRequest: carRequest = {
+            cars : [] as CarStruct[][],
+            carData: [] as CarStruct[],
+            carRequest:  {
                 brand: "不限",
                 carAge: "",
                 carColor: "",
@@ -41,30 +23,45 @@ export const useBuyBottomStore = defineStore('buy', {
                 carType: "不限",
                 price: "不限"
             }
-            this.getCars(carRequest)
-            setTimeout(()=>{
+        }
+    },
+
+    actions: {
+        fetch(page: number) {
+            request({
+                url: '/cars',
+                method: 'POST',
+                data: this.carRequest
+            }).then((res) => {
+                this.carData = res.data
+                this.total_num = this.carData.length
+                console.log(this.carData)
                 this.cars = []
                 if(32 * page >= this.total_num)
                     return
                 this.page = page
                 const startIndex = page * 32;
                 const endIndex = Math.min(startIndex + 32, this.total_num);
-                for (let i = startIndex; i < endIndex; i++) {
-                    const car = this.carData[i];
-                    const info: CarStruct = {
-                        id: car.id,
-                        image: car.image,
-                        name: car.name,
-                        price: car.price,
-                        color: car.color,
-                        time: car.time,
-                        mileage: car.mileage,
-                        source: car.source,
-                        shine: false,
-                    };
-                    this.cars.push(info);
+                this.changeCollection(startIndex, endIndex)
+            }).catch((err) => {
+                console.log(err)
+            })
+        },
+        changeCollection(startIndex: number, endIndex: number){
+            this.cars = []
+            let i : number;
+            for(i = 0;i < 8;i++){
+                let collection: CarStruct[] = []
+                let j : number
+                for (j = 0;j < 4;j++) {
+                    if(4 * i + j + startIndex < endIndex){
+                        let info: CarStruct = this.carData[4 * i + j + startIndex]
+                        collection.push(info)
+                    }
                 }
-            },100)
+                if(collection.length != 0)
+                    this.cars.push(collection)
+            }
         },
         change(total_page : number){
             this.page = total_page

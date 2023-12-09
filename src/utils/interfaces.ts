@@ -17,7 +17,6 @@ interface CarStruct{
   time: string,
   mileage: number,
   source: string,
-  shine: boolean
 }
 
 interface TypeChoose{

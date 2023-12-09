@@ -1,12 +1,25 @@
 <script setup lang="ts">
-import {ref, onMounted, computed} from 'vue';
+import {ref, onMounted, computed, watch, reactive} from 'vue';
 import ImageModal from '~/pages/detail/components/image/imageModal.vue';
 import {Star, StarFilled} from "@element-plus/icons-vue";
 import {ElMessage} from "element-plus";
-import {useCarsData} from "~/stores/carsData";
 import {useUserStore} from "~/stores/user";
+import {request} from "~/utils/request";
+import {useRoute} from "vue-router";
 
+const user = useUserStore()
+const route = useRoute()
 const ImageModalRef = ref()
+const car = reactive({
+  name: '',
+  price: 0,
+  carDistance: Number,
+  carAge: '',
+  carPosition: '',
+  carGear: '',
+  carRecord: '无',
+  carTime: ''
+})
 
 const pictures = [
     '../../../../public/pictures/car1.jpg',
@@ -28,7 +41,7 @@ const thumbnailContainer = ref(null);
 const thumbnailWidth = ref(130); // 设置缩略图的宽度
 const isLeftArrowHovered = ref(false);
 const isRightArrowHovered = ref(false);
-const shine = ref('false')
+const shine = ref(false)
 
 const nextPicture = () => {
     currentPictureIndex.value = (currentPictureIndex.value + 1) % pictures.length;
@@ -70,11 +83,29 @@ const handleArrowHover = (hovered, direction) => {
 };
 
 const clickStar = () => {
+  request({
+    url: '/cars/collection',
+    method: 'POST',
+    params: {
+      userId: useUserStore().id,
+      carId: route.params.id
+    }
+  }).then((res)=>{
+  })
   ElMessage.success("成功关注")
   shine.value = true
 }
 
 const cancelStar = () => {
+  request({
+    url: '/cars/collection',
+    method: 'DELETE',
+    params: {
+      userId: useUserStore().id,
+      carId: route.params.id
+    }
+  }).then((res)=>{
+  })
   ElMessage.success("取消关注")
   shine.value = false
 }
@@ -82,9 +113,47 @@ const cancelStar = () => {
 const leftArrowImage = computed(() => isLeftArrowHovered.value ? '../../../../public/pictures/arrow-left-over.jpg' : '../../../../public/pictures/arrow-left.jpg');
 const rightArrowImage = computed(() => isRightArrowHovered.value ? '../../../../public/pictures/arrow-right-over.jpg' : '../../../../public/pictures/arrow-right.jpg');
 
+watch(()=>user.id,()=>{
+  if(user.id != -1){
+    request({
+      url: '/cars/collection',
+      method: 'GET',
+      params: {
+        userId: user.id,
+        carId: route.params.id
+      }
+    }).then((res)=>{
+      shine.value = res.data
+    })
+  }
+})
 
 onMounted(() => {
     scrollToSelectedThumbnail();
+    if(user.id != -1){
+      request({
+        url: '/cars/collection',
+        method: 'GET',
+        params: {
+          userId: user.id,
+          carId: route.params.id
+        }
+      }).then((res)=>{
+        shine.value = res.data
+      })
+    }
+  request({
+    url: `/cars/${route.params.id}`,
+    method: 'GET',
+  }).then((res)=>{
+    car.name = res.data.name
+    car.carPosition = res.data.carPosition
+    car.carAge = res.data.carAge
+    car.carGear = res.data.carGear
+    car.carDistance = res.data.carDistance
+    car.price = res.data.price
+    car.carTime = res.data.carTime
+  })
 });
 </script>
 
@@ -159,7 +228,7 @@ onMounted(() => {
             <div class="carInfo">
                 <!-- 1. 车辆名称 -->
                 <div class="carName">
-                  车辆名称
+                  {{car.name}}
                   <el-icon class="collection_icon" v-if="useUserStore().id != -1">
                     <StarFilled class="show" v-if="shine" @click="cancelStar"/>
                     <StarFilled style="color: #9ba3af;" v-if="!shine" @click="clickStar"><Star /></StarFilled>
@@ -168,8 +237,8 @@ onMounted(() => {
 
                 <!-- 2. 车辆价格 -->
                 <div class="carPrice">
-                    <span class="totalPrice">XXX万</span>
-                    <span class="downPayment">首付: YYY万</span>
+                    <span class="totalPrice">{{car.price}}万</span>
+                    <span class="downPayment">首付: {{car.price / 4}}万</span>
                 </div>
 
                 <!-- 3. 详细信息 -->
@@ -177,30 +246,30 @@ onMounted(() => {
                     <!-- 六个小容器，可以根据需要添加内容 -->
                     <div class="detailRow">
                         <div class="detailContainer">
-                            <span class="value">XXX</span>
-                            <span class="category">表显里程</span>
+                            <span class="value">{{car.carDistance}}</span>
+                            <span class="category">车辆里程</span>
                         </div>
                         <div class="detailContainer">
-                            <span class="value">XXX</span>
-                            <span class="category">上牌时间</span>
-                        </div>
-                        <div class="detailContainer">
-                            <span class="value">XXX</span>
+                            <span class="value">{{car.carPosition}}</span>
                             <span class="category">车辆所在地</span>
+                        </div>
+                        <div class="detailContainer">
+                            <span class="value">{{car.carAge}}</span>
+                            <span class="category">上牌时间</span>
                         </div>
                     </div>
 
                     <div class="detailRow">
                         <div class="detailContainer">
-                            <span class="value">XXX</span>
-                            <span class="category">变速箱</span>
-                        </div>
-                        <div class="detailContainer">
-                            <span class="value">XXX</span>
+                            <span class="value">{{car.carRecord}}</span>
                             <span class="category">过户记录</span>
                         </div>
                         <div class="detailContainer">
-                            <span class="value">XXX</span>
+                            <span class="value">{{car.carGear}}</span>
+                            <span class="category">变速箱</span>
+                        </div>
+                        <div class="detailContainer">
+                            <span class="value">{{car.carTime}}</span>
                             <span class="category">上架时间</span>
                         </div>
                     </div>
@@ -412,7 +481,7 @@ onMounted(() => {
 }
 
 .value {
-    font-size: 24px;
+    font-size: 21px;
     color: black;
     text-align: center; /* 水平居中 */
 }

@@ -18,8 +18,12 @@ watch(page,(()=>{
     }
 }))
 
-watch(carsBuy,(()=>{
+watch(()=>carsBuy.total_num,(()=>{
     maxPage.value = carsBuy.total_num == 0 ? 1 : Math.floor((carsBuy.total_num - 1) / 32) + 1
+}))
+
+watch(carsBuy.carRequest,(()=>{
+  carsBuy.fetch(0)
 }))
 
 const certain = () => {
@@ -37,7 +41,7 @@ const changePage = (p : number) => {
 }
 
 onMounted(()=>{
-    carsBuy.fetch(0)
+    carsBuy.fetch(carsBuy.page)
     setTimeout(()=>{
       page.value = carsBuy.page + 1
       real_page.value = old_page.value = page.value

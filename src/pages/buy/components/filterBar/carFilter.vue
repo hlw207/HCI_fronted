@@ -9,9 +9,11 @@ import ChooseBox from "~/pages/buy/components/filterBar/chooseBox.vue";
 import ExtraBox from "~/pages/buy/components/filterBar/extraBox.vue";
 import WholeBrand from "~/pages/buy/components/filterBar/wholeBrand.vue";
 import carChoice from "~/pages/buy/components/filterBar/carChoice";
+import {useBuyBottomStore} from "~/stores/buyBottomStore";
 
 const route = useRoute()
 const router = useRouter()
+const cars = useBuyBottomStore()
 const carsData = useCarsData()
 const choice = reactive({
   brand: '不限',
@@ -89,6 +91,14 @@ watch(choice,()=>{
     if(choice[key] != '不限'){
       querys[key] = choice[key]
     }
+    if(key == 'price') {
+      if(startPrice.value == '' && endPrice.value == '')
+        cars.carRequest.price = '不限'
+      else
+        cars.carRequest.price = startPrice.value + '-' + endPrice.value
+    }
+    else
+       cars.carRequest[key] = choice[key]
   });
   router.push({path: '/buy',query: querys})
 })
@@ -202,7 +212,6 @@ const certainNum = () =>{
     startPrice.value = endPrice.value = ''
     return
   }
-
   if(carsData.prices.length > 9){
     carsData.prices.pop()
   }
@@ -229,7 +238,10 @@ const certainNum = () =>{
 onMounted(()=>{
   carsData.fetch()
   Object.keys(route.query).forEach(key => {
-    choose(key, route.query[key])
+    if(key == 'brand')
+      brandSubmit(route.query[key])
+    else
+      choose(key, route.query[key])
   });
 })
 </script>

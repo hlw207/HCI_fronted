@@ -11,7 +11,7 @@ import { setupLayouts } from "virtual:generated-layouts"
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import detail from "~/pages/detail/index.vue";
 
-generatedRoutes.push({ path: '/buy/detail', component: detail });
+generatedRoutes.push({ path: '/detail/:id', component: detail });
 
 const router = createRouter({
     history: createWebHistory(),

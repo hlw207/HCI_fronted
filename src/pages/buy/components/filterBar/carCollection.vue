@@ -2,11 +2,12 @@
 
 import {useWindowStore} from "~/stores/window";
 import {Star, StarFilled} from "@element-plus/icons-vue";
-import {computed, ref} from "vue";
+import {computed, onMounted, ref, watch} from "vue";
 import {useRouter} from "vue-router";
 import {ElMessage} from "element-plus";
 import Popup from '~/pages/buy/components/popUp/index.vue';
 import {useUserStore} from "~/stores/user";
+import {request} from "~/utils/request";
 
 
 const props = defineProps<{
@@ -18,10 +19,9 @@ const props = defineProps<{
     time: string,
     mileage: number,
     source: string,
-    shine: boolean
 }>()
 
-const windows = useWindowStore()
+const user = useUserStore()
 const router = useRouter()
 const position = ref()
 const shine = ref(false)
@@ -35,18 +35,36 @@ const firstPay = computed(() => (props.price / 4).toFixed(2))
 
 const click = (event) => {
     const isPopupElement = event.target.closest('.popup');
-    if(event.target.className != "collection_button" && event.target.tagName !="path"&& event.target.tagName !="svg"
+    if(event.target.className != "collection_button" && event.target.tagName !="path"&& event.target.tagName !="svg"&& event.target.tagName !="I"
         && !isPopupElement){
-        router.push("/detail")
+        router.push("/detail/" + props.id)
     }
 }
 
 const clickStar = () => {
+    request({
+      url: '/cars/collection',
+      method: 'POST',
+      params: {
+        userId: useUserStore().id,
+        carId: props.id
+      }
+    }).then((res)=>{
+    })
     ElMessage.success("成功关注")
     shine.value = true
 }
 
 const cancelStar = () => {
+    request({
+      url: '/cars/collection',
+      method: 'DELETE',
+      params: {
+        userId: useUserStore().id,
+        carId: props.id
+      }
+    }).then((res)=>{
+    })
     ElMessage.success("取消关注")
     shine.value = false
 }
@@ -66,6 +84,49 @@ const closePopup = (event) => {
     }
 };
 
+watch(()=>props.id,()=>{
+  if(user.id != -1){
+    request({
+      url: '/cars/collection',
+      method: 'GET',
+      params: {
+        userId: user.id,
+        carId: props.id
+      }
+    }).then((res)=>{
+      shine.value = res.data
+    })
+  }
+})
+
+onMounted(()=>{
+  if(user.id != -1){
+    request({
+      url: '/cars/collection',
+      method: 'GET',
+      params: {
+        userId: user.id,
+        carId: props.id
+      }
+    }).then((res)=>{
+      shine.value = res.data
+    })
+  }
+})
+
+
+watch(()=>user.id,()=>{
+  request({
+    url: '/cars/collection',
+    method: 'GET',
+    params: {
+      userId: user.id,
+      carId: props.id
+    }
+  }).then((res)=>{
+    shine.value = res.data
+  })
+})
 
 </script>
 
@@ -77,7 +138,7 @@ const closePopup = (event) => {
             </div>
             <el-icon class="collection_icon" v-if="useUserStore().id != -1">
                 <StarFilled class="show" v-if="shine" @click="cancelStar"/>
-                <StarFilled style="color: #9ba3af" v-if="!shine" @click="clickStar"><Star /></StarFilled>
+                <StarFilled style="color: white" v-if="!shine" @click="clickStar"></StarFilled>
             </el-icon>
         </div>
         <div class="collection_text">
@@ -165,6 +226,7 @@ const closePopup = (event) => {
 }
 
 .collection_icon{
+  padding: 5px;
     position: absolute;
     color: #f0a03c;
     bottom: 5px;
