@@ -1,4 +1,5 @@
 <template>
+    <div class="modalOverlay">
     <div class="notifyContainer">
         <div class="title">
             <p>提交成功</p>
@@ -9,6 +10,7 @@
         <div class="notifyClose" @click="closeNotify">
             <span>&times;</span>
         </div>
+    </div>
     </div>
 </template>
 
@@ -23,6 +25,19 @@ export default {
 </script>
 
 <style scoped>
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
 .notifyContainer {
     position: fixed;
     top: 50%;

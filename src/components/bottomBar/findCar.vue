@@ -85,7 +85,7 @@
                     </div>
                 </div>
 
-                <div v-if="showPhoneError" class="errorText">请填写联系电话</div>
+                <div v-if="showPhoneError" class="errorText">请输入手机号</div>
 
                 <Notify v-if="showNotify" @close-notify="closeNotify" />
 

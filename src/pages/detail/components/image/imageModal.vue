@@ -29,7 +29,6 @@ const closeModal = () => {
 </template>
 
 <style scoped>
-/* 根据你的设计样式设置 modal-overlay 和 modal-content 样式 */
 .modalOverlay {
     position: fixed;
     top: 0;

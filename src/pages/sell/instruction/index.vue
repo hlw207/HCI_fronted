@@ -160,14 +160,19 @@ const showIcon03 = ref(0)
 
 
 const handlePhoneNumberSubmit = () => {
-  if (agreement.value){
-    dialogTableVisible.value = true
-  } else {
-    ElMessage({
-      message: '请先勾选同意条款',
-      type: 'warning',
-    })
-  }
+    if (!agreement.value){
+        ElMessage({
+            message: '请先勾选同意条款',
+            type: 'warning',
+        })
+    } else if(!phoneNumber.value){
+        ElMessage({
+            message: '请输入手机号',
+            type: 'warning',
+        })
+    }else {
+        dialogTableVisible.value = true
+    }
 }
 
 const handleScroll = () => {
@@ -342,6 +347,7 @@ const handleCertificationSubmit = () => {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  z-index: 999;
 }
 
 .fixInput{

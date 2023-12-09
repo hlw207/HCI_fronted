@@ -6,6 +6,8 @@ import {ElMessage} from "element-plus";
 import {useUserStore} from "~/stores/user";
 import {request} from "~/utils/request";
 import {useRoute} from "vue-router";
+import Telephone from "~/pages/detail/components/reservationBar/telephone.vue";
+import More from "~/pages/detail/components/reservationBar/more.vue";
 
 const user = useUserStore()
 const route = useRoute()
@@ -42,6 +44,8 @@ const thumbnailWidth = ref(130); // 设置缩略图的宽度
 const isLeftArrowHovered = ref(false);
 const isRightArrowHovered = ref(false);
 const shine = ref(false)
+const showTelephone = ref(false);
+const showMore = ref(false);
 
 const nextPicture = () => {
     currentPictureIndex.value = (currentPictureIndex.value + 1) % pictures.length;
@@ -109,6 +113,21 @@ const cancelStar = () => {
   ElMessage.success("取消关注")
   shine.value = false
 }
+
+const openReservation = () => {
+    showTelephone.value = true;
+    showMore.value = false;
+};
+
+const closeReservation = () => {
+    showTelephone.value = false;
+    showMore.value = false;
+};
+
+const submitForm = () => {
+    showTelephone.value = false;
+    showMore.value = true;
+};
 
 const leftArrowImage = computed(() => isLeftArrowHovered.value ? '../../../../public/pictures/arrow-left-over.jpg' : '../../../../public/pictures/arrow-left.jpg');
 const rightArrowImage = computed(() => isRightArrowHovered.value ? '../../../../public/pictures/arrow-right-over.jpg' : '../../../../public/pictures/arrow-right.jpg');
@@ -243,7 +262,6 @@ onMounted(() => {
 
                 <!-- 3. 详细信息 -->
                 <div class="carDetails">
-                    <!-- 六个小容器，可以根据需要添加内容 -->
                     <div class="detailRow">
                         <div class="detailContainer">
                             <span class="value">{{car.carDistance}}</span>
@@ -276,7 +294,11 @@ onMounted(() => {
                 </div>
 
                 <!-- 4. 购车按钮 -->
-                <button class="buyButton">预约看车</button>
+                <button class="buyButton" @click="openReservation">预约看车</button>
+
+                <Telephone v-if="showTelephone" @close-reservation="closeReservation" @submit-form="submitForm"/>
+                <More v-if="showMore" @close-reservation="closeReservation"/>
+
             </div>
         </div>
     </div>
@@ -297,14 +319,14 @@ onMounted(() => {
     position: relative;
     border: 1px solid #ccc;
     border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 添加轻微阴影 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
 }
 
 .wholePicture {
-    height: 100%; /* 使用百分比充满整个 .car-picture 的高度 */
+    height: 100%;
     display: flex;
-    align-items: center; /* 将子元素在交叉轴上居中对齐 */
+    align-items: center;
 }
 
 .imageContainer {
@@ -318,7 +340,7 @@ onMounted(() => {
 
 .imageContainer img {
     width: 100%;
-    height: auto; /* 保持图片宽高比例 */
+    height: auto;
     object-fit: cover;
 }
 
@@ -345,11 +367,11 @@ onMounted(() => {
 }
 
 .arrowContainerLeft:hover {
-    background-color: rgba(255, 255, 255, 0.8); /* 鼠标悬停时增加透明度 */
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 .arrowContainerRight:hover {
-    background-color: rgba(255, 255, 255, 0.8); /* 鼠标悬停时增加透明度 */
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 
@@ -361,24 +383,21 @@ onMounted(() => {
     margin-left: 5px;
     margin-right: 5px;
     max-height: 200px;
-    scroll-behavior: smooth; /* 添加平滑滚动效果 */
+    scroll-behavior: smooth;
 }
 
-/* 滚动条整体样式 */
 .thumbnailContainer::-webkit-scrollbar {
     height: 15px;
 }
 
-/* 滚动条滑块样式 */
 .thumbnailContainer::-webkit-scrollbar-thumb {
-    background-color: rgba(133, 126, 126, 0.5); /* 设置滑块颜色 */
-    border-radius: 6px; /* 设置滑块的圆角 */
+    background-color: rgba(133, 126, 126, 0.5);
+    border-radius: 6px;
 }
 
-/* 滚动条轨道样式 */
 .thumbnailContainer::-webkit-scrollbar-track {
-    background-color: #ffffff; /* 设置滚动条轨道的颜色 */
-    border-radius: 6px; /* 设置轨道的圆角 */
+    background-color: #ffffff;
+    border-radius: 6px;
 }
 
 
@@ -390,7 +409,7 @@ onMounted(() => {
 .thumbnail {
     width: 120px;
     height: 90px;
-    margin-right: 10px; /* 调整缩略图之间的距离 */
+    margin-right: 10px;
     cursor: pointer;
     transition: transform 0.3s ease;
 }
@@ -404,15 +423,15 @@ onMounted(() => {
 
 .thumbnailContainer {
     display: flex;
-    overflow: auto; /* 修改 overflow 为 auto */
-    scroll-behavior: smooth; /* 添加平滑滚动效果 */
+    overflow: auto;
+    scroll-behavior: smooth;
 }
 
 .thumbnail img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.7; /* 添加半透明效果 */
+    opacity: 0.7;
 }
 
 .thumbnail.selected {
@@ -420,13 +439,13 @@ onMounted(() => {
 }
 
 .thumbnail.selected img {
-    opacity: 1; /* 选中的图片不透明 */
+    opacity: 1;
 }
 
 .carInfo {
   margin-left: 10px;
   margin-top: -20px;
-    flex: 1; /* 占据剩余空间 */
+    flex: 1;
     padding: 40px;
     display: flex;
     flex-direction: column;
@@ -456,7 +475,7 @@ onMounted(() => {
     font-size: 14px;
     margin-top: 18px;
     margin-left: 20px;
-    color: #666; /* 灰色 */
+    color: #666;
 }
 
 .carDetails {
@@ -483,14 +502,14 @@ onMounted(() => {
 .value {
     font-size: 21px;
     color: black;
-    text-align: center; /* 水平居中 */
+    text-align: center;
 }
 
 
 .category {
     font-size: 14px;
     color: #a8a8a8;
-    text-align: center; /* 水平居中 */
+    text-align: center;
 }
 
 
@@ -509,7 +528,6 @@ onMounted(() => {
     border-radius: 5px;
     font-size: 20px;
     cursor: pointer;
-    /* 添加样式 */
     transition: background-color 0.3s ease; /* 添加过渡效果 */
 }
 
