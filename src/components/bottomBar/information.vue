@@ -46,7 +46,7 @@
     margin-right: 2px;
     display: flex;
     justify-content: space-around;
-    padding: 20px 120px 20px 100px;
+    padding: 30px 120px 60px 100px;
     background-color: #333;
     color: #fff;
     font-size: 12px;

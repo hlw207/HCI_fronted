@@ -78,7 +78,7 @@ export default {
     background-color: white;
     transform: translate(-50%, -50%);
     border: 1px solid #e0e0e0;
-    border-radius: 12px;
+    //border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     padding: 20px;
     max-width: 400px;
@@ -97,6 +97,7 @@ export default {
 
 .phoneInput {
     width: 50%;
+    height: 15px;
     padding: 10px;
     margin-bottom: 20px;
     border: 1px solid #ccc;
@@ -109,10 +110,10 @@ export default {
     background-color: #eda01f;
     margin-left: 20px;
     color: white;
-    padding: 10px;
+    padding: 8px 20px;
     border: none;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 14px;
     cursor: pointer;
 }
 

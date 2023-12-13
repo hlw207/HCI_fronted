@@ -39,7 +39,7 @@ export default {
     data() {
         return {
             address: "",
-            daysOfWeek: ["周一", "周二", "周三", "周四", "周五", "周六", "周日"],
+            daysOfWeek: [1,12],
             timeSlots: ["8:00", "10:00", "12:00", "14:00", "16:00", "18:00"],
             selectedSlots: [],
         };
@@ -73,6 +73,7 @@ export default {
                 this.$emit("close-reservation");
             }
         },
+
     },
 };
 </script>
@@ -126,8 +127,6 @@ export default {
 .scaled-checkbox {
     position: relative;
     appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
     width: 20px;
     height: 20px;
     background-color: #fff;

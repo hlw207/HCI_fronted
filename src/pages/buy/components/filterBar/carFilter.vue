@@ -92,9 +92,9 @@ watch(choice,()=>{
       querys[key] = choice[key]
     }
     if(key == 'price') {
-      if(startPrice.value == '' && endPrice.value == '')
+      if(startPrice.value == '' && endPrice.value == '') {
         cars.carRequest.price = '不限'
-      else
+      }else
         cars.carRequest.price = startPrice.value + '-' + endPrice.value
     }
     else
@@ -198,6 +198,7 @@ const clear = () => {
     choice[key] = '不限'
   });
   choose('brand', '不限')
+  startPrice.value = endPrice.value = ''
   Object.values(extraChoice).forEach(value => {
     let i: number
     for(i = 0;i < value.length;i++){

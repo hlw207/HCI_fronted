@@ -33,8 +33,8 @@ const updateSimilarDivPosition = () => {
     const similarDiv = document.querySelector('.similarDiv');
     const similarDivHeight = similarDiv.clientHeight;
     if (similarDiv) {
-        if(scrollTop > 2820 + similarDivHeight - viewportHeight){
-            similarDivTop.value = 2820 + "px";
+        if(scrollTop > 2420 + similarDivHeight - viewportHeight){
+            similarDivTop.value = 2420 + "px";
         }else if(scrollTop > 580 + similarDivHeight - viewportHeight){
             similarDivTop.value = scrollTop - similarDivHeight + viewportHeight + "px";
         }

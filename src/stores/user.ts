@@ -34,7 +34,7 @@ export const useUserStore = defineStore('user', {
         gainCode(){
             let code = '';
             const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            for (let i = 0; i < 6; i++) {
+            for (let i = 0; i < 1; i++) {
                 const randomIndex = Math.floor(Math.random() * characters.length);
                 code += characters[randomIndex];
             }

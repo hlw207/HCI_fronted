@@ -1,310 +1,332 @@
-<template>
-    <div class="bottomFind">
-        <div class="findCarContainer">
-            <div class="find">
-                <div class="findPicture">
-                    <img src="../../../public/pictures/findCar.png" alt="Image" />
-                </div>
+<script setup lang="ts">
+import {ArrowDown, Opportunity, ShoppingCart} from "@element-plus/icons-vue";
+import {reactive, ref, watch} from "vue";
+import {useUserStore} from "~/stores/user";
 
-                <div class="findText">
-                    <p class="title">没有喜欢的车辆？</p>
-                    <p class="text">把想要的车辆告诉我们！</p>
-                    <p class="text">当有符合要求的车辆上架，第一时间通知您！</p>
-                </div>
-            </div>
+const user = useUserStore()
+const click = ref([false,false,false,false,false,false])
+const click_index = ref(-1)
 
-            <div class="selectContainer">
-                <div class="row">
-                    <div class="dropdownContainer" @click="searchShow = true">
-                        <label for="preOrderCar">预购车辆类型：</label>
-                        <div>
-                            <input class="carType" placeholder="不限"  @input="searchShow = false" v-model="typeData"/>
-                            <CascaderChoose :left="805" :top="75" class="cascaderChoose" :is-show="searchShow" @disShow="searchShow = false" @submit="submit" v-model="typeData" />
-                        </div>
-                    </div>
+const choice = reactive({
+  car: '',
+  carAge: '',
+  carTime: '',
+  money: '',
+  describe: '',
+  phone: user.phone
+})
 
-                    <div class="dropdownContainer">
-                        <label for="carAge">车龄要求：</label>
-                        <select id="carAge" v-model="selectedCarAge">
-                            <option value="age0">不限</option>
-                            <option value="age1">1年以内</option>
-                            <option value="age2">2年以内</option>
-                            <option value="age3">3年以内</option>
-                            <option value="age4">4年以内</option>
-                            <option value="age5">5年以内</option>
-                            <option value="age6">6年以内</option>
-                            <option value="age7">7年以内</option>
-                            <option value="age8">8年以内</option>
-                        </select>
-                    </div>
-                </div>
+const carAge = ref(["不限车龄","1年以内","2年以内","3年以内","4年以内","5年以内","6年以内","7年以内","8年以内","9年以内","不限"])
+const carTime = ref(["1-2周内","1个月内","2个月内","半年内","先看看不着急"])
 
-                <div class="row">
-                    <div class="dropdownContainer">
-                        <label for="carTime">预计提车时间：</label>
-                        <select id="carTime" v-model="selectedCarTime">
-                            <option value="time0">不限</option>
-                            <option value="time1">1~2周内</option>
-                            <option value="time2">1个月内</option>
-                            <option value="time3">2个月内</option>
-                            <option value="time4">3个月内</option>
-                            <option value="time5">半年内</option>
-                        </select>
-                    </div>
+watch(()=>user.id,()=>{
+  choice.phone = user.phone
+})
 
-                    <div class="dropdownContainer">
-                        <label for="carPrice">购车预算：</label>
-                        <select id="carPrice" v-model="selectedCarPrice">
-                            <option value="price0">不限</option>
-                            <option value="price1">3万以下</option>
-                            <option value="price2">3-5万</option>
-                            <option value="price3">5-8万</option>
-                            <option value="price4">8-10万</option>
-                            <option value="price5">10-15万</option>
-                            <option value="price6">15-20万</option>
-                            <option value="price7">20-30万</option>
-                            <option value="price8">30万以上</option>
-                        </select>
+watch(()=>choice.money,(val)=>{
+  choice.money = val.replace(/[a-zA-Z\u4e00-\u9fa5]/g, '').replace(' ','')
+})
 
-                    </div>
-                </div>
+watch(()=>choice.phone,(val)=>{
+  choice.phone = val.replace(/[a-zA-Z\u4e00-\u9fa5]/g, '').replace(' ','')
+})
 
-                <div class="row">
-                    <div class="inputContainer">
-                        <label for="carDescription">喜爱车辆描述：</label>
-                        <textarea id="carDescription" v-model="carDescription" rows="3" style="resize: none;"></textarea>
-
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="inputContainer">
-                        <label for="contactPhone">联系电话：</label>
-                        <input type="text" id="contactPhone" v-model="contactPhone" />
-                        <button class="notifyButton" @click="notifyMe">有符合车辆通知我</button>
-                    </div>
-                </div>
-
-                <div v-if="showPhoneError" class="errorText">请输入手机号</div>
-
-                <Notify v-if="showNotify" @close-notify="closeNotify" />
-
-
-            </div>
-        </div>
-    </div>
-</template>
-
-<script>
-import Notify from "~/components/bottomBar/notify.vue";
-import {ref} from "vue";
-
-export default {
-    data() {
-        return {
-            searchShow: false,
-            typeData: '',
-            selectedCarAge: "age0",
-            selectedCarTime: "time0",
-            selectedCarPrice: "price0",
-            carDescription: "",
-            contactPhone: "",
-            showPhoneError: false,
-            showNotify: false,
-        };
-    },
-    methods: {
-        notifyMe() {
-            if (!this.contactPhone) {
-                this.showPhoneError = true;
-            } else {
-                this.showPhoneError = false;
-                this.showNotify = true;
-                this.typeData = "";
-                this.selectedCarAge = "age0";
-                this.selectedCarTime = "time0";
-                this.selectedCarPrice = "price0";
-                this.carDescription = "";
-                this.contactPhone = "";
-            }
-        },
-        closeNotify() {
-            this.showNotify = false;
-        },
-        submit(third) {
-            this.typeData = third;
-        },
+const click_box = (index: number) =>{
+  if(!click.value[index]) {
+    click_index.value = index
+    click.value[index] = true
+    if (index == 1) {
+      setTimeout(() => {
+        window.addEventListener("click", handleClickAge)
+      }, 1)
     }
-};
+    if (index == 2) {
+      setTimeout(() => {
+        window.addEventListener("click", handleClickTime)
+      }, 1)
+    }
+  }
+}
+
+const handleClickAge = () =>{
+  click.value[1] = false
+  window.removeEventListener("click", handleClickAge)
+}
+
+const handleClickTime = () =>{
+  click.value[2] = false
+  window.removeEventListener("click", handleClickTime)
+}
+
+const clear = () =>{
+  choice.car = choice.carAge = choice.carTime = choice.describe = choice.money = choice.phone = ''
+}
+
+const submitCar = (val : string) =>{
+  choice.car = val
+  setTimeout(()=>{
+    click.value[0] = false
+  },10)
+}
 </script>
 
+<template>
+  <div class="find_container">
+    <div class="find_left">
+      <el-image src="../../../public/pictures/findCar.png"></el-image>
+    </div>
+    <div class="find_right">
+      <div class="find_right_main">
+        <div style="display: flex;align-items: center;justify-content: center">
+          <div style="display: flex;justify-content: center;align-items: center">
+            <el-icon style="color: #f2711c;font-size: 20px"><ShoppingCart /></el-icon>
+            <div style="margin-left: 3px;font-size: 14px">
+              求购好车
+            </div>
+          </div>
+          <div class="clear" @click="clear">一键清空</div>
+          <div style="flex: 1;display: flex;justify-content: right;color: #75756f;font-size: 12px;margin-top: 3px">
+            咨询电话：400-072-6071
+          </div>
+        </div>
+        <div style="display: flex;margin-top: 10px">
+          <div class="select_main" style="margin-right: 2%" @click="click_box(0)" :class="{select_main_right_click: click[0]}">
+            <div class="select_main_left">
+              <div v-if="choice.car == ''" style="color: #c0c1c2">请选择预购车辆</div>
+              <div v-if="choice.car != ''">{{choice.car}}</div>
+              <CascaderChoose :top="30" :left="-10" :is-show="click[0]" @disShow="click[0] = false" @submit="submitCar"/>
+            </div>
+            <div class="select_main_right">
+              <el-icon class="icon" :class="{icon_click: click[0]}"><ArrowDown /></el-icon>
+            </div>
+          </div>
+          <div class="select_main" style="margin-left: 2%" @click="click_box(1)" :class="{select_main_right_click: click[1]}">
+            <div class="select_main_left">
+              <div v-if="choice.carAge == ''" style="color: #c0c1c2">车龄要求</div>
+              <div v-if="choice.carAge != ''">{{choice.carAge}}</div>
+            </div>
+            <div class="select_main_right">
+              <el-icon class="icon" :class="{icon_click: click[1]}"><ArrowDown /></el-icon>
+            </div>
+            <div class="choice_main" v-if="click[1]">
+              <template v-for="age in carAge">
+                <div class="choice_main_box" @click="choice.carAge=age">{{age}}</div>
+              </template>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: flex;margin-top: 10px">
+          <div class="select_main" style="margin-right: 2%" @click="click_box(2)" :class="{select_main_right_click: click[2]}">
+            <div class="select_main_left">
+              <div v-if="choice.carTime == ''" style="color: #c0c1c2">您计划的提车时间是？</div>
+              <div v-if="choice.carTime != ''">{{choice.carTime}}</div>
+            </div>
+            <div class="select_main_right">
+              <el-icon class="icon" :class="{icon_click: click[2]}"><ArrowDown /></el-icon>
+            </div>
+            <div class="choice_main" v-if="click[2]">
+              <template v-for="time in carTime">
+                <div class="choice_main_box" @click="choice.carTime=time">{{time}}</div>
+              </template>
+            </div>
+          </div>
+          <div class="input_main" style="margin-left: 2%">
+            <input v-model="choice.money" class="input_input" placeholder="输入预算">
+            <div class="select_main_right">
+              <div style="font-size: 12px;color: black">万元内</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="describe_box">
+          <textarea v-model="choice.describe" class="text_input" placeholder="老板描述一下心中爱车？如：3万公里以内，颜色红色，真皮内饰..."></textarea>
+        </div>
+
+        <div style="display: flex;margin-top: 10px">
+          <div class="input_main" style="width: 50%">
+            <input v-model="choice.phone" class="input_input" placeholder="11位手机号">
+          </div>
+          <div class="certain_button">
+            <el-icon style="font-size: 16px;margin-right: 8px"><Opportunity /></el-icon>
+            有合适车辆通知我</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
 <style scoped>
-.bottomFind {
-    position: relative;
-    width: 100%;
-    background: #ebebeb;
+.find_container{
+  margin-right: 32px;
+  background: #ebebeb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.findCarContainer {
-    margin-right: 32px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-}
-
-.find{
-  /*background: #f2711c;*/
-    width: 40%;
-    display: flex;
-    align-items: center;
-}
-
-.findPicture{
-    width: 80%;
-    margin-left: 20px;
-    margin-right: 20px;
-}
-
-.findPicture img {
-    width: 100%;
-    height: auto;
-}
-
-.findText {
-    max-width: 300px;
-}
-
-.title {
-    color: #eda01f;
-    font-weight: bold;
-    font-size: 36px;
-}
-
-.text {
-    color: black;
-    font-size: 24px;
-}
-
-.selectContainer {
-    width: 40%;
-    flex-grow: 1;
-    margin-left: 60px;
-    margin-right: 50px;
-    height: 290px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    background: #f8f8f9;
-    font-size: 14px;
-}
-
-.carType{
-    margin-left: 10px;
-    width: 150px;
-    padding: 8px;
-    box-sizing: border-box;
-    margin-right: 6px;
-    font-size: 14px;
-}
-
-.carType::placeholder {
-    font-size: 14px;
-}
-
-/*.cascaderChoose{*/
-/*    position: absolute;*/
-/*    right: 365px;*/
-/*    top: 70px;*/
-/*}*/
-
-
-.selectContainer select{
-    margin-left: 10px;
-    width: 150px;
-    padding: 8px;
-    box-sizing: border-box;
-    margin-right: 6px;
-}
-
-.inputContainer textarea{
-    width: 450px;
-    padding: 8px;
-    box-sizing: border-box;
-}
-
-.inputContainer input{
-    margin-left: 30px;
-    width: 200px;
-    padding: 8px;
-    box-sizing: border-box;
-}
-
-.selectContainer select:hover,
-.selectContainer select:focus,
-.inputContainer textarea:hover,
-.inputContainer textarea:focus,
-.inputContainer input:hover,
-.inputContainer input:focus {
-    border-color: #888;
-}
-
-.selectContainer select,
-.inputContainer textarea,
-.inputContainer input {
-    font-size: 15px;
+.find_left{
+  box-sizing: border-box;
+  margin-left: 10%;
+  width: 40%;
 }
 
 
-.row {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
+.find_right{
+  box-sizing: border-box;
+  width: 50%;
+  display: flex;
+  align-items: center;
 }
 
-.dropdownContainer {
-    width: 48%;
-    display: flex;
-    align-items: center;
+.find_right_main{
+  box-sizing: border-box;
+  margin-left: 50px;
+  background: #f8f8f9;
+  width: 440px;
+  height: 270px;
+  padding: 25px;
+  font-size: 13px;
 }
 
-.inputContainer {
-    display: flex;
-    align-items: baseline;
+.clear{
+  margin-left: 10.5%;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.5);
+  padding: 4px 8px;
 }
 
-.inputContainer label {
-    margin-right: 10px;
+.clear:hover{
+  background: rgba(155, 163, 175, 0.1);
 }
 
-textarea,
-input {
-    width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
-    margin-top: 5px;
+.select_main{
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 48%;
+  height: 32px;
+  border: 1px solid #c1c2c2;
+  cursor: pointer;
 }
 
-.notifyButton {
-    background-color: orange;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    width: 200px;
-    margin-left: 30px;
+.select_main_left{
+  font-size: 12px;
+  position: relative;
+  margin-left: 10px;
 }
 
-.notifyButton:hover {
-    background-color: darkorange;
+.select_main_right{
+  height: 100%;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  flex: 1;
+  padding-right: 10px;
+  color: #c1c2c2;
 }
 
-.errorText{
-    margin-left: 130px;
-    color: red;
+.icon{
+  transition: all 0.3s;
+}
+
+.select_main_right_click{
+  border: 1px solid #f2711c;
+}
+
+.icon_click{
+  transform: rotate(180deg);
+}
+
+.choice_main{
+  z-index: 100;
+  position: absolute;
+  top: 36px;
+  width: 100%;
+  max-height: 200px;
+  padding: 5px 0;
+  overflow-y: auto;
+  background: white;
+}
+
+.choice_main_box{
+  display: flex;
+  font-size: 12px;
+  color: black;
+  padding: 8px 0 8px 10px;
+}
+
+.choice_main_box:hover{
+  background: #fff7f0;
+}
+
+.input_main{
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 48%;
+  height: 32px;
+  border: 1px solid #c1c2c2;
+  cursor: pointer;
+}
+
+.input_main:focus-within{
+  border: 1px solid #f2711c;
+}
+
+.input_input{
+  margin-left: 8px;
+  border: none;
+  box-shadow:none;
+  outline: none;
+  background: #f8f8f9;
+  width: 100px;
+  height: 28px;
+}
+
+.input_input::placeholder{
+  font-size: 12px;
+  color: #c0c1c2;
+}
+
+.describe_box{
+  margin-top: 10px;
+  height: 60px;
+  border: 1px solid #c1c2c2;
+}
+
+.describe_box:focus-within{
+  border: 1px solid #f2711c;
+}
+
+.text_input{
+  margin-top: 5px;
+  border: none;
+  box-shadow:none;
+  outline: none;
+  margin-left: 8px;
+  width: 96%;
+  height: 50px;
+  background: #f8f8f9;
+  color: black;
+  font-size: 12px;
+  font-family: Arial, sans-serif; /* 将字体设置为 Arial 或其他无衬线字体 */
+}
+
+.text_input::placeholder{
+  font-size: 12px;
+  color: #c0c1c2;
+}
+
+.certain_button{
+  cursor: pointer;
+  width: 50%;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #fa5325;
+  color: white;
+  background: #fa5325;
 }
 </style>

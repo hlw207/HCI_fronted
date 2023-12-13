@@ -105,7 +105,7 @@
       <el-image src="/public/pictures/sell/certify.png" style="width: 60px;height: 60px;position: relative;top: -80px" />
       <div class="certifyPic">
         <el-input v-model="certifyPicCode" placeholder="请输入图片验证码" minlength="4" maxlength="4" clearable />
-        <CertifyCode />
+        <CertifyCode @update="updateCertify"/>
       </div>
       <div class="certifyCode">
         <el-input v-model="certifyPhoneCode" placeholder="请输入您收到的验证码" minlength="6" maxlength="6" clearable />
@@ -117,8 +117,8 @@
 </template>
 
 <script setup lang="ts">
-import {onMounted, ref} from "vue";
-import {ElMessage} from "element-plus";
+import {onMounted, ref, watch} from "vue";
+import {ElMessage, ElNotification} from "element-plus";
 import SellIcon from '../components/sellIcon/index.vue'
 import Question from './components/question/index.vue'
 import CertifyCode from "~/pages/sell/instruction/components/certifyCode/index.vue";
@@ -153,6 +153,8 @@ const certifyPhoneCode = ref('')
 const certifyPhoneMessage = ref('获取短信验证码')
 const certifyGetable = ref(true)
 
+const certifyCode = ref('')
+const code = ref('')
 const featureTop = ref('-500px')
 const showIcon01 = ref(0)
 const showIcon02 = ref(0)
@@ -170,9 +172,27 @@ const handlePhoneNumberSubmit = () => {
             message: '请输入手机号',
             type: 'warning',
         })
-    }else {
-        dialogTableVisible.value = true
+    } else {
+      const phonePattern = /^1\d{10}$/;
+      if(!phonePattern.test(phoneNumber.value)){
+        ElMessage({
+          message: '手机号格式错误',
+          type: 'warning',
+        })
+        return
+      }
+      if(user.id != -1&&user.phone == phoneNumber.value)
+        route.push('/sell/form')
+      dialogTableVisible.value = true
     }
+}
+
+watch(()=>user.phone,(val)=>{
+  phoneNumber.value = val
+})
+
+const updateCertify = (certify: string) => {
+  certifyCode.value = certify
 }
 
 const handleScroll = () => {
@@ -183,7 +203,14 @@ const handleGetCertifyCode = () => {
   if (!certifyGetable.value){
     return
   }
-  let timeCount = 60
+  code.value = user.gainCode()
+  ElNotification({
+    title: '验证码',
+    message: '验证码为' + code.value,
+    type: 'success',
+    duration: 20000
+  })
+  let timeCount = 10
   certifyGetable.value = false
   const timeInterval = setInterval(() => {
     timeCount--
@@ -197,7 +224,21 @@ const handleGetCertifyCode = () => {
 }
 
 const handleCertificationSubmit = () => {
-  route.push('form')
+  if(!certifyPicCode.value){
+    ElMessage.warning("请输入图形验证码")
+  }else if(!certifyPhoneCode.value){
+    ElMessage.warning("请输入验证码")
+  }else {
+    if(certifyPicCode.value != certifyCode.value)
+      ElMessage.warning("图形验证码错误")
+    else if(code.value == '')
+      ElMessage.warning("未获取验证码")
+    else if(certifyPhoneCode.value != code.value){
+      ElMessage.warning("验证码错误")
+    }else {
+      route.push('form')
+    }
+  }
 }
 </script>
 

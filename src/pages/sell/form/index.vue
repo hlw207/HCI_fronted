@@ -11,9 +11,12 @@
           <el-image src="/public/pictures/sell/form01.png" style="margin-right: 10px;width: 30px;height: 30px" />
           <p>补充爱车信息</p>
         </div>
+        <div style="position: relative">
+          <CascaderChoose :top="100" :left="170" :is-show="show" @disShow="show = false" @submit="submit"/>
+        </div>
         <el-form label-width="120px" style="margin-left: 50px;margin-top: 50px;">
           <el-form-item class="formItem" label="品牌车型">
-            <el-select size="large" @visible-change="closeIt" ref="selectIt"   ></el-select>
+            <el-select v-model="form.type" size="large" @visible-change="closeIt" ref="selectIt" @focus="show = true"></el-select>
           </el-form-item>
           <el-form-item class="formItem" label="当前里程">
             <el-input-number
@@ -85,6 +88,9 @@
           </el-icon>
           <p style="color: #eda01f">专员审核</p>
         </div>
+        <div class="back" @click="router.back()">
+          返回
+        </div>
       </div>
     </div>
     <div class="bottomBar">
@@ -97,15 +103,23 @@
   </div>
 </template>
 
+<route lang="yaml">
+   meta:
+      layout: defaultElse
+</route>
+
 <script setup lang="ts">
-import {ref} from "vue";
+import {computed, onMounted, ref} from "vue";
 import {provinceAndCityData} from "element-china-area-data";
-import {ArrowDown, CaretRight, Search} from "@element-plus/icons-vue";
+import {CaretRight} from "@element-plus/icons-vue";
 import {useRouter} from "vue-router";
+import {ElMessage} from "element-plus";
+import DefaultElse from "~/layouts/defaultElse.vue";
 
 const options = provinceAndCityData
+const show = ref(false)
 const form = ref({
-  type: [],
+  type: '',
   distance: 1,
   carLocation: [],
   licenseLocation: [],
@@ -115,12 +129,21 @@ const form = ref({
   checkLocation: ''
 })
 const selectIt = ref()
+const canCertain = computed(()=>
+    form.value.type!=''
+    &&form.value.carLocation.length!=0
+    &&form.value.licenseLocation.length!=0
+    &&form.value.time!=''
+    &&(form.value.checkTime!=''||form.value.anotherTime)
+    &&form.value.checkLocation!='')
+
+const submit = (data : string) => {
+  form.value.type = data
+  show.value = false
+}
 
 const closeIt = () =>{
   selectIt.value.visible = false;
-  setTimeout(()=>{
-    selectIt.value.visible = true;
-  },1000)
 }
 
 const shortcuts = [
@@ -154,12 +177,18 @@ const disabledDate = (time: Date) => {
   return time.getTime() < new Date().getTime() - 86400000
 }
 
-const route = useRouter()
+const router = useRouter()
 const onSubmit = () => {
-  route.push('/sell')
+  if(!canCertain.value){
+    ElMessage.warning("您有信息未填充")
+    return
+  }
+  ElMessage.success("成功预约，请等待电话")
+  setTimeout(()=>{
+    router.push('/sell')
+  },1000)
   console.log(form.value)
 }
-
 
 </script>
 
@@ -232,6 +261,7 @@ const onSubmit = () => {
 }
 
 .dateForm{
+  position: relative;
   width: 50%;
   display: flex;
   flex-direction: column;
@@ -266,6 +296,20 @@ const onSubmit = () => {
 
 .formItem{
   margin-bottom: 30px;
+}
+
+.back{
+  position: absolute;
+  right: 25px;
+  bottom: -60px;
+  color: #9ba3af;
+  cursor: pointer;
+  font-size: 13px;
+  padding: 3px 8px;
+}
+
+.back:hover{
+  background: rgba(155, 163, 175, 0.1);
 }
 
 

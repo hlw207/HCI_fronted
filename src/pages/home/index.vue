@@ -6,6 +6,7 @@
     <RecommendBar />
     <InstructionBar />
   </div>
+  <FindCar/>
 </template>
 
 <script setup lang="ts">

@@ -1,5 +1,4 @@
 <template>
-    <FindCar />
   <Information />
 </template>
 

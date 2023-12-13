@@ -10,6 +10,8 @@ onMounted(() => {
   // 初始化绘制图片验证码
   draw()
 })
+const emits = defineEmits(['update'])
+
 const verify = ref(null)
 const state = reactive({
   pool: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890', // 字符串
@@ -43,9 +45,11 @@ const draw = () => {
   // 填充的位置
   ctx.fillRect(0, 0, state.width, state.height)
   // 随机产生字符串，并且随机旋转
+  let t = ''
   for (let i = 0; i < 4; i++) {
     // 随机的一个字符
     const text = state.pool[randomNum(0, state.pool.length)]
+    t += text
     // 随机的字体大小
     const fontSize = randomNum(18, 40)
     // 字体随机的旋转角度
@@ -59,6 +63,7 @@ const draw = () => {
     ctx.fillText(text, -15 + 5, -15)
     ctx.restore()
   }
+  emits('update', t)
 }
 
 </script>
