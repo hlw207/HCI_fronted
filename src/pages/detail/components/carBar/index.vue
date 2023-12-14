@@ -6,8 +6,6 @@ import {ElMessage} from "element-plus";
 import {useUserStore} from "~/stores/user";
 import {request} from "~/utils/request";
 import {useRoute} from "vue-router";
-import Telephone from "~/pages/detail/components/reservationBar/telephone.vue";
-import More from "~/pages/detail/components/reservationBar/more.vue";
 
 const user = useUserStore()
 const route = useRoute()
@@ -22,6 +20,7 @@ const car = reactive({
   carRecord: '无',
   carTime: ''
 })
+const popShow = ref(false)
 
 const pictures = [
     '../../../../public/pictures/car1.jpg',
@@ -44,8 +43,6 @@ const thumbnailWidth = ref(130); // 设置缩略图的宽度
 const isLeftArrowHovered = ref(false);
 const isRightArrowHovered = ref(false);
 const shine = ref(false)
-const showTelephone = ref(false);
-const showMore = ref(false);
 
 const nextPicture = () => {
     currentPictureIndex.value = (currentPictureIndex.value + 1) % pictures.length;
@@ -115,18 +112,7 @@ const cancelStar = () => {
 }
 
 const openReservation = () => {
-    showTelephone.value = true;
-    showMore.value = false;
-};
-
-const closeReservation = () => {
-    showTelephone.value = false;
-    showMore.value = false;
-};
-
-const submitForm = () => {
-    showTelephone.value = false;
-    showMore.value = true;
+  popShow.value = true
 };
 
 const leftArrowImage = computed(() => isLeftArrowHovered.value ? '../../../../public/pictures/arrow-left-over.jpg' : '../../../../public/pictures/arrow-left.jpg');
@@ -296,8 +282,7 @@ onMounted(() => {
                 <!-- 4. 购车按钮 -->
                 <button class="buyButton" @click="openReservation">预约看车</button>
 
-                <Telephone v-if="showTelephone" @close-reservation="closeReservation" @submit-form="submitForm"/>
-                <More v-if="showMore" @close-reservation="closeReservation"/>
+              <PopUp :title="car.name" :show="popShow" @cancel="popShow=false"/>
 
             </div>
         </div>

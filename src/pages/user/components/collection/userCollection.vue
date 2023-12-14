@@ -28,6 +28,7 @@ const date = computed(() =>{
   return d[0] + '年' + d[1] + '月'
 })
 const firstPay = computed(() => (props.price / 4).toFixed(2))
+const popShow = ref(false)
 
 const click = (event) => {
   if(event.target.className != "collection_button" && event.target.className != 'collection_cancel_main' && event.target.tagName !="path" && event.target.tagName !="I"&& event.target.tagName !="svg"){
@@ -88,10 +89,11 @@ const cancel_collection = () =>{
         <div style="margin: 10px 0 0 12px">
           <span style="font-size: 11px;color: #9ba3af;">首付{{firstPay}}万</span>
         </div>
-        <div class="collection_button">免费咨询</div>
+        <div class="collection_button" @click="popShow=true">免费咨询</div>
       </div>
     </div>
   </div>
+  <PopUp :title="name" :show="popShow" @cancel="popShow=false"/>
 </template>
 
 <style scoped>

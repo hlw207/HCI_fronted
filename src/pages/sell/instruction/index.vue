@@ -140,6 +140,7 @@ onMounted(() => {
   setTimeout(() => {
     showIcon03.value = 1
   }, 1500); // 1000毫秒延迟
+  document.documentElement.scrollTop = 0
 })
 
 const user = useUserStore()
@@ -181,9 +182,13 @@ const handlePhoneNumberSubmit = () => {
         })
         return
       }
-      if(user.id != -1&&user.phone == phoneNumber.value)
-        route.push('/sell/form')
-      dialogTableVisible.value = true
+      setTimeout(()=>{
+        if(user.id != -1&&user.phone == phoneNumber.value) {
+          route.push('/sell/form')
+          return
+        }
+        dialogTableVisible.value = true
+      },10)
     }
 }
 

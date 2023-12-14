@@ -2,10 +2,12 @@
 import {ArrowDown, Opportunity, ShoppingCart} from "@element-plus/icons-vue";
 import {reactive, ref, watch} from "vue";
 import {useUserStore} from "~/stores/user";
+import {ElMessage} from "element-plus";
 
 const user = useUserStore()
 const click = ref([false,false,false,false,false,false])
 const click_index = ref(-1)
+const dialogShow = ref(false)
 
 const choice = reactive({
   car: '',
@@ -67,6 +69,22 @@ const submitCar = (val : string) =>{
   setTimeout(()=>{
     click.value[0] = false
   },10)
+}
+
+const certain = () => {
+  if(choice.car == ''||choice.carAge==''||choice.carTime==''||choice.money==''||choice.phone==''){
+    ElMessage.warning("请填充完整信息")
+    return;
+  }
+  const phonePattern = /^1\d{10}$/;
+  if(!phonePattern.test(choice.phone)){
+    ElMessage({
+      message: '手机号格式错误',
+      type: 'warning',
+    })
+    return
+  }
+  dialogShow.value = true
 }
 </script>
 
@@ -147,13 +165,20 @@ const submitCar = (val : string) =>{
           <div class="input_main" style="width: 50%">
             <input v-model="choice.phone" class="input_input" placeholder="11位手机号">
           </div>
-          <div class="certain_button">
+          <div class="certain_button" @click="certain">
             <el-icon style="font-size: 16px;margin-right: 8px"><Opportunity /></el-icon>
-            有合适车辆通知我</div>
+            有合适车辆通知我
+          </div>
         </div>
       </div>
     </div>
   </div>
+
+  <el-dialog v-model="dialogShow" width="30%" align-center>
+    <div>
+      <el-image src="../../../public/pictures/submit.png"></el-image>
+    </div>
+  </el-dialog>
 </template>
 
 <style scoped>

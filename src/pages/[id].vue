@@ -50,7 +50,7 @@
 <!--  </el-upload>-->
 <!--  <el-button @click="up"></el-button>-->
   <div style="height: 458px">
-
+    <More/>
   </div>
 </template>
 

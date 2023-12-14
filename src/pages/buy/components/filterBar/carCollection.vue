@@ -1,6 +1,5 @@
 <script setup lang="ts">
 
-import {useWindowStore} from "~/stores/window";
 import {Star, StarFilled} from "@element-plus/icons-vue";
 import {computed, onMounted, ref, watch} from "vue";
 import {useRouter} from "vue-router";
@@ -29,14 +28,11 @@ const date = computed(() =>{
     let d = props.time.split('/')
     return d[0] + '年' + d[1] + '月'
 })
+const popShow = ref(false)
 const firstPay = computed(() => (props.price / 4).toFixed(2))
 
-
-
 const click = (event) => {
-    const isPopupElement = event.target.closest('.popup');
-    if(event.target.className != "collection_button" && event.target.tagName !="path"&& event.target.tagName !="svg"&& event.target.tagName !="I"
-        && !isPopupElement){
+    if(event.target.className != "collection_button" && event.target.tagName !="path"&& event.target.tagName !="svg"&& event.target.tagName !="I"){
         router.push("/detail/" + props.id)
     }
 }
@@ -68,21 +64,6 @@ const cancelStar = () => {
     ElMessage.success("取消关注")
     shine.value = false
 }
-
-const isPopupVisible = ref(false);
-const showPopup = () => {
-    isPopupVisible.value = true;
-};
-
-const closePopup = (event) => {
-    const isPopupElement = event.target.closest('.popup_content');
-    if(!isPopupElement){
-        isPopupVisible.value = false;
-    }
-    if(isPopupElement && event.target.className=="close-button"){
-        isPopupVisible.value = false;
-    }
-};
 
 watch(()=>props.id,()=>{
   if(user.id != -1){
@@ -153,11 +134,11 @@ watch(()=>user.id,()=>{
                 <div style="margin: 10px 0 0 12px">
                     <span style="font-size: 11px;color: #9ba3af;">首付{{firstPay}}万</span>
                 </div>
-                <div class="collection_button" @click="showPopup">免费咨询</div>
-                <Popup v-if="isPopupVisible" @click="closePopup" />
+                <div class="collection_button" @click="popShow=true">免费咨询</div>
             </div>
         </div>
     </div>
+    <PopUp :title="name" :show="popShow" @cancel="popShow=false"/>
 </template>
 
 <style scoped>

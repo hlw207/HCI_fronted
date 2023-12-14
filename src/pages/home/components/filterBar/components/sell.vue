@@ -89,7 +89,8 @@ const show = () => {
       }
       if(user.id != -1&&user.phone == phone.value)
         router.push('/sell/form')
-      dialogTableVisible.value = true
+      else
+        dialogTableVisible.value = true
     }
 }
 
