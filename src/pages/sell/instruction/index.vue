@@ -28,9 +28,9 @@
       </div>
 
       <div class="featureItems">
-        <SellIcon class="icon01" icon-u-r-l="/public/pictures/sell/feature02.png" title="高价卖车" content="面向全国买家"/>
-        <SellIcon class="icon02" icon-u-r-l="/public/pictures/sell/feature01.png" title="专人服务" content="专业服务顾问指导"/>
-        <SellIcon class="icon03" icon-u-r-l="/public/pictures/sell/feature03.png" title="省时省心" content="车辆过户不操心"/>
+        <SellIcon class="icon01" :icon-u-r-l=" PICTURE_ADDR + '/sell/feature02.png'" title="高价卖车" content="面向全国买家"/>
+        <SellIcon class="icon02" :icon-u-r-l=" PICTURE_ADDR + '/sell/feature01.png'" title="专人服务" content="专业服务顾问指导"/>
+        <SellIcon class="icon03" :icon-u-r-l=" PICTURE_ADDR + '/sell/feature03.png'" title="省时省心" content="车辆过户不操心"/>
       </div>
     </div>
   </div>
@@ -40,19 +40,19 @@
       <p>高价卖车流程</p>
     </div>
     <div class="instructionBarItems">
-      <SellIcon icon-u-r-l="/public/pictures/sell/instruction01.png" title="在线快速预约"/>
+      <SellIcon :icon-u-r-l="PICTURE_ADDR + '/sell/instruction01.png'" title="在线快速预约"/>
       <el-icon :size="40" color="#eda01f">
         <CaretRight />
       </el-icon>
-      <SellIcon icon-u-r-l="/public/pictures/sell/instruction02.png" title="免费上门评估"/>
+      <SellIcon :icon-u-r-l="PICTURE_ADDR + '/sell/instruction02.png'" title="免费上门评估"/>
       <el-icon :size="40" color="#eda01f">
         <CaretRight />
       </el-icon>
-      <SellIcon icon-u-r-l="/public/pictures/sell/instruction03.png" title="当天速拿车款"/>
+      <SellIcon :icon-u-r-l="PICTURE_ADDR + '/sell/instruction03.png'" title="当天速拿车款"/>
       <el-icon :size="40" color="#eda01f">
         <CaretRight />
       </el-icon>
-      <SellIcon icon-u-r-l="/public/pictures/sell/instruction04.png" title="省心代办过户"/>
+      <SellIcon :icon-u-r-l="PICTURE_ADDR + '/sell/instruction04.png'" title="省心代办过户"/>
 
     </div>
   </div>
@@ -102,7 +102,7 @@
 
   <el-dialog v-model="dialogTableVisible" width="30%" center top="20%">
     <div class="certifyContainer">
-      <el-image src="/public/pictures/sell/certify.png" style="width: 60px;height: 60px;position: relative;top: -80px" />
+      <el-image :src="PICTURE_ADDR + '/sell/certify.png'" style="width: 60px;height: 60px;position: relative;top: -80px" />
       <div class="certifyPic">
         <el-input v-model="certifyPicCode" placeholder="请输入图片验证码" minlength="4" maxlength="4" clearable />
         <CertifyCode @update="updateCertify"/>
@@ -125,6 +125,7 @@ import CertifyCode from "~/pages/sell/instruction/components/certifyCode/index.v
 import { useRouter} from "vue-router";
 import {CaretRight} from "@element-plus/icons-vue";
 import {useUserStore} from "~/stores/user";
+import {PICTURE_ADDR} from "~/config";
 
 onMounted(() => {
   window.addEventListener("scroll",handleScroll)

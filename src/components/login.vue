@@ -164,8 +164,8 @@ watch(props,()=>{
           </div>
           <div class="login_main_left_main">
             <div class="login_main_left_main_top">
-              <el-image src="../../public/pictures/download.png" style="height: 145px;width: 145px" v-if="download"></el-image>
-              <el-image src="../../public/pictures/login.png" style="height: 145px;width: 145px" v-else></el-image>
+              <el-image :src="PICTURE_ADDR + '/download.png'" style="height: 145px;width: 145px" v-if="download"></el-image>
+              <el-image :src="PICTURE_ADDR + '/login.png'" style="height: 145px;width: 145px" v-else></el-image>
             </div>
             <div class="login_main_left_main_bottom">
               <div>
@@ -245,13 +245,13 @@ watch(props,()=>{
             </div>
             <div style="display: flex">
               <div class="login_extra_login_box" style="margin-left: 110px">
-                <el-image src="../../public/pictures/Wechat.png" style="width: 30px;height: 30px"></el-image>
+                <el-image :src="PICTURE_ADDR + '/Wechat.png'" style="width: 30px;height: 30px"></el-image>
                 <div style="margin-top: 8px;margin-left: 6px">
                   <span style="color: #9499a0">微信登录</span>
                 </div>
               </div>
               <div class="login_extra_login_box" style="margin-left: 45px">
-                <el-image src="../../public/pictures/QQ.png" style="width: 30px;height: 30px"></el-image>
+                <el-image :src="PICTURE_ADDR + '/QQ.png'" style="width: 30px;height: 30px"></el-image>
                 <div style="margin-top: 8px;margin-left: 6px">
                   <span style="color: #9499a0">QQ登录</span>
                 </div>

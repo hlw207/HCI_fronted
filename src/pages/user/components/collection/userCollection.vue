@@ -85,7 +85,7 @@ const cancel_collection = () =>{
         {{date}} / {{props.mileage}}万公里 / {{props.source}}
       </div>
       <div style="display:flex;margin: 20px 0 3px 8px;position: relative">
-        <span style="color: #fa5c3d;font-size: 20px">{{props.price}}万</span>
+        <span style="color: #fa5c3d;font-size: 20px">{{props.price.toFixed(2)}}万</span>
         <div style="margin: 10px 0 0 12px">
           <span style="font-size: 11px;color: #9ba3af;">首付{{firstPay}}万</span>
         </div>
@@ -93,7 +93,7 @@ const cancel_collection = () =>{
       </div>
     </div>
   </div>
-  <PopUp :title="name" :show="popShow" @cancel="popShow=false"/>
+  <PopUp :title="name" :show="popShow" :price="props.price" :path="props.picturePath" @cancel="popShow=false"/>
 </template>
 
 <style scoped>
@@ -166,7 +166,7 @@ const cancel_collection = () =>{
 }
 
 .collection_cancel{
-  z-index: 999;
+  z-index: 900;
   position: absolute;
   top: 46px;
   right: 0px;

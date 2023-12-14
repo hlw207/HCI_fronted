@@ -27,11 +27,11 @@
         </div>
         <div class="footer-column">
             <h3>下载APP</h3>
-            <img src="../../../public/pictures/download.png" alt="WeChat" />
+            <img :src="PICTURE_ADDR + '/download.png'" alt="WeChat" />
         </div>
         <div class="footer-column">
             <h3>关注微信</h3>
-            <img src="../../../public/pictures/wechat.jpg" alt="WeChat" />
+            <img :src="PICTURE_ADDR  + '/wechat.jpg'" alt="WeChat" />
         </div>
     </div>
 </template>
@@ -39,6 +39,7 @@
 
 <script setup="ts">
 
+import {PICTURE_ADDR} from "~/config";
 </script>
 
 <style scoped>

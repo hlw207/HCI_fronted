@@ -4,6 +4,7 @@ import {useUserStore} from "~/stores/user";
 import {useRouter} from "vue-router";
 import CertifyCode from "~/pages/sell/instruction/components/certifyCode/index.vue";
 import {ElMessage, ElNotification} from "element-plus";
+import {PICTURE_ADDR} from "~/config";
 const user = useUserStore()
 const phone = ref(user.phone)
 const router= useRouter()
@@ -123,7 +124,7 @@ watch(user,(()=>{
 
   <el-dialog v-model="dialogTableVisible" width="30%" center top="20%">
     <div class="certifyContainer">
-      <el-image src="/public/pictures/sell/certify.png" style="width: 60px;height: 60px;position: relative;top: -80px" />
+      <el-image :src="PICTURE_ADDR + '/sell/certify.png'" style="width: 60px;height: 60px;position: relative;top: -80px" />
       <div class="certifyPic">
         <el-input v-model="certifyPicCode" placeholder="请输入图片验证码" minlength="4" maxlength="4" clearable />
         <CertifyCode @update="updateCertify"/>

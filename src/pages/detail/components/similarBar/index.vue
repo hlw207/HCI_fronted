@@ -11,17 +11,17 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
-import {ElMessage} from "element-plus";
+import {PICTURE_ADDR} from "~/config";
 
 const cars = ref([
-    { id: 1, name: '车辆名称 1', price: 5, image: '../../../../public/pictures/car1.jpg' },
-    { id: 2, name: '车辆名称 2', price: 6, image: '../../../../public/pictures/car1.jpg' },
-    { id: 3, name: '车辆名称 3', price: 5, image: '../../../../public/pictures/car1.jpg' },
-    { id: 4, name: '车辆名称 4', price: 6, image: '../../../../public/pictures/car1.jpg' },
-    { id: 5, name: '车辆名称 5', price: 5, image: '../../../../public/pictures/car1.jpg' },
-    { id: 6, name: '车辆名称 6', price: 6, image: '../../../../public/pictures/car1.jpg' },
-    { id: 7, name: '车辆名称 7', price: 5, image: '../../../../public/pictures/car1.jpg' },
-    { id: 8, name: '车辆名称 8', price: 6, image: '../../../../public/pictures/car1.jpg' },
+    { id: 1, name: '车辆名称 1', price: 5, image:  PICTURE_ADDR + '/car1.jpg' },
+    { id: 2, name: '车辆名称 2', price: 6, image:  PICTURE_ADDR + '/car1.jpg' },
+    { id: 3, name: '车辆名称 3', price: 5, image:  PICTURE_ADDR + '/car1.jpg' },
+    { id: 4, name: '车辆名称 4', price: 6, image:  PICTURE_ADDR + '/car1.jpg' },
+    { id: 5, name: '车辆名称 5', price: 5, image:  PICTURE_ADDR + '/car1.jpg' },
+    { id: 6, name: '车辆名称 6', price: 6, image:  PICTURE_ADDR + '/car1.jpg' },
+    { id: 7, name: '车辆名称 7', price: 5, image:  PICTURE_ADDR + '/car1.jpg' },
+    { id: 8, name: '车辆名称 8', price: 6, image:  PICTURE_ADDR + '/car1.jpg' },
 
 ]);
 

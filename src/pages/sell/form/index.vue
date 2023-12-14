@@ -8,7 +8,7 @@
     <div class="sellForm">
       <div class="detailForm">
         <div class="sellFormTitle">
-          <el-image src="/public/pictures/sell/form01.png" style="margin-right: 10px;width: 30px;height: 30px" />
+          <el-image :src="PICTURE_ADDR + '/sell/form01.png'" style="margin-right: 10px;width: 30px;height: 30px" />
           <p>补充爱车信息</p>
         </div>
         <div style="position: relative">
@@ -53,7 +53,7 @@
       </div>
       <div class="dateForm">
         <div class="sellFormTitle">
-          <el-image src="/public/pictures/sell/form02.png" style="margin-right: 10px;width: 30px;height: 30px" />
+          <el-image :src="PICTURE_ADDR + '/sell/form02.png'" style="margin-right: 10px;width: 30px;height: 30px" />
           <p>预约验车时间</p>
         </div>
         <el-form label-width="120px" style="margin-left: 50px;margin-top: 50px;">
@@ -115,6 +115,7 @@ import {CaretRight} from "@element-plus/icons-vue";
 import {useRouter} from "vue-router";
 import {ElMessage} from "element-plus";
 import DefaultElse from "~/layouts/defaultElse.vue";
+import {PICTURE_ADDR} from "~/config";
 
 const options = provinceAndCityData
 const show = ref(false)

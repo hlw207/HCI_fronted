@@ -6,6 +6,7 @@ import {ElMessage} from "element-plus";
 import {useUserStore} from "~/stores/user";
 import {request} from "~/utils/request";
 import {useRoute} from "vue-router";
+import {PICTURE_ADDR} from "~/config";
 
 const user = useUserStore()
 const route = useRoute()
@@ -23,18 +24,18 @@ const car = reactive({
 const popShow = ref(false)
 
 const pictures = [
-    '../../../../public/pictures/car1.jpg',
-    '../../../../public/pictures/car2.jpg',
-    '../../../../public/pictures/car3.jpg',
-    '../../../../public/pictures/car4.jpg',
-    '../../../../public/pictures/car5.jpg',
-    '../../../../public/pictures/car6.jpg',
-    '../../../../public/pictures/car1.jpg',
-    '../../../../public/pictures/car2.jpg',
-    '../../../../public/pictures/car3.jpg',
-    '../../../../public/pictures/car4.jpg',
-    '../../../../public/pictures/car5.jpg',
-    '../../../../public/pictures/car6.jpg',
+     PICTURE_ADDR + '/car1.jpg',
+    PICTURE_ADDR + '/car2.jpg',
+     PICTURE_ADDR + '/car3.jpg',
+     PICTURE_ADDR + '/car4.jpg',
+     PICTURE_ADDR + '/car5.jpg',
+     PICTURE_ADDR + '/car6.jpg',
+     PICTURE_ADDR + '/car1.jpg',
+     PICTURE_ADDR + '/car2.jpg',
+     PICTURE_ADDR + '/car3.jpg',
+     PICTURE_ADDR + '/car4.jpg',
+     PICTURE_ADDR + '/car5.jpg',
+     PICTURE_ADDR + '/car6.jpg',
 ];
 
 const currentPictureIndex = ref(0);
@@ -115,8 +116,8 @@ const openReservation = () => {
   popShow.value = true
 };
 
-const leftArrowImage = computed(() => isLeftArrowHovered.value ? '../../../../public/pictures/arrow-left-over.jpg' : '../../../../public/pictures/arrow-left.jpg');
-const rightArrowImage = computed(() => isRightArrowHovered.value ? '../../../../public/pictures/arrow-right-over.jpg' : '../../../../public/pictures/arrow-right.jpg');
+const leftArrowImage = computed(() => isLeftArrowHovered.value ?  PICTURE_ADDR + '/arrow-left-over.jpg' :  PICTURE_ADDR + '/arrow-left.jpg');
+const rightArrowImage = computed(() => isRightArrowHovered.value ?  PICTURE_ADDR + '/arrow-right-over.jpg' :  PICTURE_ADDR + '/arrow-right.jpg');
 
 watch(()=>user.id,()=>{
   if(user.id != -1){
@@ -242,8 +243,8 @@ onMounted(() => {
 
                 <!-- 2. 车辆价格 -->
                 <div class="carPrice">
-                    <span class="totalPrice">{{car.price}}万</span>
-                    <span class="downPayment">首付: {{car.price / 4}}万</span>
+                    <span class="totalPrice">{{car.price.toFixed(2)}}万</span>
+                    <span class="downPayment">首付: {{(car.price / 4).toFixed(2)}}万</span>
                 </div>
 
                 <!-- 3. 详细信息 -->
@@ -282,7 +283,7 @@ onMounted(() => {
                 <!-- 4. 购车按钮 -->
                 <button class="buyButton" @click="openReservation">预约看车</button>
 
-              <PopUp :title="car.name" :show="popShow" @cancel="popShow=false"/>
+              <PopUp :title="car.name" :show="popShow" :path="pictures[0]" :price="car.price" @cancel="popShow=false"/>
 
             </div>
         </div>

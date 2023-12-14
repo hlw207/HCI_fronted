@@ -3,6 +3,7 @@ import {ArrowDown, Opportunity, ShoppingCart} from "@element-plus/icons-vue";
 import {reactive, ref, watch} from "vue";
 import {useUserStore} from "~/stores/user";
 import {ElMessage} from "element-plus";
+import {PICTURE_ADDR} from "~/config";
 
 const user = useUserStore()
 const click = ref([false,false,false,false,false,false])
@@ -91,7 +92,7 @@ const certain = () => {
 <template>
   <div class="find_container">
     <div class="find_left">
-      <el-image src="../../../public/pictures/findCar.png"></el-image>
+      <el-image :src="PICTURE_ADDR + '/findCar.png'"></el-image>
     </div>
     <div class="find_right">
       <div class="find_right_main">
@@ -176,7 +177,7 @@ const certain = () => {
 
   <el-dialog v-model="dialogShow" width="30%" align-center>
     <div>
-      <el-image src="../../../public/pictures/submit.png"></el-image>
+      <el-image :src="PICTURE_ADDR+ '/submit.png'"></el-image>
     </div>
   </el-dialog>
 </template>

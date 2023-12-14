@@ -3,6 +3,7 @@
 import {Refresh, SwitchButton} from "@element-plus/icons-vue";
 import {ref} from "vue";
 import {ElMessage} from "element-plus";
+import {PICTURE_ADDR} from "~/config";
 
 const show = ref(false)
 
@@ -16,7 +17,7 @@ const certain = () =>{
   <div class="record">
     <div class="car">
       <div class="car_container">
-        <el-image src="../../../../../public/pictures/car/0.jpg" class="car_picture_main"></el-image>
+        <el-image :src="PICTURE_ADDR + '/car/0.jpg'" class="car_picture_main"></el-image>
       </div>
       <div class="car_text">
         <div style="display: flex;flex-wrap: wrap;margin-top: 5px;margin-left: 8px">

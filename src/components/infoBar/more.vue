@@ -8,6 +8,7 @@ const props = defineProps<{
   show: boolean
   name: string
   price: number
+  path: string
 }>()
 
 const emits = defineEmits(['close'])
@@ -127,12 +128,12 @@ onMounted(()=>{
         <span style="color: #f2711c">车况合适立即帮您约车</span>
       </div>
       <div class="more_show">
-        <div style="height: 100%"><el-image :src="PICTURE_ADDR + '/car/0.jpg'" style="height: 100%"></el-image></div>
+        <div style="height: 100%"><el-image :src="props.path" style="height: 100%"></el-image></div>
         <div class="more_show_text">
           <div style="font-weight: bolder;font-size: 15px">{{props.name}}</div>
           <div style="font-size: 12px;display: flex;margin-top: 1px">
-            <div style="border-right: 1px solid rgba(128,128,128,0.3);padding-right: 5px">卖家报价：{{props.price}}万</div>
-            <div style="margin-left: 5px">首付：{{props.price / 4}}万</div>
+            <div style="border-right: 1px solid rgba(128,128,128,0.3);padding-right: 5px">卖家报价：{{props.price.toFixed(2)}}万</div>
+            <div style="margin-left: 5px">首付：{{(props.price / 4).toFixed(2)}}万</div>
           </div>
           <div class="more_show_bottom">
             <div>当前车辆位置</div>

@@ -2,6 +2,7 @@
 import {useWindowStore} from "~/stores/window";
 import {ChatDotRound, Download, Edit, PhoneFilled, Top} from "@element-plus/icons-vue";
 import {onMounted, reactive, ref} from "vue";
+import {PICTURE_ADDR} from "~/config";
 
 const windows = useWindowStore()
 const height = windows.height
@@ -53,14 +54,14 @@ const scrollToTop = () => {
   </div>
   <div v-if="appear.download" class="download">
     <div>
-      <el-image src="../../public/pictures/download.png">
+      <el-image :src="PICTURE_ADDR + '/download.png'">
       </el-image>
     </div>
     <span>下载APP</span>
   </div>
   <div v-if="appear.wechat" class="wechat">
     <div>
-      <el-image src="../../public/pictures/wechat.jpg">
+      <el-image :src="PICTURE_ADDR + '/wechat.jpg'">
       </el-image>
     </div>
     <span>下载APP</span>

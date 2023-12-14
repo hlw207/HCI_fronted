@@ -8,6 +8,8 @@ import {useUserStore} from "~/stores/user";
 const props = defineProps<{
   show: boolean,
   title: string
+  price: number
+  path: string
 }>()
 
 const emits = defineEmits(['cancel'])
@@ -86,7 +88,7 @@ const submit = () => {
       </div>
     </div>
   </el-dialog>
-  <More :show="formShow" :name="props.title" :price="15" @close="formShow=false"></More>
+  <More :show="formShow" :name="props.title" :price="props.price" :path="props.path" @close="formShow=false"></More>
 </template>
 
 <!--<style>-->

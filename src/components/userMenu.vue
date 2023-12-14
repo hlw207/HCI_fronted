@@ -8,6 +8,7 @@ import {useUserStore} from "~/stores/user";
 import {ArrowRightBold, Message, Pointer, Setting, Star, SwitchButton} from "@element-plus/icons-vue";
 import {ElMessage, ElNotification} from "element-plus";
 import {request} from "~/utils/request";
+import {PICTURE_ADDR} from "~/config";
 
 // const props = defineProps<{
 //   pageIndex: string
@@ -194,7 +195,7 @@ onUnmounted(() => {
 <!--  <div class="user_menu" :class="{fix : props.ifFixed}" v-if="isShow">-->
   <div class="user_menu" :class="{fix : isShow}">
     <div class="menu_brand">
-        <img src="../../public/pictures/trademark.png" height="45" alt="wrong.png">
+        <img :src="PICTURE_ADDR + '/trademark.png'" height="45" alt="wrong.png">
     </div>
     <div class="menu menu_first" :class="{menu_active: menus[0].is}" @click="routerTo(0)">
       <span>首页</span>
@@ -325,7 +326,7 @@ onUnmounted(() => {
 }
 
 .menu_login{
-  z-index: 989;
+  z-index: 997;
   position: fixed;
   right: 400px;
   background: #f9c022;
@@ -364,7 +365,7 @@ onUnmounted(() => {
 }
 
 .login_info{
-  z-index: 990;
+  z-index: 991;
   position: fixed;
   top: 60px;
   left: v-bind(login_position - 130 + 'px');
@@ -422,7 +423,7 @@ onUnmounted(() => {
 }
 
 .login_profile{
-  z-index: 99;
+  z-index: 990;
   position: fixed;
   top: 60px;
   left: v-bind(login_position - 125 + 'px');

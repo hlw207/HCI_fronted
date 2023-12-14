@@ -130,7 +130,7 @@ watch(()=>user.id,()=>{
                 {{date}} / {{props.mileage}}万公里 / {{props.source}}
             </div>
             <div style="display:flex;margin: 20px 0 3px 8px;position: relative">
-                <span style="color: #fa5c3d;font-size: 20px">{{props.price}}万</span>
+                <span style="color: #fa5c3d;font-size: 20px">{{props.price.toFixed(2)}}万</span>
                 <div style="margin: 10px 0 0 12px">
                     <span style="font-size: 11px;color: #9ba3af;">首付{{firstPay}}万</span>
                 </div>
@@ -138,7 +138,7 @@ watch(()=>user.id,()=>{
             </div>
         </div>
     </div>
-    <PopUp :title="name" :show="popShow" @cancel="popShow=false"/>
+    <PopUp :title="name" :show="popShow" :price="props.price" :path="props.image" @cancel="popShow=false"/>
 </template>
 
 <style scoped>

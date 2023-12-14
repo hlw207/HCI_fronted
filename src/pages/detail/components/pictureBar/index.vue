@@ -1,47 +1,48 @@
 <script setup lang="ts">
 import ImageModal from "~/pages/detail/components/image/imageModal.vue";
 import {ref} from "vue";
+import {PICTURE_ADDR} from "~/config";
 
 const ImageModalRef = ref()
 const exteriorImages = [
-    '../../../../public/pictures/car1.jpg',
-    '../../../../public/pictures/car2.jpg',
-    '../../../../public/pictures/car1.jpg',
-    '../../../../public/pictures/car2.jpg',
-    '../../../../public/pictures/car1.jpg',
-    '../../../../public/pictures/car2.jpg',
-    '../../../../public/pictures/car1.jpg',
-    '../../../../public/pictures/car2.jpg',
-    '../../../../public/pictures/car1.jpg',
-    '../../../../public/pictures/car2.jpg',
+     PICTURE_ADDR + '/car1.jpg',
+     PICTURE_ADDR + '/car2.jpg',
+     PICTURE_ADDR + '/car1.jpg',
+     PICTURE_ADDR + '/car2.jpg',
+     PICTURE_ADDR + '/car1.jpg',
+     PICTURE_ADDR + '/car2.jpg',
+     PICTURE_ADDR + '/car1.jpg',
+     PICTURE_ADDR + '/car2.jpg',
+     PICTURE_ADDR + '/car1.jpg',
+     PICTURE_ADDR + '/car2.jpg',
     // ...
 ];
 
 const interiorImages = [
-    '../../../../public/pictures/car3.jpg',
-    '../../../../public/pictures/car4.jpg',
-    '../../../../public/pictures/car3.jpg',
-    '../../../../public/pictures/car4.jpg',
-    '../../../../public/pictures/car3.jpg',
-    '../../../../public/pictures/car4.jpg',
-    '../../../../public/pictures/car3.jpg',
-    '../../../../public/pictures/car4.jpg',
-    '../../../../public/pictures/car3.jpg',
-    '../../../../public/pictures/car4.jpg',
+     PICTURE_ADDR + '/car3.jpg',
+     PICTURE_ADDR + '/car4.jpg',
+     PICTURE_ADDR + '/car3.jpg',
+     PICTURE_ADDR + '/car4.jpg',
+     PICTURE_ADDR + '/car3.jpg',
+     PICTURE_ADDR + '/car4.jpg',
+     PICTURE_ADDR + '/car3.jpg',
+     PICTURE_ADDR + '/car4.jpg',
+     PICTURE_ADDR + '/car3.jpg',
+     PICTURE_ADDR + '/car4.jpg',
     // ...
 ];
 
 const engineImages = [
-    '../../../../public/pictures/car5.jpg',
-    '../../../../public/pictures/car6.jpg',
-    '../../../../public/pictures/car5.jpg',
-    '../../../../public/pictures/car6.jpg',
-    '../../../../public/pictures/car5.jpg',
-    '../../../../public/pictures/car6.jpg',
-    '../../../../public/pictures/car5.jpg',
-    '../../../../public/pictures/car6.jpg',
-    '../../../../public/pictures/car5.jpg',
-    '../../../../public/pictures/car6.jpg',
+     PICTURE_ADDR + '/car5.jpg',
+     PICTURE_ADDR + '/car6.jpg',
+     PICTURE_ADDR + '/car5.jpg',
+     PICTURE_ADDR + '/car6.jpg',
+     PICTURE_ADDR + '/car5.jpg',
+     PICTURE_ADDR + '/car6.jpg',
+     PICTURE_ADDR + '/car5.jpg',
+     PICTURE_ADDR + '/car6.jpg',
+     PICTURE_ADDR + '/car5.jpg',
+     PICTURE_ADDR + '/car6.jpg',
     // ...
 ];
 

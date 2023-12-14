@@ -150,7 +150,7 @@ const themes = [
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: linear-gradient(to left, transparent 5%, white), url('/pictures/home/theme.jpg');
+  background: linear-gradient(to left, transparent 5%, white), url('https://box.nju.edu.cn/thumbnail/07d3ddadbcd84a228e26/1024//home/theme.jpg');
   background-size: cover;
   transition: 0.6s;
 }

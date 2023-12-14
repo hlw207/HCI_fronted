@@ -3,6 +3,7 @@ import {useWindowStore} from "~/stores/window";
 import {useUserStore} from "~/stores/user";
 import {ref} from "vue";
 import {useRouter} from "vue-router";
+import {PICTURE_ADDR} from "~/config";
 
 const windows = useWindowStore()
 const user = useUserStore()
@@ -30,7 +31,7 @@ const addSignature = () =>{
 
 <template>
   <div class="user_background">
-      <el-image class="picture_background" src="../../../public/pictures/home/searchBarBackground.png"></el-image>
+      <el-image class="picture_background" :src="PICTURE_ADDR + '/home/searchBarBackground.png'"></el-image>
       <el-image class="user_profile" :src="user.profile"></el-image>
       <div v-if="resize" class="user_profile mask">
         <div style="margin-top: 17px;margin-left: 5px">
