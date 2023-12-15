@@ -23,8 +23,8 @@ const carChoice = {
         ,{choose: false, type:'5-8万公里'}
         ,{choose: false, type:'8-10万公里'}
         ,{choose: false, type:'10万公里以上'}],
-    carPollution: [{choose: false, type:'1.0及以下'}
-        ,{choose: false, type:'1.7L-2.0L'}
+    carPollution: [{choose: false, type:'1.0L以下'}
+        ,{choose: false, type:'1.0L-2.0L'}
         ,{choose: false, type:'2.1L-2.5L'}
         ,{choose: false, type:'2.6L-3.0L'}
         ,{choose: false, type:'3.1L-4.0L'}

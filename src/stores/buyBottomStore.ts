@@ -12,6 +12,7 @@ export const useBuyBottomStore = defineStore('buy', {
             cars : [] as CarStruct[][],
             carData: [] as CarStruct[],
             carRequest:  {
+                search: "",
                 brand: "不限",
                 carAge: "",
                 carColor: "",

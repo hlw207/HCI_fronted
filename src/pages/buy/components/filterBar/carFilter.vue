@@ -4,7 +4,7 @@ import {computed, onMounted, reactive, ref, watch} from "vue";
 import TypeChoice from "~/pages/buy/components/filterBar/typeChoice.vue";
 import {ElMessage} from "element-plus";
 import {useRoute, useRouter} from "vue-router";
-import {Search} from "@element-plus/icons-vue";
+import {Close, Search} from "@element-plus/icons-vue";
 import ChooseBox from "~/pages/buy/components/filterBar/chooseBox.vue";
 import ExtraBox from "~/pages/buy/components/filterBar/extraBox.vue";
 import WholeBrand from "~/pages/buy/components/filterBar/wholeBrand.vue";
@@ -44,6 +44,7 @@ const extraChoiceName = reactive({
 const searchShow = ref(false)
 
 const searchInfo = ref('')
+const searchStore = ref('')
 const startPrice = ref('')
 const endPrice = ref('')
 const show = ref(true)
@@ -86,7 +87,21 @@ watch(choice,()=>{
   setTimeout(()=>{
     show.value = true
   },1)
+  request_to()
+})
+
+watch(extraChoice,()=>{
+  show.value = false
+  setTimeout(()=>{
+    show.value = true
+  },1)
+  request_to()
+})
+
+const request_to = () =>{
   let querys = {}
+  if(searchInfo.value != '')
+    querys['search'] = searchInfo.value
   Object.keys(choice).forEach(key => {
     if(choice[key] != '不限'){
       querys[key] = choice[key]
@@ -97,11 +112,27 @@ watch(choice,()=>{
       }else
         cars.carRequest.price = startPrice.value + '-' + endPrice.value
     }
-    else
-       cars.carRequest[key] = choice[key]
+    else {
+      cars.carRequest[key] = choice[key]
+    }
   });
+  Object.keys(extraChoice).forEach(key => {
+    let c = ""
+    let i: number
+    for (i = 0;i < extraChoice[key].length;i++){
+      if(extraChoice[key][i].choose){
+        if(c == "")
+          c = extraChoice[key][i].type
+        else
+          c += "/" + extraChoice[key][i].type
+      }
+    }
+    cars.carRequest[key] = c
+    if(c != "")
+      querys[key] = c
+  })
   router.push({path: '/buy',query: querys})
-})
+}
 
 const input_info = () =>{
   searchShow.value = false
@@ -151,8 +182,12 @@ const choose = (type : string, title: string) =>{
     choice.brand = title;
     carsData.getCarTypes(choice.brand)
     choice.carType = '不限'
+    cars.carRequest.search = ''
+    searchInfo.value = searchStore.value  = ''
   }else if(type == "carType"){
     choice.carType = title;
+    cars.carRequest.search = ''
+    searchInfo.value = searchStore.value  = ''
   }else if(type == "price"){
     if(carsData.prices.length > 9){
       carsData.prices.pop()
@@ -197,7 +232,7 @@ const clear = () => {
   Object.keys(choice).forEach(key => {
     choice[key] = '不限'
   });
-  choose('brand', '不限')
+  carsData.getCarTypes(choice.brand)
   startPrice.value = endPrice.value = ''
   Object.values(extraChoice).forEach(value => {
     let i: number
@@ -236,11 +271,43 @@ const certainNum = () =>{
   choice.price =  carsData.prices[carsData.prices.length - 1]
 }
 
+const searchCertain = () => {
+  clear()
+  cars.carRequest.search = searchInfo.value
+  searchStore.value = searchInfo.value
+  show.value = false
+  setTimeout(()=>{
+    show.value = true
+  },1)
+  router.push({path: '/buy',query: {search: searchInfo.value}})
+}
+
+const searchCancel = () => {
+  clear()
+  cars.carRequest.search = searchInfo.value = searchStore.value = ''
+  show.value = false
+  setTimeout(()=>{
+    show.value = true
+  },1)
+  router.push({path: '/buy'})
+}
+
 onMounted(()=>{
+  clear()
   carsData.fetch()
   Object.keys(route.query).forEach(key => {
-    if(key == 'brand')
+    if(key == 'carDetailType')
+      extraChoice.carDetailType[1].choose = true
+    else if(key == 'carLevel')
+      extraChoice.carLevel[3].choose = true
+    else if(key == 'carGear')
+      extraChoice.carGear[1].choose = true
+    else if(key == 'brand')
       brandSubmit(route.query[key])
+    else if(key == 'search'){
+      searchInfo.value = route.query[key]
+      searchCertain()
+    }
     else
       choose(key, route.query[key])
   });
@@ -262,7 +329,7 @@ onMounted(()=>{
       <div class="top_search_left" @click="searchShow = true">
         <input class="top_search_input" placeholder="二手车搜索" v-model="searchInfo" @input="input_info"/>
       </div>
-      <div class="top_search_right">
+      <div class="top_search_right" @click="searchCertain">
         <el-icon style="margin-left: 20%"><Search /></el-icon>
       </div>
       <CascaderChoose :left="0" :top="40" :is-show="searchShow" @disShow="searchShow = false" @submit="submit"/>
@@ -312,6 +379,16 @@ onMounted(()=>{
           <ExtraBox :choose="content" :type="extraChoiceName[key]" @submit="extraSubmit"/>
         </template>
       </div>
+    </div>
+  </div>
+  <div class="search_container" v-if="searchStore!=''">
+    <div class="search_container_text">
+      您关注的&nbsp;&nbsp;“
+      <span style="color: #db2828">{{searchStore}}</span>
+      ”&nbsp;&nbsp;车有{{cars.carData.length}}辆
+    </div>
+    <div class="search_container_cancel">
+      <el-icon style="margin-right: 20px; color: #dca89b;font-size: 20px;cursor: pointer" @click="searchCancel"><Close /></el-icon>
     </div>
   </div>
 
@@ -527,5 +604,25 @@ onMounted(()=>{
 
 .bottom_text:hover{
   color: #f2711c;
+}
+
+.search_container{
+  height: 42px;
+  background: #fcf8e2;
+  display: flex;
+  align-items: center;
+}
+
+.search_container_text{
+  margin-left: 20px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+}
+
+.search_container_cancel{
+  flex: 1;
+  display: flex;
+  justify-content: right;
 }
 </style>

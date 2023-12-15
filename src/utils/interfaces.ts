@@ -25,6 +25,7 @@ interface TypeChoose{
 }
 
 interface carRequest{
+  search: string,
   brand: string,
   carType: string,
   price: string,

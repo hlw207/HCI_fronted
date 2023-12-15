@@ -6,12 +6,12 @@
           title="热门推荐"
           :width="600"
           trigger="hover"
-          content="样例"
+          content="大众 本田 宝马 奥迪 别克 奔驰"
       >
         <template #reference>
           <el-input
               v-model="searchInput"
-              placeholder="输入关键词，例如：君越2.4L"
+              placeholder="输入关键词，例如：本田"
               class="searchInput"
               @mouseenter="searchFocusIn"
               @mouseleave="searchFocusOut"
@@ -19,7 +19,7 @@
           </el-input>
         </template>
       </el-popover>
-      <el-button color="#eda01f" class="searchBtn">
+      <el-button color="#eda01f" class="searchBtn" @click="search">
         <p style="color: white">查遍全网二手车</p>
       </el-button>
     </div>
@@ -29,7 +29,10 @@
 <script setup lang="ts">
 
 import {ref} from "vue";
+import {useRouter} from "vue-router";
+import {ElMessage} from "element-plus";
 
+const router = useRouter()
 const searchInput = ref('')
 const searchRecommend = ref(false)
 
@@ -39,7 +42,14 @@ const searchFocusIn = () => {
 
 const searchFocusOut = () => {
 
+}
 
+const search = () => {
+  if(searchInput.value == ''){
+    ElMessage.warning("请输入您想看的车哦")
+    return
+  }
+  router.push({path: '/buy',query: {search: searchInput.value}})
 }
 
 </script>

@@ -24,9 +24,9 @@
         <el-col class="filterCol" :span="6" @click="router.push('/buy')">更多价位</el-col>
       </el-row>
       <el-row class="row-bg" justify="space-evenly">
-        <el-col class="filterCol" :span="6">入门练手</el-col>
-        <el-col class="filterCol" :span="6">自家SUV</el-col>
-        <el-col class="filterCol" :span="6">商务7座</el-col>
+        <el-col class="filterCol" :span="6" @click="routerTo('carGear', '自动')">入门练手</el-col>
+        <el-col class="filterCol" :span="6" @click="routerTo('carDetailType', 'SUV')">自家SUV</el-col>
+        <el-col class="filterCol" :span="6" @click="routerTo('carLevel', '中型号车')">商务7座</el-col>
         <el-col class="filterCol" :span="6" @click="router.push('/buy')">更多车源</el-col>
       </el-row>
     </el-collapse-item>

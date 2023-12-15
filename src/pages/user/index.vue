@@ -25,6 +25,7 @@ const height = window.height
   background: #f7f4f5;
   padding: 0 v-bind(width / 11 + 'px') 30px;
   animation: myFirst 0.5s;
+  min-height: 470px;
 }
 
 .user_main{

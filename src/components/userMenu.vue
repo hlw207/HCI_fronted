@@ -28,7 +28,7 @@ const menus = ref([{is : false, path: "/home"},
   {is : false, path: "/pay"},
   {is : false, path: "/user"}])
 
-const isShow = computed(() => windows.scrollPositionY >= 1)
+const isShow = computed(() => windows.scrollPositionY >= 5)
 const loginShow = ref(false)
 const registerShow = ref(false)
 const loginInfo = ref(false)
