@@ -14,7 +14,7 @@ const ImageModalRef = ref()
 const car = reactive({
   name: '',
   price: 0,
-  carDistance: Number,
+  carDistance: 0,
   carAge: '',
   carPosition: '',
   carGear: '',
@@ -494,6 +494,8 @@ onMounted(() => {
     flex-direction: column;
     justify-content: space-between;
     margin-bottom: 10px;
+    margin-right: 50px;
+    margin-left: 20px;
 }
 
 .detailRow{
@@ -505,7 +507,6 @@ onMounted(() => {
     flex: 1;
     height: 65px;
     padding: 10px;
-    margin-right: 10px;
     display: flex;
     flex-direction: column;
 }
