@@ -1,28 +1,5 @@
 <template>
   <div class="searchBarContainer">
-    <div class="searchInputBar">
-      <el-popover
-          placement="bottom"
-          title="热门推荐"
-          :width="600"
-          trigger="hover"
-          content="大众 本田 宝马 奥迪 别克 奔驰"
-      >
-        <template #reference>
-          <el-input
-              v-model="searchInput"
-              placeholder="输入关键词，例如：本田"
-              class="searchInput"
-              @mouseenter="searchFocusIn"
-              @mouseleave="searchFocusOut"
-          >
-          </el-input>
-        </template>
-      </el-popover>
-      <el-button color="#eda01f" class="searchBtn" @click="search">
-        <p style="color: white">查遍全网二手车</p>
-      </el-button>
-    </div>
   </div>
 </template>
 
@@ -58,6 +35,7 @@ const search = () => {
 
 <style scoped lang="scss">
 .searchBarContainer{
+  margin-top: -45px;
   width: 100%;
   height: 300px;
   display: flex;

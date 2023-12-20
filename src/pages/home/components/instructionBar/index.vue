@@ -16,7 +16,7 @@
       <el-icon size="30px" style="position: relative;top: 25%;color: #eda01f;margin: 30px">
         <BottomRight />
       </el-icon>
-      <div style="position: relative; top: 35%">
+      <div style="position: relative; top: 35%;max-height: 180px">
         <InstructionIcon icon-u-r-l="/public/pictures/home/instruction03.png" title="买家上门看车" content="专属顾问，买车省心" />
       </div>
       <el-icon size="30px" style="position: relative;top: 25%;color: #eda01f;margin: 30px">
@@ -41,7 +41,6 @@ import InstructionIcon from './components/InstructionIcon.vue'
   width: 100%;
   height: 300px;
   margin-top: 30px;
-  margin-bottom: 30px;
   background-color: #fff;
   display: flex;
   flex-direction: row;

@@ -27,6 +27,9 @@
 //     data: formData,
 //   })
 // }
+import {ref} from "vue";
+
+const a = ref("a123")
 
 </script>
 
@@ -49,9 +52,8 @@
 <!--    </template>-->
 <!--  </el-upload>-->
 <!--  <el-button @click="up"></el-button>-->
-  <div style="height: 458px">
-    <More/>
-  </div>
+  <div style="background: #f2711c;cursor: pointer">123</div>
+  <el-input :placeholder="a"></el-input>
 </template>
 
 <style scoped>

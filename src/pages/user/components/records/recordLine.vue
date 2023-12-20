@@ -17,7 +17,7 @@ const certain = () =>{
   <div class="record">
     <div class="car">
       <div class="car_container">
-        <el-image :src="PICTURE_ADDR + '/car/0.jpg'" class="car_picture_main"></el-image>
+        <el-image :src="PICTURE_ADDR + '/car/61.jpg'" class="car_picture_main"></el-image>
       </div>
       <div class="car_text">
         <div style="display: flex;flex-wrap: wrap;margin-top: 5px;margin-left: 8px">

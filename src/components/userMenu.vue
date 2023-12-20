@@ -28,7 +28,13 @@ const menus = ref([{is : false, path: "/home"},
   {is : false, path: "/pay"},
   {is : false, path: "/user"}])
 
-const isShow = computed(() => windows.scrollPositionY >= 5)
+const isShow = computed(() => {
+  const path = route.path
+  if(path == '/home'){
+    return false
+  }else
+    return windows.scrollPositionY >= 5
+})
 const loginShow = ref(false)
 const registerShow = ref(false)
 const loginInfo = ref(false)
@@ -277,6 +283,7 @@ onUnmounted(() => {
 
 <style scoped>
 .user_menu{
+  position: relative;
   display: flex;
   height: 45px;
   padding-left: v-bind(windowWidth / 10 + 'px');
@@ -289,9 +296,10 @@ onUnmounted(() => {
 }
 
 .fix{
-  z-index: 990;
+  z-index: 999;
   box-sizing: border-box;
-  width: v-bind(windowWidth + 'px');
+  margin-right: 32px;
+  width: 100%;
   position: fixed;
   background: white;
   animation: myFirst 0.5s;
@@ -326,10 +334,10 @@ onUnmounted(() => {
 }
 
 .menu_login{
-  z-index: 997;
-  position: fixed;
+  z-index: 998;
+  position: absolute;
   right: 400px;
-  background: #f9c022;
+  background: #fab621;
   width: 35px;
   height: 35px;
   margin-top: 7px;
@@ -355,7 +363,7 @@ onUnmounted(() => {
 }
 
 .menu_phone{
-  position: fixed;
+  position: absolute;
   top: 4px;
   right: 120px;
   box-sizing : border-box;
