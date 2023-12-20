@@ -42,7 +42,6 @@ declare module '@vue/runtime-core' {
     Item: typeof import('./components/right_side/components/item/index.vue')['default']
     Login: typeof import('./components/login.vue')['default']
     More: typeof import('./components/infoBar/more.vue')['default']
-    Notify: typeof import('./components/bottomBar/notify.vue')['default']
     PopUp: typeof import('./components/infoBar/popUp.vue')['default']
     RegisterForm: typeof import('./components/registerForm.vue')['default']
     Right_side: typeof import('./components/right_side/right_side.vue')['default']
