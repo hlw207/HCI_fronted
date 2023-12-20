@@ -1,6 +1,6 @@
 <template>
-    <div class="footer-links">
-        <div class="footer-column">
+    <div class="footerLinks">
+        <div class="footerColumnText">
             <h3>关于我们</h3>
             <router-link to="/company-intro">公司介绍</router-link>
             <router-link to="/contact-us">联系我们</router-link>
@@ -11,13 +11,13 @@
             <router-link to="/legal-disclaimer">法律声明</router-link>
             <router-link to="/agreement">协议及声明</router-link>
         </div>
-        <div class="footer-column">
+        <div class="footerColumnText">
             <h3>交易流程</h3>
             <router-link to="/buy">买车流程</router-link>
             <router-link to="/sell">卖车流程</router-link>
             <router-link to="/long-distance-purchase">异地购车</router-link>
         </div>
-        <div class="footer-column">
+        <div class="footerColumnText">
             <h3>二手车精选</h3>
             <router-link to="/car-models">车型库</router-link>
             <router-link to="/car-news">二手车资讯</router-link>
@@ -25,38 +25,46 @@
             <router-link to="/car-valuation">二手车估价</router-link>
             <router-link to="/transfer-standard">二手车迁入标准</router-link>
         </div>
-        <div class="footer-column">
-            <h3>下载APP</h3>
-            <img :src="PICTURE_ADDR + '/download.png'" alt="WeChat" />
-        </div>
-        <div class="footer-column">
-            <h3>关注微信</h3>
-            <img :src="PICTURE_ADDR  + '/wechat.jpg'" alt="WeChat" />
+        <div class="footerColumnPicture">
+            <div class="picture">
+                <h3>下载APP</h3>
+                <img :src="PICTURE_ADDR + '/download.png'" alt="WeChat"/>
+            </div>
+            <div class="picture">
+                <h3>关注微信</h3>
+                <img :src="PICTURE_ADDR  + '/wechat.jpg'" alt="WeChat"/>
+            </div>
         </div>
     </div>
 </template>
 
-
 <script setup="ts">
-
 import {PICTURE_ADDR} from "~/config";
 </script>
 
 <style scoped>
-.footer-links {
-    margin-right: 2px;
+.footerLinks {
     display: flex;
-    justify-content: space-around;
-    padding: 30px 120px 60px 100px;
+    padding: 30px 50px 60px 50px;
     background-color: #333;
     color: #fff;
     font-size: 12px;
 }
 
-.footer-column {
+.footerColumnText {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    margin-left: 100px;
+}
+
+.footerColumnPicture{
+    margin-left: 200px;
+    display: flex;
+}
+
+.picture{
+    margin-left: 80px;
 }
 
 h3 {
@@ -64,16 +72,16 @@ h3 {
     margin-bottom: 10px;
 }
 
-.footer-column a {
+.footerColumnText a {
     color: lightgrey;
     text-decoration: none;
     margin-bottom: 5px;
     cursor: pointer;
-    transition: color 0.2s; /* 添加过渡效果 */
+    transition: color 0.2s;
 }
 
-.footer-column a:hover,
-.footer-column a.active-link {
+.footerColumnText a:hover,
+.footerColumnText a.active-link {
     color: orange;
 }
 

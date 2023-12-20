@@ -18,7 +18,7 @@ const car = reactive({
   carAge: '',
   carPosition: '',
   carGear: '',
-  carRecord: '无',
+  carRecord: '0次',
   carTime: ''
 })
 const popShow = ref(false)
@@ -245,6 +245,10 @@ onMounted(() => {
                 <div class="carPrice">
                     <span class="totalPrice">{{car.price.toFixed(2)}}万</span>
                     <span class="downPayment">首付: {{(car.price / 4).toFixed(2)}}万</span>
+                    <div class="priceService">
+                        <div class="dashedLine"></div>
+                        <span class="serviceFee">服务费: {{(car.price * 0.08).toFixed(4) * 10000}}元 （车价×8%）</span>
+                    </div>
                 </div>
 
                 <!-- 3. 详细信息 -->
@@ -445,10 +449,11 @@ onMounted(() => {
 }
 
 .carPrice {
-    display: flex;
+    padding: 30px;
     flex-direction: row;
-     margin-left: 40px;
     margin-bottom: 30px;
+    background-color: rgba(211, 211, 211, 0.3);
+    border-radius: 6px;
 }
 
 .totalPrice {
@@ -461,6 +466,26 @@ onMounted(() => {
     font-size: 14px;
     margin-top: 18px;
     margin-left: 20px;
+    color: #666;
+}
+
+.priceService {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    align-items: flex-start;
+}
+
+.dashedLine {
+    width: 100%;
+    height: 1px;
+    background: #ccc;
+    margin-bottom: 8px;
+    border-top: 1px dashed #999; /* 虚线样式 */
+}
+
+.serviceFee {
+    font-size: 14px;
     color: #666;
 }
 
@@ -509,10 +534,10 @@ onMounted(() => {
     align-items: center;
     border: none;
     color: white;
-    height: 50px;
-    width: 160px;
+    height: 70px;
+    width: 200px;
     border-radius: 5px;
-    font-size: 20px;
+    font-size: 24px;
     cursor: pointer;
     transition: background-color 0.3s ease; /* 添加过渡效果 */
 }
