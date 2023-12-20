@@ -25,7 +25,7 @@ const choice = ref(["我要买车","我要卖车","加入我们","个人主页"]
 const menus = ref([{is : false, path: "/home"},
   {is : false, path: "/buy"},
   {is : false, path: "/sell"},
-  {is : false, path: "/pay"},
+  {is : false, path: "/join"},
   {is : false, path: "/user"}])
 
 const isShow = computed(() => windows.scrollPositionY >= 5)
