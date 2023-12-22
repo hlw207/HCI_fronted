@@ -144,7 +144,7 @@ watch(user,(()=>{
   box-sizing: border-box;
   width: 100%;
   height: 200px;
-  padding-top: 50px;
+  padding-top: 30px;
 }
 
 .sell_phone{

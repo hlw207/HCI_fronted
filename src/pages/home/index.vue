@@ -26,8 +26,6 @@ import BottomBar from "~/pages/home/components/bottomBar/index.vue";
 .homeContainer{
   width: 100%;
   background-color: #f8f8f8;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
+
 </style>

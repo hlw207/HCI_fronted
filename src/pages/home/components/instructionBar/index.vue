@@ -1,13 +1,13 @@
 <template>
   <div class="instructionContainer">
     <div class="instructionTitle">
-      <el-text style="color: #eda01f;font-size: 30px;" tag="b">交易流程</el-text>
+      <el-text style="color: #ff6b23;font-size: 30px;" tag="b">交易流程</el-text>
     </div>
     <div class="instructionDetail">
       <div style="position: relative; top: 35%">
         <InstructionIcon icon-u-r-l="/public/pictures/home/instruction01.png" title="预约卖车" content="一键预约，免费服务" />
       </div>
-      <el-icon size="30px" style="position: relative;top: 25%;color: #eda01f;margin: 30px">
+      <el-icon size="30px" style="position: relative;top: 25%;color: #ff6b23;margin: 30px">
         <TopRight />
       </el-icon>
       <div style="position: relative; top:5%">
@@ -37,8 +37,7 @@ import InstructionIcon from './components/InstructionIcon.vue'
 
 <style scoped>
 .instructionContainer{
-  margin-right: 60px;
-  width: 100%;
+  margin-right: 32px;
   height: 300px;
   margin-top: 30px;
   background-color: #fff;
@@ -46,6 +45,7 @@ import InstructionIcon from './components/InstructionIcon.vue'
   flex-direction: row;
   justify-content: start;
   align-items: center;
+  padding: 15px 0;
 }
 
 .instructionTitle{
@@ -57,6 +57,8 @@ import InstructionIcon from './components/InstructionIcon.vue'
 }
 
 .instructionDetail{
+  margin-top: 5px;
+  margin-right: 65px;
   width:80%;
   height: 100%;
   display: flex;

@@ -1,15 +1,17 @@
 <template>
-  <div class="filterContainer">
-    <div class="filterBuyContainer">
-      <div class="filterTitle" style="margin-left: 32px">
-        <el-text tag="b" style="font-size: 22px">我要买车</el-text>
-        <Filter />
+  <div class="filter_bar">
+    <div class="filterContainer">
+      <div class="filterBuyContainer">
+        <div class="filterTitle" style="margin-left: 32px">
+          <el-text style="font-size: 20px;color: black">我要买车</el-text>
+          <Filter />
+        </div>
       </div>
-    </div>
-    <div class="filterSellContainer">
-      <div class="filterTitle" style="margin-top: 42px">
-        <el-text tag="b" style="font-size: 22px">我要卖车</el-text>
-        <Sell />
+      <div class="filterSellContainer">
+        <div class="filterTitle" style="margin-top: 42px">
+          <el-text style="font-size: 20px;color: black">我要卖车</el-text>
+          <Sell />
+        </div>
       </div>
     </div>
   </div>
@@ -41,30 +43,35 @@ import Sell from '~/pages/home/components/filterBar/components/sell.vue'
 </style>
 
 <style scoped lang="scss">
-.filterContainer{
+.filter_bar{
+  position: relative;
+  z-index: 1;
   margin-right: 32px;
-  width: 80%;
-  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filterContainer{
+  width: 90%;
   background-color: #fff;
   border: 1px solid #a6a6a6;
-  border-radius: 10px;
-  margin-top: -100px;
+  border-radius: 5px;
+  margin-top: -20px;
   display: flex;
-  flex-direction: row;
+  margin-bottom: 60px;
+  padding-bottom: 10px;
 }
 
 .filterBuyContainer{
+  box-sizing: border-box;
   width: 65%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
   padding: 10px;
 }
 
 .filterSellContainer{
   margin-left: 60px;
   width: 35%;
-  height: 100%;
   display: flex;
   flex-direction: column;
 }

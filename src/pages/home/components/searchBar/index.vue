@@ -1,5 +1,6 @@
 <template>
   <div class="searchBarContainer">
+    <el-image style="height: 100%;width: 100%;z-index: 0;position: relative" src="https://box.nju.edu.cn/thumbnail/07d3ddadbcd84a228e26/1024/back.png"></el-image>
   </div>
 </template>
 
@@ -35,17 +36,15 @@ const search = () => {
 
 <style scoped lang="scss">
 .searchBarContainer{
+  position: relative;
+  z-index: 0;
   margin-top: -45px;
   width: 100%;
-  height: 300px;
+  height: 350px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-image: url('https://box.nju.edu.cn/thumbnail/07d3ddadbcd84a228e26/1024//home/searchBarBackground.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
   overflow: clip;
 }
 

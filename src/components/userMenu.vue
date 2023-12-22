@@ -284,6 +284,7 @@ onUnmounted(() => {
 <style scoped>
 .user_menu{
   position: relative;
+  z-index: 1;
   display: flex;
   height: 45px;
   padding-left: v-bind(windowWidth / 10 + 'px');
@@ -325,12 +326,12 @@ onUnmounted(() => {
 
 .menu_active{
   font-weight: bold;
-  border-bottom: 2px solid #21ba45;
+  border-bottom: 2px solid #eda01f;
 }
 
 .menu:hover{
   font-weight: bold;
-  border-bottom: 2px solid #21ba45;
+  border-bottom: 2px solid #eda01f;
 }
 
 .menu_login{

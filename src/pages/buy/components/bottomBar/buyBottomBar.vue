@@ -24,6 +24,7 @@ watch(()=>carsBuy.total_num,(()=>{
 
 watch(carsBuy.carRequest,(()=>{
   carsBuy.fetch(0)
+  real_page.value = page.value = old_page.value = 1
 }))
 
 const certain = () => {

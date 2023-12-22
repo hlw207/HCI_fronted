@@ -38,4 +38,11 @@ interface carRequest{
   carGear: string
 }
 
-export {CarCollection, CarStruct, TypeChoose, carRequest}
+interface mask{
+  name: string,
+  description: string,
+  brand: string,
+  carType: string
+}
+
+export {CarCollection, CarStruct, TypeChoose, carRequest, mask}

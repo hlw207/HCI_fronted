@@ -1,218 +1,155 @@
+<script setup lang="ts">
+
+import {ref} from "vue";
+import {ArrowRight} from "@element-plus/icons-vue";
+import CarShowCollection from "~/pages/home/components/recommendBar/components/carShowCollection.vue";
+import {useRouter} from "vue-router";
+const router = useRouter()
+const recommend = ref([{title: '超值好车', choose: true}
+                            ,{title: '5万以下超值车', choose: false}
+                            ,{title: '5-10万超值车', choose: false}
+                            ,{title: '超值SUV', choose: false}
+                            ,{title: '急售降价车', choose: false}])
+
+const choose = (index: number) => {
+  let i: number
+  for (i = 0;i < 5;i++)
+    recommend.value[i].choose = false
+  recommend.value[index].choose = true
+}
+
+const router_to = () =>{
+  router.push('/buy')
+}
+</script>
+
 <template>
-  <div class="recommendBarContainer">
-    <div class="recommendBarHeader">
-      <el-text style="color: #eda01f;font-size: 25px;position: relative;top: 20px;left: 20px" tag="b">好车推荐</el-text>
-    </div>
-    <el-tabs :tab-position="tabPosition" style="margin-top: 20px" @tab-click="handleRequestCars">
-      <el-tab-pane v-for="(item,index) in recommends" :label="item.name" >
-        <div class="recommenderCarBarContainer">
-          <div v-for="line in carBarCount " class="recommendCarBar">
-            <div v-for="(car,index) in item.cars.slice((line - 1) * 3,line * 3)" class="singleCar">
-              <img
-                  src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-                  class="carImage"
-              />
-              <div style="padding: 14px">
-                <span>五菱汽车 宏光MINI EV</span>
-                <div class="bottom">
-                  <time class="time">2023-11</time>
-                  <el-button text class="button">查看详情</el-button>
-                </div>
-              </div>
-            </div>
-          </div>
+  <div class="recommend_bar">
+    <div class="recommend_up">
+      <div class="recommend_up_left">好车推荐</div>
+      <div class="recommend_up_sep"></div>
+      <template v-for="(re,index) in recommend">
+        <div class="recommend_up_right" :class="{recommend_up_right_active: re.choose}" @mouseenter="choose(index)">{{re.title}}</div>
+      </template>
+      <div class="recommend_up_extra" @click="router_to">
+        更多
+        <div class="circle">
+          <el-icon style="font-size: 14px"><ArrowRight /></el-icon>
         </div>
-
-
-      </el-tab-pane>
-    </el-tabs>
-
-    <div class="recommendBarFoot">
-      <el-button color="#eda01f" style="width: 180px;height: 50px" plain>查看更多</el-button>
+      </div>
+    </div>
+    <div class="recommend_main">
+      <template v-for="index in 8">
+        <CarShowCollection :id="1" image="https://img2.rrcimg.com/o_1hcmjhcm43647735031172183876915061.jpg?imageView2/2/interlace/1/w/290/h/192/format/webp" color="白色" :price="13" name="无敌这下" time="2022/12/11" source="北京" :mileage="20.31" />
+      </template>
+    </div>
+    <div class="recommend_bottom" @click="router_to">
+      <div class="recommend_button">查看更多</div>
     </div>
   </div>
 </template>
 
-<script setup lang="ts">
-import {onMounted, ref} from "vue";
-
-const tabPosition = ref('left')
-
-const carBarCount = ref(1)
-
-const cars = [
-  {
-    name: '奔腾B70',
-    time: '2023年',
-    price: '7.7万'
-  },
-  {
-    name: '奔腾B70',
-    time: '2023年',
-    price: '7.7万'
-  },
-  {
-    name: '奔腾B70',
-    time: '2023年',
-    price: '7.7万'
-  },
-  {
-    name: '奔腾B70',
-    time: '2023年',
-    price: '7.7万'
-  },
-  {
-    name: '奔腾B70',
-    time: '2023年',
-    price: '7.7万'
-  },
-  {
-    name: '奔腾B70',
-    time: '2023年',
-    price: '7.7万'
-  },
-]
-
-const recommends = ref([
-  {
-    name: '最新上架',
-    cars: []
-  },
-  {
-    name: '降价急售',
-    cars: []
-  },
-  {
-    name: '最新上架',
-    cars: []
-  },
-  {
-    name: '准新车',
-    cars: []
-  },
-  {
-    name: '新能源',
-    cars: []
-  }
-])
-
-onMounted(() => {
-  recommends.value[0].cars = cars
-  carBarCount.value =  recommends.value[0].cars.length > 3 ? 2 : 1
-})
-
-
-const handleRequestCars = (tab) => {
-  if(recommends.value[tab.index].cars.length == 0){
-    recommends.value[tab.index].cars = cars
-    carBarCount.value =  recommends.value[tab.index].cars.length > 3 ? 2 : 1
-  }
-}
-
-
-</script>
-
-<style>
-.el-tabs__item.is-active {
-  color: #eda01f;
-}
-
-.el-tabs__item:hover {
-  color: #eda01f;
-}
-
-.el-tabs__item{
-  font-size:20px !important;
-  color: #8c8c8c;
-  margin: 10px;
-
-}
-
-.el-tabs__active-bar {
-  background-color: #eda01f;
-}
-</style>
-
 <style scoped>
-.recommendBarContainer{
-  margin-right: 32px;
-  display: flex;
-  flex-direction: column;
-  width: 82%;
-  min-height: 150px;
-  background-color: #ffffff;
-  border-radius: 5px;
-  margin-top: 10px;
+.recommend_bar{
+  background: #f8f8f8;
+  margin: 30px 32px 20px 0;
+  padding: 25px 5%;
 }
 
-.recommendBarHeader{
-  width: 100%;
-  height: 100px;
-}
-
-.recommendBarFoot{
-  width: 100%;
-  height: 50px;
+.recommend_up{
+  padding: 0 0.5%;
+  position: relative;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.recommenderCarBarContainer{
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
 }
 
-
-
-.recommendCarBar{
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: start;
-  align-items: center;
+.recommend_up_left{
+  color: rgba(0,0,0,.8);
+  margin-right: 20px;
+  font-size: 22px;
 }
 
-.singleCar{
-  width: 300px;
-  height: 260px;
-  border-radius: 5px;
+.recommend_up_sep{
+  background: rgba(0,0,0,.07);
+  margin-top: 5px;
+  height: 20px;
+  width: 2px;
+}
+
+.recommend_up_right{
+  margin-left: 30px;
+  font-size: 16px;
+  color: rgba(0,0,0,.6);
+  padding: 8px 0;
+  border-top: 3px solid transparent;
+  border-bottom: 3px solid transparent;
   cursor: pointer;
-  margin: 20px;
 }
 
-.singleCar:hover{
-  border: 1px solid rgba(175, 175, 175, 0.5);
+.recommend_up_right_active{
+  color: #ff6b23;
+  border-bottom: 3px solid #ff6b23;
 }
 
-
-.carImage {
-  width: 100%;
-  height: 60%;
-  display: block;
-  border-radius: 5px;
-}
-
-.time {
-  font-size: 12px;
-  color: #999;
-}
-
-.bottom {
-  margin-top: 10px;
+.recommend_up_extra{
+  position: absolute;
+  right: 0;
+  color: rgba(0,0,0,.36);
+  font-size: 16px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  cursor: pointer;
 }
 
-.button {
-  padding: 0;
-  min-height: auto;
+.recommend_up_extra:hover{
+  color: #ff6b23;
 }
 
+.recommend_up_extra:hover .circle{
+  border: 1.2px solid #ff6b23;
+}
+
+.circle{
+  margin-left: 4px;
+  margin-top: 1px;
+  height: 15px;
+  width: 15px;
+  border-radius: 8px;
+  border: 1.2px solid rgba(0,0,0,.36);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.recommend_main{
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.recommend_bottom{
+  display: flex;
+  justify-content: center;
+}
+
+.recommend_button{
+  margin-top: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 170px;
+  height: 46px;
+  border: 1px solid rgba(0,0,0,.17);
+  border-radius: 4px;
+  color: rgba(0,0,0,.36);
+  background: 0 0;
+  font-size: 16px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.recommend_button:hover{
+  color: #ff6b23;
+  border: 1px solid #ff6b23;
+}
 </style>

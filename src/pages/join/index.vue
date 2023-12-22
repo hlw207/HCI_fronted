@@ -1,7 +1,7 @@
 <template>
 <div class="joinBackGround">
   <div class="joinContainer">
-    <div class="joinRowContainer" style="height: 450px">
+    <div class="joinRowContainer" style="height: 570px">
       <el-image src="/public/pictures/join/joinImg01.jpg" style="height: 100%;flex: 1"/>
     </div>
     <div class="joinRowContainer">
@@ -65,16 +65,17 @@ import Question from './components/question/index.vue'
 
 <style scoped>
 .joinBackGround{
-  width: 100%;
+  margin-right: 32px;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  background-color: #eda01f;
+  background-color: #f8f8f8;
 }
 .joinContainer{
-  width: 65%;
+  width: 80%;
   background-color: white;
+  padding-top: 30px;
 }
 .joinRowContainer{
   width: 100%;
