@@ -47,7 +47,7 @@ const props = defineProps<{
 .buy_bottom{
   position: absolute;
   top: 175px;
-  z-index: 999;
+  z-index: 997;
   height: 140px;
   padding-top: 25px;
   background: white;

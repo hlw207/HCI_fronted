@@ -79,7 +79,7 @@ const cancel_collection = () =>{
     </div>
     <div class="collection_text">
       <div style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin: 10px 8px 0">
-       <span>{{props.name}} 2021款 586E</span>
+       <span>{{props.name}} {{props.time.substring(0, 4)}}款</span>
       </div>
       <div style="color: #9ba3af;font-size: 11px;margin: 5px 0 0 8px">
         {{date}} / {{props.mileage}}万公里 / {{props.source}}
@@ -103,6 +103,7 @@ const cancel_collection = () =>{
   margin: 1% 1%;
   cursor: pointer;
   padding: 1px 1px 5px;
+  box-shadow: 0 2px 10px 0 rgba(0,0,0,.05);
 }
 
 .collection:hover{

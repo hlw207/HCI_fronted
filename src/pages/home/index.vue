@@ -8,6 +8,7 @@
     <BuyBar />
     <NewsBar />
     <BottomBar />
+    <AddBar />
   </div>
 </template>
 
@@ -20,6 +21,7 @@ import InstructionBar from "~/pages/home/components/instructionBar/index.vue";
 import BuyBar from "~/pages/home/components/buyBar/index.vue";
 import NewsBar from "~/pages/home/components/newsBar/index.vue";
 import BottomBar from "~/pages/home/components/bottomBar/index.vue";
+import AddBar from "~/pages/home/components/addBar/index.vue";
 </script>
 
 <style scoped lang="scss">

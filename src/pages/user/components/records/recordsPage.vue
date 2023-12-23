@@ -21,10 +21,10 @@ import RecordLine from "~/pages/user/components/records/recordLine.vue";
 
 <style scoped>
 .record_top{
-  color: #f9c022;
+  color: #f2711c;
   font-size: 15px;
   padding-left: 5px;
-  border-left: 3px solid #f9c022;
+  border-left: 3px solid #f2711c;
   margin-left: 10px;
   margin-bottom: 40px;
 }

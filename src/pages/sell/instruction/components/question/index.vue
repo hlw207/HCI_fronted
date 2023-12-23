@@ -31,7 +31,7 @@ const props = defineProps({
   font-size: 15px;
   padding-left: 10px;
   border-radius: 20px;
-  background-color: #eda01f;
+  background-color: #f2711c;
 }
 .questionContent{
   text-indent: 2em;

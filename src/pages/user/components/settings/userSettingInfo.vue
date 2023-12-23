@@ -58,7 +58,7 @@ const certain = () => {
 
 <template>
   <div class="info">
-    <div style="color: #f9c022;font-size: 15px;padding-left: 5px;border-left: 3px solid #f9c022;">
+    <div style="color: #f2711c;font-size: 15px;padding-left: 5px;border-left: 3px solid #f2711c;">
       我的信息：
     </div>
     <div style="margin-left: 10px;margin-top: 25px">
@@ -79,13 +79,13 @@ const certain = () => {
           <span style="color: #9ba3af;">&nbsp;{{user.phone}}</span>
         </div>
         <div style="margin-top: 2px;margin-left: 10px;font-size: 11px;cursor: pointer">
-          <span style="color: #f9c022;cursor: pointer" @click="router.push('/user/settings/phone')">换绑手机号</span>
+          <span style="color: #f2711c;cursor: pointer" @click="router.push('/user/settings/phone')">换绑手机号</span>
         </div>
       </div>
       <div class="info_text" style="margin-top: 12px;margin-left: 2px">
         <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密码：</span>
         <div style="margin-top: 3px;margin-left: 10px;font-size: 11px;cursor: pointer">
-          <span style="color: #f9c022;cursor: pointer" @click="router.push('/user/settings/password')">修改密码</span>
+          <span style="color: #f2711c;cursor: pointer" @click="router.push('/user/settings/password')">修改密码</span>
         </div>
       </div>
       <div class="info_text_button" style="margin-top: 20px;margin-right: 40px">
@@ -147,7 +147,7 @@ const certain = () => {
 }
 
 .button_1{
-  background: #26aeea;
+  background: #f2711c;
   color: white;
 }
 

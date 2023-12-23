@@ -1,7 +1,7 @@
 <template>
   <div class="headBar">
     <div class="phoneInputContainer">
-      <h2 style="color: #eda01f; margin-left: -130px">爱车估价</h2>
+      <h2 style="color: #f2711c; margin-left: -130px">爱车估价</h2>
       <div class="inputContainer">
         <el-input
             v-model="phoneNumber"
@@ -11,14 +11,14 @@
             placeholder="请输入手机号"
             style="width: 80%;height: 40px"
         />
-        <el-button color="#eda01f"  style="margin-left: -80px;z-index: 1;color: white;height: 100%" @click="handlePhoneNumberSubmit">开始估价</el-button>
+        <el-button color="#f2711c"  style="margin-left: -80px;z-index: 1;color: white;height: 100%" @click="handlePhoneNumberSubmit">开始估价</el-button>
       </div>
       <div style="width: 80%;margin-left: 10px;padding: 20px;display: flex;flex-direction: row;justify-content: center;align-items: center">
         <el-checkbox style="margin-right: 10px" v-model="agreement"></el-checkbox>
         <span style="color: #b2b2b2;font-size: 12px">
               我已阅读并同意
-          <el-link type="warning" style="font-size: 12px;margin-top: -5px">《用户使用协议》</el-link>及
-          <el-link type="warning" style="font-size: 12px;margin-top: -5px">《隐私权条款》</el-link>
+          <el-link type="warning" style="font-size: 12px;margin-top: -5px;color: #f2711c">《用户使用协议》</el-link>及
+          <el-link type="warning" style="font-size: 12px;margin-top: -5px;color: #f2711c">《隐私权条款》</el-link>
         </span>
       </div>
     </div>
@@ -36,20 +36,20 @@
   </div>
 
   <div class="instructionBar">
-    <div style="color: #eda01f;font-size: 30px">
+    <div style="color: #f2711c;font-size: 30px">
       <p>高价卖车流程</p>
     </div>
     <div class="instructionBarItems">
       <SellIcon :icon-u-r-l="PICTURE_ADDR + '/sell/instruction01.png'" title="在线快速预约"/>
-      <el-icon :size="40" color="#eda01f">
+      <el-icon :size="40" color="#f2711c">
         <CaretRight />
       </el-icon>
       <SellIcon :icon-u-r-l="PICTURE_ADDR + '/sell/instruction02.png'" title="免费上门评估"/>
-      <el-icon :size="40" color="#eda01f">
+      <el-icon :size="40" color="#f2711c">
         <CaretRight />
       </el-icon>
       <SellIcon :icon-u-r-l="PICTURE_ADDR + '/sell/instruction03.png'" title="当天速拿车款"/>
-      <el-icon :size="40" color="#eda01f">
+      <el-icon :size="40" color="#f2711c">
         <CaretRight />
       </el-icon>
       <SellIcon :icon-u-r-l="PICTURE_ADDR + '/sell/instruction04.png'" title="省心代办过户"/>
@@ -59,7 +59,7 @@
 
   <div class="questionBarContainer">
     <div class="questionBar">
-      <div style="color: #eda01f;font-size: 25px">
+      <div style="color: #f2711c;font-size: 25px">
         <p>- 卖车问答 -</p>
       </div>
       <div class="questionBarItems">
@@ -70,6 +70,23 @@
           <Question
               title="Q2 出售车辆需要什么费用？"
               content="在人人车平台，车辆卖家从车辆信息发布到卖车意向确定整个过程，我们不会收取任何费用。卖家可放心在平台发布车辆信息，匹配合适买家。"/>
+        </div>
+        <div class="questionBarRow">
+          <Question
+              title="Q3 卖车流程是什么？"
+              content="在填写车辆信息或联系我们之后，评估师将上门对车辆进行初步评估和拍照，并根据人人车大数据提供建议售价。符合上架标准的车辆将在人人车平台上发布，并进行多方推广。有购买意向的买家会与您约见看车，并签署《二手车买卖合同》。您需要配合进行车辆复检，通过后办理车辆过户。"/>
+          <Question
+              title="Q4 在人人车转让需要准备什么？"
+              content="需要先在网站提供您的联系电话，车辆品牌、型号等基本信息。待服务人员联系您后，在约定时间内准备好
+              &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        1、身份证&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        2、行驶证&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        3、车辆登记证&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        4、车辆钥匙&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        5、车示标（环保标、检字标、交强险标）&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        6、交强险单&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        7、购置税本及购置税发票&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        8、购车发票/最近一次过户发票"/>
         </div>
       </div>
     </div>
@@ -86,14 +103,14 @@
             placeholder="请输入手机号"
             style="width: 80%;height: 40px"
         />
-        <el-button color="#eda01f"  style="/margin-left: 20px;color: white;height: 40px" @click="handlePhoneNumberSubmit">开始估价</el-button>
+        <el-button color="#f2711c"  style="/margin-left: 20px;color: white;height: 40px" @click="handlePhoneNumberSubmit">开始估价</el-button>
       </div>
       <div style="width: 90%;display: flex;flex-direction: row;justify-content: center;align-items: center">
         <el-checkbox style="margin-right: 10px" v-model="agreement"></el-checkbox>
         <span style="color: #b2b2b2;font-size: 12px">
               我已阅读并同意
-          <el-link type="warning" style="font-size: 12px;margin-top: -5px">《用户使用协议》</el-link>及
-          <el-link type="warning" style="font-size: 12px;margin-top: -5px">《隐私权条款》</el-link>
+          <el-link type="warning" style="font-size: 12px;margin-top: -5px;color: #f2711c">《用户使用协议》</el-link>及
+          <el-link type="warning" style="font-size: 12px;margin-top: -5px;color: #f2711c">《隐私权条款》</el-link>
         </span>
       </div>
     </div>
@@ -109,9 +126,9 @@
       </div>
       <div class="certifyCode">
         <el-input v-model="certifyPhoneCode" placeholder="请输入您收到的验证码" minlength="6" maxlength="6" clearable />
-        <p style="color: #eda01f;width: 110px;height: 50px;margin-left: -110px;z-index: 1;cursor: pointer" @click="handleGetCertifyCode" text>{{certifyPhoneMessage}}</p>
+        <p style="color: #f2711c;width: 110px;height: 50px;margin-left: -110px;z-index: 1;cursor: pointer" @click="handleGetCertifyCode" text>{{certifyPhoneMessage}}</p>
       </div>
-      <el-button color="#eda01f" style="width: 200px;color: white;height: 40px;margin-bottom: -10px" @click="handleCertificationSubmit">提交</el-button>
+      <el-button color="#f2711c" style="width: 200px;color: white;height: 40px;margin-bottom: -10px" @click="handleCertificationSubmit">提交</el-button>
     </div>
   </el-dialog>
 </template>
@@ -250,17 +267,17 @@ const handleCertificationSubmit = () => {
 
 <style>
 .el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner{
-  background-color:#eda01f;
-  border-color:#eda01f;
+  background-color:#f2711c;
+  border-color:#f2711c;
 }
 .el-checkbox__input.is-checked + .el-checkbox__label {
-  color: #eda01f;
+  color: #f2711c;
 }
 .el-checkbox.is-bordered.is-checked{
-  border-color: #eda01f;
+  border-color: #f2711c;
 }
 .el-checkbox__input.is-focus .el-checkbox__inner{
-  border-color:  #eda01f;
+  border-color:  #f2711c;
 }
 </style>
 
@@ -279,7 +296,7 @@ const handleCertificationSubmit = () => {
   left: 12%;
   top: 100px;
   border-radius: 5px;
-  box-shadow: 30px -16px #eda01f;
+  box-shadow: 30px -16px #f2711c;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -307,7 +324,7 @@ const handleCertificationSubmit = () => {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  box-shadow: 30px -16px #eda01f;
+  box-shadow: 30px -16px #f2711c;
   transition: 0.6s;
 
 }
@@ -315,7 +332,7 @@ const handleCertificationSubmit = () => {
 .featureTitle{
   width: 100%;
   height: 20%;
-  color: #eda01f;
+  color: #f2711c;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -365,20 +382,21 @@ const handleCertificationSubmit = () => {
 
 .questionBar{
   width: 90%;
-  min-height: 500px;
   background-color: rgba(173, 173, 173, 0.2);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding-bottom: 50px;
+  margin-bottom: 100px;
 }
 
 .questionBarItems{
   width: 100%;
-  min-height: 400px;
 }
 
 .questionBarRow{
+  margin-top: 10px;
   width: 100%;
   display: flex;
   flex-direction: row;

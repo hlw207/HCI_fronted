@@ -1,11 +1,11 @@
 <template>
     <div class="detailContainer">
-<!--        <SearchBar />-->
         <CarBar />
         <SimilarBar />
         <ReportBar />
         <PictureBar />
         <ConfigBar />
+        <BottomBar/>
     </div>
 </template>
 
@@ -16,10 +16,22 @@ import SimilarBar from "~/pages/detail/components/similarBar/index.vue"
 import ReportBar from "~/pages/detail/components/reportBar/index.vue"
 import PictureBar from "~/pages/detail/components/pictureBar/index.vue"
 import ConfigBar from "~/pages/detail/components/configBar/index.vue"
-import {onMounted} from "vue";
+import BottomBar from "~/pages/home/components/bottomBar/index.vue"
+import {onMounted, watch} from "vue";
+import {useCarDetailData} from "~/stores/carDetailData";
+import {useRoute} from "vue-router";
+
+const carDetail = useCarDetailData()
+const route = useRoute()
+
+watch(()=>route.params['id'], ()=>{
+  document.documentElement.scrollTop = 0
+  carDetail.fetch(parseInt(route.params['id']))
+})
 
 onMounted(()=>{
   document.documentElement.scrollTop = 0
+  carDetail.fetch(parseInt(route.params['id']))
 })
 </script>
 

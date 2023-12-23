@@ -1,6 +1,7 @@
 <script setup lang="ts">
 
 import FilterBar from "~/pages/buy/components/filterBar/index.vue"
+import AddBar from "~/pages/home/components/addBar/index.vue";
 import {onMounted} from "vue";
 
 onMounted(()=>{
@@ -13,6 +14,7 @@ onMounted(()=>{
         <FilterBar />
     </div>
    <FindCar/>
+   <AddBar />
 </template>
 
 <style>

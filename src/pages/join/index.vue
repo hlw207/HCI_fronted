@@ -35,18 +35,18 @@
       </div>
     </div>
     <div class="joinInstruction">
-      <h1 style="color: #eda01f;border-bottom:4px solid #eda01f;">合伙人加盟产品介绍</h1>
+      <h1 style="color: #f2711c;border-bottom:4px solid #f2711c;">合伙人加盟产品介绍</h1>
       <div style="width: 40%">
-        <h2 style="color: #eda01f">加盟方式</h2>
-          <p class="joinInstructionPara">1. 电话或者线上报名后，在线重伤经理会联系您</p>
+        <h2 style="color: #f2711c">加盟方式</h2>
+          <p class="joinInstructionPara">1. 电话或者线上报名后，在线招商经理会联系您</p>
           <p class="joinInstructionPara">2. 店面装修及服务流程达标</p>
           <p class="joinInstructionPara">3. 成功加入”品牌合伙人/流量合伙人“</p>
-        <h2 style="color: #eda01f">收费标准</h2>
+        <h2 style="color: #f2711c">收费标准</h2>
           <p class="joinInstructionPara">加盟保证金：1万元起（依城市规模等级而定）</p>
           <p class="joinInstructionPara">现在加盟立享实时优惠，详询在线招商经理</p>
       </div>
       <el-image src="/public/pictures/join/joinImg02.png" style="width: 200px"/>
-      <h1 style="color: #eda01f;border-bottom:4px solid #eda01f;">加盟答疑区</h1>
+      <h1 style="color: #f2711c;border-bottom:4px solid #f2711c;">加盟答疑区</h1>
       <Question title="成为品牌合伙人有什么条件？" content="有门店的二手车经营者，对现有门店结合人人车品牌进行改造，满足品牌和服务标准要求"/>
       <Question title="成为品牌合伙人后我需要做什么" content="在开展合伙人业务过程中，您需要为车主提供上门评估车辆服务。为买卖双方提供带看、撮合交易等服务"/>
     </div>

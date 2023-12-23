@@ -20,6 +20,9 @@ const cars = useBuyBottomStore();
               </template>
             </div>
           </template>
+          <div class="car_not" v-if="cars.cars.length == 0">
+            <el-image class="car_not_picture" src="https://box.nju.edu.cn/thumbnail/07d3ddadbcd84a228e26/1024/not_find.png"></el-image>
+          </div>
         </div>
         <buy-bottom-bar/>
     </div>
@@ -38,5 +41,15 @@ const cars = useBuyBottomStore();
 .collection_line{
   display: flex;
   margin-bottom: 15px;
+}
+
+.car_not{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.car_not_picture{
+  width: 400px;
 }
 </style>

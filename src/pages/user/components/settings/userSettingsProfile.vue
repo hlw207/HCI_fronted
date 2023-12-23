@@ -63,7 +63,7 @@ onMounted(()=>{
 
 <template>
   <div style="width: 40%;height: 300px;margin-top: 40px;margin-left: 105px">
-    <div style="color: #f9c022;font-size: 15px;padding-left: 5px;border-left: 3px solid #f9c022;margin-bottom: 20px">
+    <div style="color: #f2711c;font-size: 15px;padding-left: 5px;border-left: 3px solid #f2711c;margin-bottom: 20px">
       头像修改：
     </div>
     <div class="profile">
@@ -179,7 +179,7 @@ onMounted(()=>{
 }
 
 .profile_update_active{
-  background: #f9c022;
+  background: #f2711c;
   color: white;
   cursor: pointer;
   pointer-events: auto;
@@ -192,13 +192,13 @@ onMounted(()=>{
 }
 
 .profile_image_list_active{
-  border: 5px solid #f9c022;
+  border: 5px solid #f2711c;
   width: 9%;
   transition: width 0.3s;
 }
 
 .profile_image_list:hover {
-  border: 5px solid #f9c022;
+  border: 5px solid #f2711c;
   width: 9%;
   transition: width 0.3s;
 }
@@ -218,7 +218,7 @@ onMounted(()=>{
 }
 
 .profile_image_list_certain_active{
-  background: #f9c022;
+  background: #f2711c;
   color: white;
   cursor: pointer;
 }

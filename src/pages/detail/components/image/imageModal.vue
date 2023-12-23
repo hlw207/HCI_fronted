@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref} from 'vue';
-import {ElMessage} from "element-plus";
 
 const isOpen = ref(false);
 let imageUrl;

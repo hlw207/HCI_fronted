@@ -31,7 +31,7 @@ const props = defineProps({
   align-items: center;
   font-size: 30px;
   font-weight: bold;
-  color: #eda01f;
+  color: #f2711c;
 }
 
 .sellIconContent{

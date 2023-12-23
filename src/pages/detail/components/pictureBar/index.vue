@@ -2,49 +2,51 @@
 import ImageModal from "~/pages/detail/components/image/imageModal.vue";
 import {ref} from "vue";
 import {PICTURE_ADDR} from "~/config";
+import {useCarDetailData} from "~/stores/carDetailData";
 
 const ImageModalRef = ref()
-const exteriorImages = [
-     PICTURE_ADDR + '/car1.jpg',
-     PICTURE_ADDR + '/car2.jpg',
-     PICTURE_ADDR + '/car1.jpg',
-     PICTURE_ADDR + '/car2.jpg',
-     PICTURE_ADDR + '/car1.jpg',
-     PICTURE_ADDR + '/car2.jpg',
-     PICTURE_ADDR + '/car1.jpg',
-     PICTURE_ADDR + '/car2.jpg',
-     PICTURE_ADDR + '/car1.jpg',
-     PICTURE_ADDR + '/car2.jpg',
-    // ...
-];
-
-const interiorImages = [
-     PICTURE_ADDR + '/car3.jpg',
-     PICTURE_ADDR + '/car4.jpg',
-     PICTURE_ADDR + '/car3.jpg',
-     PICTURE_ADDR + '/car4.jpg',
-     PICTURE_ADDR + '/car3.jpg',
-     PICTURE_ADDR + '/car4.jpg',
-     PICTURE_ADDR + '/car3.jpg',
-     PICTURE_ADDR + '/car4.jpg',
-     PICTURE_ADDR + '/car3.jpg',
-     PICTURE_ADDR + '/car4.jpg',
-    // ...
-];
-
-const engineImages = [
-     PICTURE_ADDR + '/car5.jpg',
-     PICTURE_ADDR + '/car6.jpg',
-     PICTURE_ADDR + '/car5.jpg',
-     PICTURE_ADDR + '/car6.jpg',
-     PICTURE_ADDR + '/car5.jpg',
-     PICTURE_ADDR + '/car6.jpg',
-     PICTURE_ADDR + '/car5.jpg',
-     PICTURE_ADDR + '/car6.jpg',
-     PICTURE_ADDR + '/car5.jpg',
-     PICTURE_ADDR + '/car6.jpg',
-    // ...
-];
+const carDetail = useCarDetailData()
+// const exteriorImages = [
+//      PICTURE_ADDR + '/car1.jpg',
+//      PICTURE_ADDR + '/car2.jpg',
+//      PICTURE_ADDR + '/car1.jpg',
+//      PICTURE_ADDR + '/car2.jpg',
+//      PICTURE_ADDR + '/car1.jpg',
+//      PICTURE_ADDR + '/car2.jpg',
+//      PICTURE_ADDR + '/car1.jpg',
+//      PICTURE_ADDR + '/car2.jpg',
+//      PICTURE_ADDR + '/car1.jpg',
+//      PICTURE_ADDR + '/car2.jpg',
+//     // ...
+// ];
+//
+// const interiorImages = [
+//      PICTURE_ADDR + '/car3.jpg',
+//      PICTURE_ADDR + '/car4.jpg',
+//      PICTURE_ADDR + '/car3.jpg',
+//      PICTURE_ADDR + '/car4.jpg',
+//      PICTURE_ADDR + '/car3.jpg',
+//      PICTURE_ADDR + '/car4.jpg',
+//      PICTURE_ADDR + '/car3.jpg',
+//      PICTURE_ADDR + '/car4.jpg',
+//      PICTURE_ADDR + '/car3.jpg',
+//      PICTURE_ADDR + '/car4.jpg',
+//     // ...
+// ];
+//
+// const engineImages = [
+//      PICTURE_ADDR + '/car5.jpg',
+//      PICTURE_ADDR + '/car6.jpg',
+//      PICTURE_ADDR + '/car5.jpg',
+//      PICTURE_ADDR + '/car6.jpg',
+//      PICTURE_ADDR + '/car5.jpg',
+//      PICTURE_ADDR + '/car6.jpg',
+//      PICTURE_ADDR + '/car5.jpg',
+//      PICTURE_ADDR + '/car6.jpg',
+//      PICTURE_ADDR + '/car5.jpg',
+//      PICTURE_ADDR + '/car6.jpg',
+//     // ...
+// ];
 
 const openPicture = (url) =>{
     ImageModalRef.value.openModal(url)
@@ -55,7 +57,7 @@ const openPicture = (url) =>{
     <div class="pictureDiv">
         <div class="pictureSection">
             <h2>车辆外观</h2>
-            <div v-for="(image, index) in exteriorImages" :key="index" class="imageItem" @click="openPicture(image)">
+            <div v-for="(image, index) in carDetail.surface" :key="index" class="imageItem" @click="openPicture(image)">
                 <img :src="image" alt="Exterior Image" />
             </div>
 
@@ -68,7 +70,7 @@ const openPicture = (url) =>{
 
         <div class="pictureSection">
             <h2>车辆内饰</h2>
-            <div v-for="(image, index) in interiorImages" :key="index" class="imageItem" @click="openPicture(image)">
+            <div v-for="(image, index) in carDetail.trim" :key="index" class="imageItem" @click="openPicture(image)">
                 <img :src="image" alt="Interior Image" />
             </div>
 
@@ -81,7 +83,7 @@ const openPicture = (url) =>{
 
         <div class="pictureSection">
             <h2>发动机底盘</h2>
-            <div v-for="(image, index) in engineImages" :key="index" class="imageItem" @click="openPicture(image)">
+            <div v-for="(image, index) in carDetail.engine" :key="index" class="imageItem" @click="openPicture(image)">
                 <img :src="image" alt="Engine Image" />
             </div>
 
@@ -97,7 +99,7 @@ const openPicture = (url) =>{
 
 <style scoped>
 .pictureDiv {
-    margin: 35px 347px 35px 65px;
+    margin: 35px 355px 35px 120px;
     display: flex;
     flex-direction: column;
 }
@@ -108,10 +110,8 @@ const openPicture = (url) =>{
     width: 96%;
     padding: 20px;
     background-color: white;
-    border: 1px solid #ddd; /* 更浅的边框颜色 */
-    border-radius: 8px;
     margin-bottom: 25px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 添加轻微阴影 */
+    box-shadow: 0 2px 10px 0 rgba(0,0,0,.05);
 }
 
 .pictureSection h2 {
@@ -123,9 +123,8 @@ const openPicture = (url) =>{
 
 .imageItem {
     cursor: pointer;
-    width: 32.1%;
-    margin-left: 5px;
-    margin-right: 5px;
+    width: 31.333%;
+    margin: 0 1%;
     margin-bottom: 10px;
 }
 
@@ -133,6 +132,5 @@ const openPicture = (url) =>{
     width: 100%;
     height: auto;
     object-fit: cover;
-    border-radius: 6px; /* 圆角 */
 }
 </style>

@@ -170,7 +170,7 @@ watch(props,()=>{
             <div class="login_main_left_main_bottom">
               <div>
                 <span>请使用&nbsp;</span>
-                <span style="color: #f9c022;cursor: pointer" @mouseenter="download=true" @mouseleave="download=false">赛赛二手车客户端</span>
+                <span style="color: #f2711c;cursor: pointer" @mouseenter="download=true" @mouseleave="download=false">赛赛二手车客户端</span>
               </div>
               <div style="margin-top: 2px">
                 <span>扫码登录或扫码下载APP</span>
@@ -198,7 +198,7 @@ watch(props,()=>{
               <div style="margin: 13px 20px"><span>密码</span></div>
               <input class="input_input" type="password" v-model="information.password" placeholder="请输入密码">
               <div style="margin-top: 14px;margin-left: 4px">
-                <span style="font-size: 12px;color: #f9c022;cursor: pointer">忘记密码？</span>
+                <span style="font-size: 12px;color: #f2711c;cursor: pointer">忘记密码？</span>
               </div>
             </div>
           </div>
@@ -221,7 +221,7 @@ watch(props,()=>{
               <div style="margin: 16px 35px 0 20px"><span>+86</span></div>
               <input class="input_input" type="text" v-model="information.phone" placeholder="请输入手机号">
               <div style="margin-top: 14px;margin-left: 4px">
-                <span v-if="!count" style="font-size: 12px;color: #f9c022;cursor: pointer" @click="sendCode">获取验证码</span>
+                <span v-if="!count" style="font-size: 12px;color: #f2711c;cursor: pointer" @click="sendCode">获取验证码</span>
                 <span v-if="count" style="font-size: 12px;color: #9ba3af">{{time}}s后重新获取</span>
               </div>
             </div>
@@ -266,9 +266,9 @@ watch(props,()=>{
         </div>
         <div>
           <span style="color: #a4a4a4">登录或完成注册即代表你同意</span>
-          <span style="color: #f9c022;font-weight: bold;cursor: pointer">&nbsp;用户协议</span>
+          <span style="color: #f2711c;font-weight: bold;cursor: pointer">&nbsp;用户协议</span>
           <span style="color: #a4a4a4">&nbsp;和&nbsp;</span>
-          <span style="color: #f9c022;font-weight: bold;cursor: pointer">&nbsp;隐私政策</span>
+          <span style="color: #f2711c;font-weight: bold;cursor: pointer">&nbsp;隐私政策</span>
         </div>
       </div>
       <div></div>
@@ -384,7 +384,7 @@ watch(props,()=>{
 }
 
 .login_main_right_up_color{
-  color: #f9c022;
+  color: #f2711c;
   cursor: not-allowed;
 }
 
@@ -448,7 +448,7 @@ watch(props,()=>{
   width: 50%;
   border-radius: 8px;
   text-align: center;
-  background: rgba(249, 192, 34, 0.7);
+  background: rgba(242, 113, 28, 0.7);
   color: white;
   border: 1px solid #e3e5e7;
   cursor: not-allowed;
@@ -460,14 +460,14 @@ watch(props,()=>{
   width: 50%;
   border-radius: 8px;
   text-align: center;
-  background: #f9c022;
+  background: #f2711c;
   color: white;
   border: 1px solid #e3e5e7;
   cursor: pointer;
 }
 
 .can_login{
-  background: #f9c022;
+  background: #f2711c;
   cursor: pointer;
 }
 

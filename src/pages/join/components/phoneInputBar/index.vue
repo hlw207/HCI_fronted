@@ -3,10 +3,10 @@
     <div class="fixInput">
       <div style="display: flex;flex-direction: row;justify-content: center;align-items: center;width: 80%">
         <div style="width: 180px;height: 40px;display: flex;flex-direction: column;justify-content: start;align-items: center;margin-top: -15px;margin-right: 10px">
-          <div style="font-weight: bold;font-size: 20px;color: #eda01f;margin-bottom: -10px">
+          <div style="font-weight: bold;font-size: 20px;color: #f2711c;margin-bottom: -10px">
             加盟热线
           </div>
-          <div style="color: #eda01f;font-size: 20px">
+          <div style="color: #f2711c;font-size: 20px">
             <p>400-123-123</p>
           </div>
         </div>
@@ -18,13 +18,16 @@
             placeholder="请输入手机号"
             style="width: 80%;height: 40px;margin-right: 10px"
         />
-        <el-button color="#eda01f"  style="/margin-left: 20px;color: white;height: 40px">立刻报名</el-button>
+        <el-button color="#f2711c"  style="/margin-left: 20px;color: white;height: 40px">立刻报名</el-button>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import {ref} from "vue";
+
+const phoneNumber = ref()
 </script>
 
 <style scoped>

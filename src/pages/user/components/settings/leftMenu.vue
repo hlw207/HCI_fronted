@@ -86,7 +86,7 @@ onMounted(() => {
 }
 
 .menu_active{
-  background: #f9c022;
+  background: #f2711c;
   color: white;
 }
 
@@ -95,7 +95,7 @@ onMounted(() => {
 }
 
 .menu_active:hover{
-  background: #f9c022;
+  background: #f2711c;
 }
 
 </style>

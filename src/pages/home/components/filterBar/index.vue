@@ -28,17 +28,17 @@ import Sell from '~/pages/home/components/filterBar/components/sell.vue'
 <style>
 
 .el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner{
-  background-color:#eda01f;
-  border-color:#eda01f;
+  background-color:#f2711c;
+  border-color:#f2711c;
 }
 .el-checkbox__input.is-checked + .el-checkbox__label {
-  color: #eda01f;
+  color: #f2711c;
 }
 .el-checkbox.is-bordered.is-checked{
-  border-color: #eda01f;
+  border-color: #f2711c;
 }
 .el-checkbox__input.is-focus .el-checkbox__inner{
-  border-color:  #eda01f;
+  border-color:  #f2711c;
 }
 </style>
 
@@ -57,9 +57,9 @@ import Sell from '~/pages/home/components/filterBar/components/sell.vue'
   background-color: #fff;
   border: 1px solid #a6a6a6;
   border-radius: 5px;
-  margin-top: -20px;
+  margin-top: -40px;
   display: flex;
-  margin-bottom: 60px;
+  margin-bottom: 45px;
   padding-bottom: 10px;
 }
 

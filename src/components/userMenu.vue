@@ -230,13 +230,13 @@ onUnmounted(() => {
     <p>登录后你可以：</p>
     <div class="login_info_line">
       <div class="login_info_icon">
-        <el-icon style="color: #f9c022"><Star /></el-icon>
+        <el-icon style="color: #f2711c"><Star /></el-icon>
       </div>
       <div class="login_info_text">
         <span>收藏/取消车辆</span>
       </div>
       <div class="login_info_icon" style="margin-left: 30px">
-        <el-icon style="color: #f9c022"><Pointer /></el-icon>
+        <el-icon style="color: #f2711c"><Pointer /></el-icon>
       </div>
       <div class="login_info_text">
         <span>查看/发布评论</span>
@@ -247,7 +247,7 @@ onUnmounted(() => {
     </div>
     <div class="login_info_bottom">
       <span>首次使用？</span>
-      <span style="color: #f9c022" @click="register">点我注册</span>
+      <span style="color: #f2711c" @click="register">点我注册</span>
     </div>
   </div>
   <div class="login_profile" v-if="loginClick">
@@ -284,7 +284,7 @@ onUnmounted(() => {
 <style scoped>
 .user_menu{
   position: relative;
-  z-index: 1;
+  z-index: 998;
   display: flex;
   height: 45px;
   padding-left: v-bind(windowWidth / 10 + 'px');
@@ -297,7 +297,7 @@ onUnmounted(() => {
 }
 
 .fix{
-  z-index: 999;
+  z-index: 998;
   box-sizing: border-box;
   margin-right: 32px;
   width: 100%;
@@ -326,19 +326,19 @@ onUnmounted(() => {
 
 .menu_active{
   font-weight: bold;
-  border-bottom: 2px solid #eda01f;
+  border-bottom: 2px solid #f2711c;
 }
 
 .menu:hover{
   font-weight: bold;
-  border-bottom: 2px solid #eda01f;
+  border-bottom: 2px solid #f2711c;
 }
 
 .menu_login{
-  z-index: 998;
+  z-index: 999;
   position: absolute;
   right: 400px;
-  background: #fab621;
+  background: #f2711c;
   width: 35px;
   height: 35px;
   margin-top: 7px;
@@ -350,6 +350,7 @@ onUnmounted(() => {
 }
 
 .menu_login_active{
+  z-index: 999;
   margin-top: 25px;
   width: 65px;
   height: 65px;
@@ -412,7 +413,7 @@ onUnmounted(() => {
   box-sizing : border-box;
   margin: 15px 16px 5px;
   height: 30px;
-  background: #f9c022;
+  background: #f2711c;
   border-radius: 5px;
   text-align: center;
   padding-top: 5px;

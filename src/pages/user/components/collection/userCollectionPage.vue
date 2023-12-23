@@ -25,10 +25,10 @@ const collections = useCollectionStore()
 
 <style scoped>
 .collection_top{
-  color: #f9c022;
+  color: #f2711c;
   font-size: 15px;
   padding-left: 5px;
-  border-left: 3px solid #f9c022;
+  border-left: 3px solid #f2711c;
   margin-left: 10px;
   margin-bottom: 10px;
 }
@@ -36,5 +36,6 @@ const collections = useCollectionStore()
 .collection_line{
   display: flex;
   margin-bottom: 15px;
+  padding: 0 10px;
 }
 </style>

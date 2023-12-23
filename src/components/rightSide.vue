@@ -124,7 +124,7 @@ const scrollToTop = () => {
   opacity: 100%;
 }
 .download{
-  z-index: 1;
+  z-index: 999;
   position: fixed;
   right: 40px;
   top: v-bind(height / 5 + 'px');
@@ -142,7 +142,7 @@ const scrollToTop = () => {
   padding-right: 4px;
 }
 .wechat{
-  z-index: 1;
+  z-index: 999;
   position: fixed;
   right: 40px;
   top: v-bind(height / 4 + 'px');
@@ -160,7 +160,7 @@ const scrollToTop = () => {
   padding-right: 4px;
 }
 .suggest{
-  z-index: 1;
+  z-index: 999;
   position: fixed;
   right: 40px;
   top: v-bind(height / 2.7 + 'px');
@@ -171,7 +171,7 @@ const scrollToTop = () => {
   background: white;
 }
 .phone{
-  z-index: 1;
+  z-index: 999;
   position: fixed;
   right: 40px;
   top: v-bind(height / 2.4 + 'px');
@@ -182,7 +182,7 @@ const scrollToTop = () => {
   background: white;
 }
 .top{
-    z-index: 1;
+    z-index: 999;
     position: fixed;
     right: 40px;
     margin-top: 610px;

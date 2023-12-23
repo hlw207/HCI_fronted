@@ -294,6 +294,10 @@ const searchCancel = () => {
 
 onMounted(()=>{
   clear()
+  cars.carRequest.brand = '不限'
+  cars.carRequest.carType = '不限'
+  cars.carRequest.price = '不限'
+  console.log(cars.carRequest)
   carsData.fetch()
   Object.keys(route.query).forEach(key => {
     if(key == 'carDetailType')

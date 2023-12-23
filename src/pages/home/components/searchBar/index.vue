@@ -1,34 +1,10 @@
 <template>
   <div class="searchBarContainer">
-    <el-image style="height: 100%;width: 100%;z-index: 0;position: relative" src="https://box.nju.edu.cn/thumbnail/07d3ddadbcd84a228e26/1024/back.png"></el-image>
+    <el-image style="height: 100%;width: 100%;z-index: 0;position: relative" src="../../../public/pictures/back.png"></el-image>
   </div>
 </template>
 
 <script setup lang="ts">
-
-import {ref} from "vue";
-import {useRouter} from "vue-router";
-import {ElMessage} from "element-plus";
-
-const router = useRouter()
-const searchInput = ref('')
-const searchRecommend = ref(false)
-
-const searchFocusIn = () => {
-  searchRecommend.value = true
-}
-
-const searchFocusOut = () => {
-
-}
-
-const search = () => {
-  if(searchInput.value == ''){
-    ElMessage.warning("请输入您想看的车哦")
-    return
-  }
-  router.push({path: '/buy',query: {search: searchInput.value}})
-}
 
 </script>
 
@@ -39,13 +15,12 @@ const search = () => {
   position: relative;
   z-index: 0;
   margin-top: -45px;
-  width: 100%;
-  height: 350px;
+  margin-right: 32px;
+  height: 335px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  overflow: clip;
 }
 
 .title{

@@ -105,6 +105,7 @@ const certain = () =>{
   height: 90%;
   cursor: pointer;
   padding: 1px;
+  box-shadow: 0 2px 10px 0 rgba(0,0,0,.05);
 }
 
 .car:hover{

@@ -113,8 +113,8 @@ watch(user,(()=>{
       <el-checkbox style="margin-right: 10px" v-model="agreement"></el-checkbox>
       <span style="color: #b2b2b2;font-size: 12px">
               我已阅读并同意
-          <el-link type="warning" style="font-size: 12px;margin-top: -5px">《用户使用协议》</el-link>及
-          <el-link type="warning" style="font-size: 12px;margin-top: -5px">《隐私权条款》</el-link>
+          <el-link type="warning" style="font-size: 12px;margin-top: -5px;color: #f2711c">《用户使用协议》</el-link>及
+          <el-link type="warning" style="font-size: 12px;margin-top: -5px;color: #f2711c">《隐私权条款》</el-link>
         </span>
     </div>
     <div class="sell_bottom" @click="router.push('/sell')">
@@ -131,9 +131,9 @@ watch(user,(()=>{
       </div>
       <div class="certifyCode">
         <el-input v-model="certifyPhoneCode" placeholder="请输入您收到的验证码" minlength="6" maxlength="6" clearable />
-        <p style="color: #eda01f;width: 110px;height: 50px;margin-left: -110px;z-index: 1;cursor: pointer" @click="handleGetCertifyCode" text>{{certifyPhoneMessage}}</p>
+        <p style="color: #f2711c;width: 110px;height: 50px;margin-left: -110px;z-index: 1;cursor: pointer" @click="handleGetCertifyCode" text>{{certifyPhoneMessage}}</p>
       </div>
-      <el-button color="#eda01f" style="width: 200px;color: white;height: 40px;margin-bottom: -10px" @click="handleCertificationSubmit">提交</el-button>
+      <el-button color="#f2711c" style="width: 200px;color: white;height: 40px;margin-bottom: -10px" @click="handleCertificationSubmit">提交</el-button>
     </div>
   </el-dialog>
 </template>

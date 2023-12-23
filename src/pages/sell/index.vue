@@ -11,17 +11,17 @@
 
 <style>
 .el-checkbox__input.is-checked .el-checkbox__inner, .el-checkbox__input.is-indeterminate .el-checkbox__inner{
-  background-color:#eda01f;
-  border-color:#eda01f;
+  background-color:#f2711c;
+  border-color:#f2711c;
 }
 .el-checkbox__input.is-checked + .el-checkbox__label {
-  color: #eda01f;
+  color: #f2711c;
 }
 .el-checkbox.is-bordered.is-checked{
-  border-color: #eda01f;
+  border-color: #f2711c;
 }
 .el-checkbox__input.is-focus .el-checkbox__inner{
-  border-color:  #eda01f;
+  border-color:  #f2711c;
 }
 </style>
 
