@@ -6,6 +6,7 @@
         <PictureBar />
         <ConfigBar />
         <BottomBar/>
+        <ShowBar  v-if="carDetail.index != -1"/>
     </div>
 </template>
 
@@ -17,6 +18,8 @@ import ReportBar from "~/pages/detail/components/reportBar/index.vue"
 import PictureBar from "~/pages/detail/components/pictureBar/index.vue"
 import ConfigBar from "~/pages/detail/components/configBar/index.vue"
 import BottomBar from "~/pages/home/components/bottomBar/index.vue"
+import ShowBar from "~/pages/detail/components/showBar/index.vue"
+
 import {onMounted, watch} from "vue";
 import {useCarDetailData} from "~/stores/carDetailData";
 import {useRoute} from "vue-router";

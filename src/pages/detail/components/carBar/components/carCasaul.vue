@@ -47,7 +47,7 @@ const arrowRight = () =>{
       margin_left.value = -1500
       time.value = 0
       setTimeout(() => {
-        time.value = 0.5
+        time.value = 0.3
         canClick.value = true
       }, 10)
     }, 300)
@@ -64,7 +64,7 @@ const arrowLeft = () =>{
       margin_left.value = -1500
       time.value = 0
       setTimeout(() => {
-        time.value = 0.5
+        time.value = 0.3
         canClick.value = true
       }, 10)
     }, 300)
@@ -160,7 +160,7 @@ onMounted(()=>{
   <div class="car_casual" @mouseenter="show = true" @mouseleave="show = false">
     <div class="car_casual_main">
       <template v-for="index in 7">
-        <img class="car_casual_pic" :src="pictures[(index + ind + pictures.length - 4) % pictures.length]" alt="" onselectstart ='return false'>
+        <img @click="carDetail.index = (index + ind + pictures.length - 4) % pictures.length" class="car_casual_pic" :src="pictures[(index + ind + pictures.length - 4) % pictures.length]" alt="" onselectstart ='return false'>
       </template>
     </div>
     <div class="show_left" @click="arrowLeft"><el-icon style="font-size: 40px"><ArrowLeftBold /></el-icon></div>

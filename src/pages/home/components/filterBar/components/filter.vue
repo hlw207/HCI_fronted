@@ -3,27 +3,37 @@
 import {ref} from "vue";
 import buyData from "~/pages/home/components/filterBar/components/buyData";
 import {ArrowRight} from "@element-plus/icons-vue";
+import {useRouter} from "vue-router";
+import {choose} from "~/utils/interfaces";
+
+const router = useRouter()
 
 const buyPrice = ref(buyData.buyDataPrice)
 const buyType = ref(buyData.buyDataType)
 const buyBrand = ref(buyData.buyDataBrand)
+
+const choose = (type: choose) =>{
+  let query = {}
+  query[type.type] = type.choose
+  router.push({path: 'buy', query: query})
+}
 </script>
 
 <template>
   <div class="filter_box">
     <div class="filter_line">
       <template v-for="price in buyPrice">
-        <div class="filter_b">{{price}}</div>
+        <div class="filter_b" @click="router.push({path: '/buy', query: {price: price}})">{{price}}</div>
       </template>
     </div>
     <div class="filter_line">
       <template v-for="type in buyType">
-        <div class="filter_b">{{type.title}}</div>
+        <div class="filter_b" @click="choose(type)">{{type.title}}</div>
       </template>
     </div>
     <div class="filter_line">
       <template v-for="brand in buyBrand">
-        <div class="filter_b">
+        <div class="filter_b" @click="router.push({path: '/buy',query: {brand: brand.brand}})">
           <el-image class="filter_picture" :src="brand.path"></el-image>
           <div style="margin-top: -2px">{{brand.brand}}</div>
         </div>

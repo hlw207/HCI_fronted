@@ -49,21 +49,21 @@ import {PICTURE_ADDR} from "~/config";
 <style scoped>
 .footerLinks {
     display: flex;
-    padding: 30px 50px 60px 50px;
-    background-color: #333;
+    padding: 30px 82px 60px 50px;
+    background-color: #4c4c4c;
     color: #fff;
     font-size: 12px;
 }
 
 .title{
-    font-size: 16px;
+    font-size: 14px;
     color: #FFF;
     padding: 0 0 7px 0;
     font-weight: bold;
 }
 
 .title1{
-    font-size: 16px;
+    font-size: 14px;
     color: rgb(255, 255, 255);
     padding: 0 0 7px 0;
 
@@ -74,7 +74,7 @@ import {PICTURE_ADDR} from "~/config";
     display: block;
     text-align: left;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 12px;
     color: rgba(244, 243, 243, 0.13);
 }
 

@@ -116,7 +116,7 @@ const medias_info = ref([{title: 'QuestMobile二手车电商数据解读：赛�
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 20px 0;
+  padding: 12px 0;
 }
 
 .news_picture{

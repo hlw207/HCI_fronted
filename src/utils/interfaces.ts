@@ -45,4 +45,10 @@ interface mask{
   carType: string
 }
 
-export {CarCollection, CarStruct, TypeChoose, carRequest, mask}
+interface choose{
+  title: string,
+  type: string,
+  choose: string
+}
+
+export {CarCollection, CarStruct, TypeChoose, carRequest, mask, choose}
