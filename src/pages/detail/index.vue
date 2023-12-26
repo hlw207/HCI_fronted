@@ -6,7 +6,7 @@
         <PictureBar />
         <ConfigBar />
         <BottomBar/>
-        <ShowBar  v-if="carDetail.index != -1"/>
+        <ShowBar/>
     </div>
 </template>
 

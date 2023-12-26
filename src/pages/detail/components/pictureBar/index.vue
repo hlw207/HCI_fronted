@@ -4,7 +4,6 @@ import {ref} from "vue";
 import {PICTURE_ADDR} from "~/config";
 import {useCarDetailData} from "~/stores/carDetailData";
 
-const ImageModalRef = ref()
 const carDetail = useCarDetailData()
 // const exteriorImages = [
 //      PICTURE_ADDR + '/car1.jpg',
@@ -48,8 +47,8 @@ const carDetail = useCarDetailData()
 //     // ...
 // ];
 
-const openPicture = (url) =>{
-    ImageModalRef.value.openModal(url)
+const openPicture = (index: number) =>{
+  carDetail.index = index
 };
 </script>
 
@@ -57,40 +56,25 @@ const openPicture = (url) =>{
     <div class="pictureDiv">
         <div class="pictureSection">
             <h2>车辆外观</h2>
-            <div v-for="(image, index) in carDetail.surface" :key="index" class="imageItem" @click="openPicture(image)">
+            <div v-for="(image, index) in carDetail.surface" :key="index" class="imageItem" @click="openPicture(index)">
                 <img :src="image" alt="Exterior Image" />
             </div>
-
-            <template>
-                <ImageModal ref="ImageModalRef"/>
-            </template>
-            <ImageModal ref="ImageModalRef"/>
 
         </div>
 
         <div class="pictureSection">
             <h2>车辆内饰</h2>
-            <div v-for="(image, index) in carDetail.trim" :key="index" class="imageItem" @click="openPicture(image)">
+            <div v-for="(image, index) in carDetail.trim" :key="index" class="imageItem" @click="openPicture(index + 8)">
                 <img :src="image" alt="Interior Image" />
             </div>
-
-            <template>
-                <ImageModal ref="ImageModalRef"/>
-            </template>
-            <ImageModal ref="ImageModalRef"/>
 
         </div>
 
         <div class="pictureSection">
             <h2>发动机底盘</h2>
-            <div v-for="(image, index) in carDetail.engine" :key="index" class="imageItem" @click="openPicture(image)">
+            <div v-for="(image, index) in carDetail.engine" :key="index" class="imageItem" @click="openPicture(index + 16)">
                 <img :src="image" alt="Engine Image" />
             </div>
-
-            <template>
-                <ImageModal ref="ImageModalRef"/>
-            </template>
-            <ImageModal ref="ImageModalRef"/>
 
         </div>
     </div>

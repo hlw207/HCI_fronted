@@ -9,6 +9,7 @@ const props = defineProps<{
   show: boolean,
   title: string
   price: number
+  input_price: string
   path: string
 }>()
 
@@ -19,6 +20,10 @@ const show = ref(false)
 const agreement = ref(false)
 const price = ref('')
 const phone = ref(user.phone)
+
+watch(()=>props.input_price,()=>{
+  price.value = props.input_price
+})
 
 watch(()=>user.phone,(val)=>{
   phone.value = val
